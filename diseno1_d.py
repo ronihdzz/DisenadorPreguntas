@@ -11,18 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(884, 518)
-        self.txtEdit_preg = QtWidgets.QTextEdit(Form)
-        self.txtEdit_preg.setGeometry(QtCore.QRect(180, 110, 611, 121))
-        self.txtEdit_preg.setStyleSheet("  background-color: #19232D;\n"
-"  border: 0px solid #32414B;\n"
-"  padding: 0px;\n"
-"  color: #F0F0F0;\n"
-"  selection-background-color: #1464A0;\n"
-"  selection-color: #F0F0F0;\n"
-"\n"
-"    border-radius: 10;")
-        self.txtEdit_preg.setObjectName("txtEdit_preg")
+        Form.resize(974, 518)
         self.txt_b = QtWidgets.QTextEdit(Form)
         self.txt_b.setGeometry(QtCore.QRect(200, 360, 251, 81))
         self.txt_b.setStyleSheet("  background-color: #19232D;\n"
@@ -78,13 +67,13 @@ class Ui_Form(object):
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.scroll_barra.setWidget(self.scrollAreaWidgetContents)
         self.btn_mas_2 = QtWidgets.QPushButton(Form)
-        self.btn_mas_2.setGeometry(QtCore.QRect(770, 20, 89, 25))
+        self.btn_mas_2.setGeometry(QtCore.QRect(770, 10, 89, 25))
         self.btn_mas_2.setObjectName("btn_mas_2")
         self.btn_mas = QtWidgets.QPushButton(Form)
-        self.btn_mas.setGeometry(QtCore.QRect(650, 20, 89, 25))
+        self.btn_mas.setGeometry(QtCore.QRect(650, 10, 89, 25))
         self.btn_mas.setObjectName("btn_mas")
         self.btn_ver = QtWidgets.QPushButton(Form)
-        self.btn_ver.setGeometry(QtCore.QRect(530, 20, 89, 25))
+        self.btn_ver.setGeometry(QtCore.QRect(530, 10, 89, 25))
         self.btn_ver.setObjectName("btn_ver")
         self.btn_Datos = QtWidgets.QPushButton(Form)
         self.btn_Datos.setGeometry(QtCore.QRect(100, 260, 89, 81))
@@ -215,19 +204,61 @@ class Ui_Form(object):
 "}")
         self.btn_Datos_4.setObjectName("btn_Datos_4")
         self.lineEdit_tamano = QtWidgets.QLineEdit(Form)
-        self.lineEdit_tamano.setGeometry(QtCore.QRect(120, 110, 41, 25))
+        self.lineEdit_tamano.setGeometry(QtCore.QRect(120, 150, 41, 25))
         self.lineEdit_tamano.setObjectName("lineEdit_tamano")
         self.btn_aplicarTam = QtWidgets.QPushButton(Form)
-        self.btn_aplicarTam.setGeometry(QtCore.QRect(110, 140, 61, 25))
+        self.btn_aplicarTam.setGeometry(QtCore.QRect(110, 190, 61, 25))
         self.btn_aplicarTam.setObjectName("btn_aplicarTam")
         self.scroll_tipoPregunta = QtWidgets.QScrollArea(Form)
-        self.scroll_tipoPregunta.setGeometry(QtCore.QRect(230, 10, 231, 71))
+        self.scroll_tipoPregunta.setGeometry(QtCore.QRect(230, 10, 261, 91))
         self.scroll_tipoPregunta.setWidgetResizable(True)
         self.scroll_tipoPregunta.setObjectName("scroll_tipoPregunta")
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 229, 69))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 259, 89))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.scroll_tipoPregunta.setWidget(self.scrollAreaWidgetContents_2)
+        self.verticalSlider = QtWidgets.QSlider(Form)
+        self.verticalSlider.setGeometry(QtCore.QRect(90, 140, 16, 311))
+        self.verticalSlider.setOrientation(QtCore.Qt.Vertical)
+        self.verticalSlider.setObjectName("verticalSlider")
+        self.horizontalSlider = QtWidgets.QSlider(Form)
+        self.horizontalSlider.setGeometry(QtCore.QRect(90, 440, 881, 16))
+        self.horizontalSlider.setOrientation(QtCore.Qt.Horizontal)
+        self.horizontalSlider.setObjectName("horizontalSlider")
+        self.widget_almacenador = QtWidgets.QWidget(Form)
+        self.widget_almacenador.setGeometry(QtCore.QRect(560, 50, 281, 201))
+        self.widget_almacenador.setObjectName("widget_almacenador")
+        self.txtEdit_preg = QtWidgets.QTextEdit(self.widget_almacenador)
+        self.txtEdit_preg.setGeometry(QtCore.QRect(50, 10, 211, 111))
+        self.txtEdit_preg.setStyleSheet("  background-color: #19232D;\n"
+"  border: 0px solid #32414B;\n"
+"  padding: 0px;\n"
+"  color: #F0F0F0;\n"
+"  selection-background-color: #1464A0;\n"
+"  selection-color: #F0F0F0;\n"
+"\n"
+"    border-radius: 10;")
+        self.txtEdit_preg.setObjectName("txtEdit_preg")
+        self.vSlider_text = QtWidgets.QTextEdit(self.widget_almacenador)
+        self.vSlider_text.setGeometry(QtCore.QRect(50, 130, 211, 61))
+        self.vSlider_text.setStyleSheet("  background-color: #19232D;\n"
+"  border: 0px solid #32414B;\n"
+"  padding: 0px;\n"
+"  color: #F0F0F0;\n"
+"  selection-background-color: #1464A0;\n"
+"  selection-color: #F0F0F0;\n"
+"\n"
+"    border-radius: 10;")
+        self.vSlider_text.setObjectName("vSlider_text")
+        self.vSlider_image = QtWidgets.QSlider(Form)
+        self.vSlider_image.setGeometry(QtCore.QRect(550, 50, 20, 201))
+        self.vSlider_image.setProperty("value", 99)
+        self.vSlider_image.setOrientation(QtCore.Qt.Vertical)
+        self.vSlider_image.setObjectName("vSlider_image")
+        self.verticalSlider_4 = QtWidgets.QSlider(Form)
+        self.verticalSlider_4.setGeometry(QtCore.QRect(830, 50, 20, 201))
+        self.verticalSlider_4.setOrientation(QtCore.Qt.Vertical)
+        self.verticalSlider_4.setObjectName("verticalSlider_4")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)

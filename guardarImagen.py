@@ -36,6 +36,7 @@ class QLabelClickable(QLabel):
         self.clicked.emit()
 
 
+
 # ==================== CLASE recuperarImagen =======================
 
 class guardarImagen(QDialog):
