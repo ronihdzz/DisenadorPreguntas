@@ -1,15 +1,34 @@
 from PyQt5 import QtWidgets,QtGui,Qt,QtCore
-from PyQt5.QtWidgets import QWidget,QVBoxLayout,QLabel,QPushButton
+from PyQt5.QtWidgets import QWidget,QVBoxLayout,QLabel,QPushButton,QHBoxLayout
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QTableWidgetItem #para las tablas...
 from diseno1_d import Ui_Form
 
-
+#https://www.youtube.com/watch?v=P-SZn5eSDp8&list=PL7Euic11sPg_OYLhPN3QUh3BZINlhFApE
 class evalEqui_1(QtWidgets.QWidget, Ui_Form):
     def __init__(self):
         Ui_Form.__init__(self)
         QtWidgets.QWidget.__init__(self)
         self.setupUi(self)
+
+
+
+        self.widgetTipoPreguntas=QWidget()
+        self.hbox=QHBoxLayout()
+        for i in range(1,4):
+            object = QPushButton(str(i))
+            object.setStyleSheet( "margin: 1px;" )
+            object.setMinimumSize(50,30)
+            object.setMaximumSize(50,30)
+            self.hbox.addWidget(object)
+        self.widgetTipoPreguntas.setLayout(self.hbox)
+
+        #Scroll Area Properties
+        self.scroll_tipoPregunta.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scroll_tipoPregunta.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.scroll_tipoPregunta.setWidgetResizable(False)
+        self.scroll_tipoPregunta.setWidget(self.widgetTipoPreguntas)
+
 
 
 
