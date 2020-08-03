@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>974</width>
-    <height>451</height>
+    <height>495</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,9 +17,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>10</y>
+     <y>110</y>
      <width>81</width>
-     <height>431</height>
+     <height>361</height>
     </rect>
    </property>
    <property name="verticalScrollBarPolicy">
@@ -37,7 +37,7 @@
       <x>0</x>
       <y>0</y>
       <width>65</width>
-      <height>429</height>
+      <height>359</height>
      </rect>
     </property>
    </widget>
@@ -48,7 +48,7 @@
      <x>680</x>
      <y>10</y>
      <width>89</width>
-     <height>41</height>
+     <height>61</height>
     </rect>
    </property>
    <property name="text">
@@ -61,7 +61,7 @@
      <x>880</x>
      <y>10</y>
      <width>89</width>
-     <height>41</height>
+     <height>61</height>
     </rect>
    </property>
    <property name="text">
@@ -74,7 +74,7 @@
      <x>780</x>
      <y>10</y>
      <width>89</width>
-     <height>41</height>
+     <height>61</height>
     </rect>
    </property>
    <property name="text">
@@ -85,9 +85,9 @@
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>60</y>
+     <y>90</y>
      <width>861</width>
-     <height>381</height>
+     <height>401</height>
     </rect>
    </property>
    <property name="toolTipDuration">
@@ -95,8 +95,7 @@
    </property>
    <property name="styleSheet">
     <string notr="true">padding:0px;
-
-
+border: 1px solid red;
 </string>
    </property>
    <property name="frameShape">
@@ -108,6 +107,29 @@
    <property name="currentIndex">
     <number>-1</number>
    </property>
+  </widget>
+  <widget class="QScrollArea" name="scrollArea">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>10</y>
+     <width>251</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>249</width>
+      <height>69</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

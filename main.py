@@ -11,6 +11,27 @@ from menuTipoPreguntas import menuTipoPreguntas
 from PreguntasEspecificas import PreguntasEspecificas
 from PreguntasBinarias import PreguntasBinarias
 from PreguntasMultiples import PreguntasMultiples
+from PyQt5.QtCore import Qt, pyqtSignal, QFile
+from organizacion import constProgram
+
+
+
+class BotonChismoso(QPushButton):
+    click = pyqtSignal(int)
+    def __init__(self,idBoton):
+        self.idBoton=idBoton
+        QtWidgets.QLabel.__init__(self)
+
+    def mousePressEvent(self, event):
+        self.click.emit(self.idBoton)
+
+
+
+
+
+
+
+
 
 
 class evalEqui_1(QtWidgets.QWidget, Ui_Form):
@@ -22,12 +43,6 @@ class evalEqui_1(QtWidgets.QWidget, Ui_Form):
         self.widget = QWidget()                 # Widget that contains the collection of Vertical Box
         self.vbox = QVBoxLayout()               # The Vertical Box that contains the Horizontal Boxes of  labels and buttons
 
-        for i in range(1,50):
-            object = QPushButton(str(i))
-            object.setStyleSheet( "margin: 1px;" )
-            object.setMinimumSize(50,50)
-            object.setMaximumSize(50,50)
-            self.vbox.addWidget(object)
 
 
         self.widget.setLayout(self.vbox)
@@ -45,10 +60,12 @@ class evalEqui_1(QtWidgets.QWidget, Ui_Form):
         self.ventanas[0]=PreguntasBinarias()
         self.ventanas[1]=PreguntasMultiples()
         self.ventanas[2]=PreguntasEspecificas()
+        self.ventanas[3]=PreguntasMultiples() #preguntas codigo
 
-        self.listWidget_panelPreguntas.addWidget(self.ventanas[0])
-        self.listWidget_panelPreguntas.addWidget(self.ventanas[1])
-        self.listWidget_panelPreguntas.addWidget(self.ventanas[2])
+        self.listWidget_panelPreguntas.addWidget(self.ventanas[constProgram.PREG_BINARIAS])
+        self.listWidget_panelPreguntas.addWidget(self.ventanas[constProgram.PREG_MULTIPLES])
+        self.listWidget_panelPreguntas.addWidget(self.ventanas[constProgram.PREG_ESPECIFICAS])
+        self.listWidget_panelPreguntas.addWidget(self.ventanas[constProgram.PREG_CODIGO])
 
 
         # VENTANA CON LA QUE SE INICIA POR DEFAULT...
@@ -56,16 +73,33 @@ class evalEqui_1(QtWidgets.QWidget, Ui_Form):
         self.listWidget_panelPreguntas.showFullScreen()
 
 
+        self.listBotonesPreguntas=[]
+        self.contadorPreguntas=0
+
+    def cambioPregunta(self,pregunta):
+        print(pregunta)
+
+
+
     def crearOtraPregunta(self):
         self.ventanaMenuPregunta=menuTipoPreguntas()
         self.ventanaMenuPregunta.usuarioEscogioPregunta.connect(self.escogioPregunta)
         self.ventanaMenuPregunta.show()
 
-    def escogioPregunta(self,tipoPregunta):
-        print("Tipo de pregunta",tipoPregunta)
+    def escogioPregunta(self,idPregunta):
+        if idPregunta==constProgram.PREG_MULTIPLES:
+            self.listWidget_panelPreguntas.setCurrentIndex(idPregunta)
+            self.agregarPregunta()
 
-
-
+    def agregarPregunta(self):
+        object = BotonChismoso(self.contadorPreguntas)
+        object.setText(str(self.contadorPreguntas+1))
+        object.setStyleSheet("margin: 1px;")
+        object.setMinimumSize(50, 50)
+        object.setMaximumSize(50, 50)
+        object.click.connect(self.cambioPregunta)
+        self.vbox.addWidget(object)
+        self.contadorPreguntas += 1
 
 
 if __name__ == "__main__":

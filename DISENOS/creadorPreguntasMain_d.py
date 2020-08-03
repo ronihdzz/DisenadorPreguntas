@@ -32,11 +32,10 @@ class Ui_Form(object):
         self.btn_ver.setGeometry(QtCore.QRect(780, 10, 89, 41))
         self.btn_ver.setObjectName("btn_ver")
         self.listWidget_panelPreguntas = QtWidgets.QStackedWidget(Form)
-        self.listWidget_panelPreguntas.setGeometry(QtCore.QRect(100, 60, 861, 381))
+        self.listWidget_panelPreguntas.setGeometry(QtCore.QRect(100, 60, 861, 331))
         self.listWidget_panelPreguntas.setToolTipDuration(0)
         self.listWidget_panelPreguntas.setStyleSheet("padding:0px;\n"
-"\n"
-"\n"
+"border: 1px solid red;\n"
 "")
         self.listWidget_panelPreguntas.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.listWidget_panelPreguntas.setFrameShadow(QtWidgets.QFrame.Plain)

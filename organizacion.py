@@ -1,0 +1,7 @@
+
+class constProgram():
+    PREG_BINARIAS=0
+    PREG_MULTIPLES = 1
+    PREG_ESPECIFICAS=2
+    PREG_CODIGO=3
+

@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="alinear">
+    <file>IMAGENES/imagen_subir.png</file>
+    <file>IMAGENES/imagen_carga.png</file>
+    <file>IMAGENES/alinear_izquierda.png</file>
+    <file>IMAGENES/alinear_derecho.png</file>
+    <file>IMAGENES/alinear_centrar.png</file>
+  </qresource>
+</RCC>

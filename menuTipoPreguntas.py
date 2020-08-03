@@ -8,6 +8,7 @@ from PyQt5.QtCore import Qt, pyqtSignal, QFile
 from PyQt5.QtWidgets import  QMessageBox
 
 
+
 class ImagenClick(QLabel):
     clicked = pyqtSignal(int)
     def __init__(self,idImagen):
@@ -32,7 +33,7 @@ class menuTipoPreguntas(QtWidgets.QDialog, Ui_Dialog):
         # imagenes de los iconos
         # Adaptar imagen
         listModalidades = ["modalidad1_trueFalse.png", "modalidad2_cualDeTodas.png", "modalidad3_cualesSon.png",
-                           "modalidad4_images","modalidad5_programacion"]
+                           "modalidad5_programacion"]
         self.listTipoPreguntas=listModalidades
 
         for i in range(len(listModalidades)):
