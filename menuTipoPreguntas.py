@@ -6,6 +6,7 @@ from PyQt5.QtGui import QIcon, QPixmap
 from DISENOS.menuTipoPreguntas_d import Ui_Dialog
 from PyQt5.QtCore import Qt, pyqtSignal, QFile
 from PyQt5.QtWidgets import  QMessageBox
+from organizacion import constProgram
 
 
 
@@ -58,8 +59,7 @@ class menuTipoPreguntas(QtWidgets.QDialog, Ui_Dialog):
         self.scroll_visorTipoPreguntas.setWidget(self.widgetTipoPreguntas)
 
     def escogioPregunta(self,idPersona):
-        self.usuarioEscogioPregunta.emit(idPersona)
-        print(idPersona)
+
         self.close()
 
         '''

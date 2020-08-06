@@ -1,5 +1,14 @@
 <RCC>
   <qresource prefix="alinear">
+    <file>IMAGENES/pregunta_add.png</file>
+    <file>IMAGENES/pregunta_ver.png</file>
+    <file>IMAGENES/preguntas_mandar.png</file>
+    <file>IMAGENES/pregunta_guardar.png</file>
+    <file>IMAGENES/pregunta_delete.png</file>
+    <file>IMAGENES/pregunta_add.png</file>
+    <file>IMAGENES/imagen_100.png</file>
+    <file>IMAGENES/imagen_50.png</file>
+    <file>IMAGENES/imagen_0.png</file>
     <file>IMAGENES/imagen_subir.png</file>
     <file>IMAGENES/imagen_carga.png</file>
     <file>IMAGENES/alinear_izquierda.png</file>

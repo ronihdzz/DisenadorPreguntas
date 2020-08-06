@@ -10,7 +10,12 @@ from menuTipoPreguntas import menuTipoPreguntas
 #DISENOS DE LOS MULTIPLES TIPOS DE PREGUNTAS
 from PreguntasEspecificas import PreguntasEspecificas
 from PreguntasBinarias import PreguntasBinarias
-from PreguntasMultiples import PreguntasMultiples
+
+
+from PreguntasMultiples_0 import PreguntasMultiples
+from PreguntasMultiples_50 import PreguntasMultiplesImagen50
+from PreguntasMultiples_100 import PreguntasMultiplesImagen100
+
 from PyQt5.QtCore import Qt, pyqtSignal, QFile
 from organizacion import constProgram
 
@@ -26,12 +31,15 @@ class BotonChismoso(QPushButton):
         self.click.emit(self.idBoton)
 
 
+class ImagenClick(QLabel):
+        clicked = pyqtSignal(int)
 
+        def __init__(self, idImagen):
+            self.idImagen = idImagen
+            QtWidgets.QLabel.__init__(self)
 
-
-
-
-
+        def mousePressEvent(self, event):
+            self.clicked.emit(self.idImagen)
 
 
 class evalEqui_1(QtWidgets.QWidget, Ui_Form):
@@ -40,11 +48,11 @@ class evalEqui_1(QtWidgets.QWidget, Ui_Form):
         QtWidgets.QWidget.__init__(self)
         self.setupUi(self)
 
-        self.widget = QWidget()                 # Widget that contains the collection of Vertical Box
-        self.vbox = QVBoxLayout()               # The Vertical Box that contains the Horizontal Boxes of  labels and buttons
 
 
 
+        self.widget = QWidget()  # Widget that contains the collection of Vertical Box
+        self.vbox = QVBoxLayout()  # The Vertical Box that contains the Horizontal Boxes of  labels and buttons
         self.widget.setLayout(self.vbox)
 
         #Scroll Area Properties
@@ -57,15 +65,32 @@ class evalEqui_1(QtWidgets.QWidget, Ui_Form):
 
         #creando multiples ventanas...
         self.ventanas={}
-        self.ventanas[0]=PreguntasBinarias()
-        self.ventanas[1]=PreguntasMultiples()
-        self.ventanas[2]=PreguntasEspecificas()
-        self.ventanas[3]=PreguntasMultiples() #preguntas codigo
 
-        self.listWidget_panelPreguntas.addWidget(self.ventanas[constProgram.PREG_BINARIAS])
-        self.listWidget_panelPreguntas.addWidget(self.ventanas[constProgram.PREG_MULTIPLES])
-        self.listWidget_panelPreguntas.addWidget(self.ventanas[constProgram.PREG_ESPECIFICAS])
-        self.listWidget_panelPreguntas.addWidget(self.ventanas[constProgram.PREG_CODIGO])
+        #Preguntas binarias...
+        self.ventanas[0]=PreguntasBinarias()
+        self.ventanas[1] = PreguntasMultiplesImagen50()
+        self.ventanas[2]=PreguntasMultiplesImagen100()
+
+
+        #Preguntas multiples...
+        self.ventanas[3]=PreguntasMultiples()
+        self.ventanas[4] = PreguntasMultiplesImagen50()
+        self.ventanas[5] = PreguntasMultiplesImagen100()
+
+        #Preguntas especificias
+        self.ventanas[6]=PreguntasEspecificas()
+        self.ventanas[7] = PreguntasMultiplesImagen50()
+        self.ventanas[8] = PreguntasMultiplesImagen100()
+
+        #Preguntas codigo
+        self.ventanas[9]=PreguntasMultiples() #preguntas codigo
+        self.ventanas[10] = PreguntasMultiplesImagen50()
+        self.ventanas[11] = PreguntasMultiplesImagen100()
+
+
+        #Cargando todos los disenos
+        for i in range(12):
+            self.listWidget_panelPreguntas.addWidget(self.ventanas[i])
 
 
         # VENTANA CON LA QUE SE INICIA POR DEFAULT...
@@ -75,6 +100,22 @@ class evalEqui_1(QtWidgets.QWidget, Ui_Form):
 
         self.listBotonesPreguntas=[]
         self.contadorPreguntas=0
+
+        #botonesPreguntasHibridas
+        self.btn_pregImag0.clicked.connect(self.transPregunta_0)
+        self.btn_pregImag50.clicked.connect(self.transPregunta_50)
+        self.btn_pregImag100.clicked.connect(self.transPregunta_100)
+
+    def transPregunta_0(self,tipoTransformacion):
+        pass
+    def transPregunta_50(self,tipoTransformacion):
+        pass
+    def transPregunta_100(self,tipoTransformacion):
+        pass
+
+
+    def cambioDeSubdiseno(self,idSubDiseno):
+        pass
 
     def cambioPregunta(self,pregunta):
         print(pregunta)

@@ -11,8 +11,6 @@ from menuTipoPreguntas import menuTipoPreguntas
 
 
 
-
-
 #https://www.youtube.com/watch?v=P-SZn5eSDp8&list=PL7Euic11sPg_OYLhPN3QUh3BZINlhFApE
 class PreguntasMultiples(QtWidgets.QWidget, Ui_Form):
     def __init__(self):
