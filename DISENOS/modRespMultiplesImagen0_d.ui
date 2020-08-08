@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="btn_Datos_4">
+  <widget class="QPushButton" name="btn_respD">
    <property name="geometry">
     <rect>
      <x>430</x>
@@ -28,38 +28,15 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">QPushButton {
-/*color: #333;*/
-border: 1px solid #555;
+    <string notr="true">background-color:#EEF2F3;
 border-radius: 20px;
-border-style: outset;
-/*background: qradialgradient(
-cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
-radius: 1.35, stop: 0 #fff, stop: 1 #888
-);*/
-padding: 5px;
-}
-
-QPushButton:hover {
-background: qradialgradient(
-cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
-radius: 1.35, stop: 0 #fff, stop: 1 #bbb
-);
-}
-
-QPushButton:pressed {
-border-style: inset;
-background: qradialgradient(
-cx: 0.4, cy: -0.1, fx: 0.4, fy: -0.1,
-radius: 1.35, stop: 0 #fff, stop: 1 #ddd
-);
-}</string>
+border: 1px solid #555;</string>
    </property>
    <property name="text">
     <string>D</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn_Datos">
+  <widget class="QPushButton" name="btn_respA">
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -74,38 +51,15 @@ radius: 1.35, stop: 0 #fff, stop: 1 #ddd
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">QPushButton {
-/*color: #333;*/
-border: 1px solid #555;
+    <string notr="true">background-color:#EEF2F3;
 border-radius: 20px;
-border-style: outset;
-/*background: qradialgradient(
-cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
-radius: 1.35, stop: 0 #fff, stop: 1 #888
-);*/
-padding: 5px;
-}
-
-QPushButton:hover {
-background: qradialgradient(
-cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
-radius: 1.35, stop: 0 #fff, stop: 1 #bbb
-);
-}
-
-QPushButton:pressed {
-border-style: inset;
-background: qradialgradient(
-cx: 0.4, cy: -0.1, fx: 0.4, fy: -0.1,
-radius: 1.35, stop: 0 #fff, stop: 1 #ddd
-);
-}</string>
+border: 1px solid #555;</string>
    </property>
    <property name="text">
     <string>A</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn_Datos_3">
+  <widget class="QPushButton" name="btn_respC">
    <property name="geometry">
     <rect>
      <x>430</x>
@@ -120,38 +74,15 @@ radius: 1.35, stop: 0 #fff, stop: 1 #ddd
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">QPushButton {
-/*color: #333;*/
-border: 1px solid #555;
+    <string notr="true">background-color:#EEF2F3;
 border-radius: 20px;
-border-style: outset;
-/*background: qradialgradient(
-cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
-radius: 1.35, stop: 0 #fff, stop: 1 #888
-);*/
-padding: 5px;
-}
-
-QPushButton:hover {
-background: qradialgradient(
-cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
-radius: 1.35, stop: 0 #fff, stop: 1 #bbb
-);
-}
-
-QPushButton:pressed {
-border-style: inset;
-background: qradialgradient(
-cx: 0.4, cy: -0.1, fx: 0.4, fy: -0.1,
-radius: 1.35, stop: 0 #fff, stop: 1 #ddd
-);
-}</string>
+border: 1px solid #555;</string>
    </property>
    <property name="text">
     <string>C</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn_Datos_2">
+  <widget class="QPushButton" name="btn_respB">
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -166,32 +97,9 @@ radius: 1.35, stop: 0 #fff, stop: 1 #ddd
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">QPushButton {
-/*color: #333;*/
-border: 1px solid #555;
+    <string notr="true">background-color:#EEF2F3;
 border-radius: 20px;
-border-style: outset;
-/*background: qradialgradient(
-cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
-radius: 1.35, stop: 0 #fff, stop: 1 #888
-);*/
-padding: 5px;
-}
-
-QPushButton:hover {
-background: qradialgradient(
-cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
-radius: 1.35, stop: 0 #fff, stop: 1 #bbb
-);
-}
-
-QPushButton:pressed {
-border-style: inset;
-background: qradialgradient(
-cx: 0.4, cy: -0.1, fx: 0.4, fy: -0.1,
-radius: 1.35, stop: 0 #fff, stop: 1 #ddd
-);
-}</string>
+border: 1px solid #555;</string>
    </property>
    <property name="text">
     <string>B</string>

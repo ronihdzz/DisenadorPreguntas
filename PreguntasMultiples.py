@@ -8,6 +8,9 @@ from DISENOS.modRespMultiples_d import Ui_Form
 from menuTipoPreguntas import menuTipoPreguntas
 
 #DISENOS DE LOS MULTIPLES TIPOS DE PREGUNTAS
+from PreguntasMultiplesImagen_0 import PreguntasMultiplesImagen_0
+from PreguntasMultiplesImagen_50 import PreguntasMultiplesImagen50
+from PreguntasMultiplesImagen_100 import PreguntasMultiplesImagen100
 
 
 
@@ -18,11 +21,20 @@ class PreguntasMultiples(QtWidgets.QWidget, Ui_Form):
         QtWidgets.QWidget.__init__(self)
         self.setupUi(self)
 
-        self.widget = QWidget()                 # Widget that contains the collection of Vertical Box
-        self.vbox = QVBoxLayout()               # The Vertical Box that contains the Horizontal Boxes of  labels and buttons
+        # creando multiples ventanas...
+        self.ventanas = []
 
+        self.ventanas.append(PreguntasMultiplesImagen_0())  # pregunta binaria
+        self.ventanas.append(PreguntasMultiplesImagen50())  # preguntas multiples
+        self.ventanas.append(PreguntasMultiplesImagen100())  # preguntas especificas
 
+        # Cargando todos los disenos
+        for i in range(len(self.ventanas)):
+            self.listWidget_panelVersion.addWidget(self.ventanas[i])
 
+        # VENTANA CON LA QUE SE INICIA POR DEFAULT...
+        self.listWidget_panelVersion.setCurrentIndex(0)
+        self.listWidget_panelVersion.showFullScreen()
 
 
 if __name__ == "__main__":

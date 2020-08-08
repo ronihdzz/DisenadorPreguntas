@@ -1,5 +1,9 @@
 <RCC>
   <qresource prefix="alinear">
+    <file>ICONOS/iconImage.png</file>
+    <file>ICONOS/icon_noImagen.png</file>
+    <file>ICONOS/icon_galeri.png</file>
+    <file>ICONOS/icon_image.png</file>
     <file>IMAGENES/pregunta_add.png</file>
     <file>IMAGENES/pregunta_ver.png</file>
     <file>IMAGENES/preguntas_mandar.png</file>

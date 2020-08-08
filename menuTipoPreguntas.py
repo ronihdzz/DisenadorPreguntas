@@ -61,6 +61,7 @@ class menuTipoPreguntas(QtWidgets.QDialog, Ui_Dialog):
     def escogioPregunta(self,idPersona):
 
         self.close()
+        self.usuarioEscogioPregunta.emit(idPersona)
 
         '''
         resultado = QMessageBox.question(self, "DelphiPreguntas",

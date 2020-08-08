@@ -12,134 +12,42 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(852, 385)
-        self.btn_Datos_4 = QtWidgets.QPushButton(Form)
-        self.btn_Datos_4.setGeometry(QtCore.QRect(430, 280, 89, 81))
+        self.btn_respD = QtWidgets.QPushButton(Form)
+        self.btn_respD.setGeometry(QtCore.QRect(430, 280, 89, 81))
         font = QtGui.QFont()
         font.setPointSize(60)
-        self.btn_Datos_4.setFont(font)
-        self.btn_Datos_4.setStyleSheet("QPushButton {\n"
-"/*color: #333;*/\n"
-"border: 1px solid #555;\n"
+        self.btn_respD.setFont(font)
+        self.btn_respD.setStyleSheet("background-color:#EEF2F3;\n"
 "border-radius: 20px;\n"
-"border-style: outset;\n"
-"/*background: qradialgradient(\n"
-"cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
-"radius: 1.35, stop: 0 #fff, stop: 1 #888\n"
-");*/\n"
-"padding: 5px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"background: qradialgradient(\n"
-"cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
-"radius: 1.35, stop: 0 #fff, stop: 1 #bbb\n"
-");\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"border-style: inset;\n"
-"background: qradialgradient(\n"
-"cx: 0.4, cy: -0.1, fx: 0.4, fy: -0.1,\n"
-"radius: 1.35, stop: 0 #fff, stop: 1 #ddd\n"
-");\n"
-"}")
-        self.btn_Datos_4.setObjectName("btn_Datos_4")
-        self.btn_Datos = QtWidgets.QPushButton(Form)
-        self.btn_Datos.setGeometry(QtCore.QRect(50, 190, 89, 81))
+"border: 1px solid #555;")
+        self.btn_respD.setObjectName("btn_respD")
+        self.btn_respA = QtWidgets.QPushButton(Form)
+        self.btn_respA.setGeometry(QtCore.QRect(50, 190, 89, 81))
         font = QtGui.QFont()
         font.setPointSize(60)
-        self.btn_Datos.setFont(font)
-        self.btn_Datos.setStyleSheet("QPushButton {\n"
-"/*color: #333;*/\n"
-"border: 1px solid #555;\n"
+        self.btn_respA.setFont(font)
+        self.btn_respA.setStyleSheet("background-color:#EEF2F3;\n"
 "border-radius: 20px;\n"
-"border-style: outset;\n"
-"/*background: qradialgradient(\n"
-"cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
-"radius: 1.35, stop: 0 #fff, stop: 1 #888\n"
-");*/\n"
-"padding: 5px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"background: qradialgradient(\n"
-"cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
-"radius: 1.35, stop: 0 #fff, stop: 1 #bbb\n"
-");\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"border-style: inset;\n"
-"background: qradialgradient(\n"
-"cx: 0.4, cy: -0.1, fx: 0.4, fy: -0.1,\n"
-"radius: 1.35, stop: 0 #fff, stop: 1 #ddd\n"
-");\n"
-"}")
-        self.btn_Datos.setObjectName("btn_Datos")
-        self.btn_Datos_3 = QtWidgets.QPushButton(Form)
-        self.btn_Datos_3.setGeometry(QtCore.QRect(430, 190, 89, 81))
+"border: 1px solid #555;")
+        self.btn_respA.setObjectName("btn_respA")
+        self.btn_respC = QtWidgets.QPushButton(Form)
+        self.btn_respC.setGeometry(QtCore.QRect(430, 190, 89, 81))
         font = QtGui.QFont()
         font.setPointSize(60)
-        self.btn_Datos_3.setFont(font)
-        self.btn_Datos_3.setStyleSheet("QPushButton {\n"
-"/*color: #333;*/\n"
-"border: 1px solid #555;\n"
+        self.btn_respC.setFont(font)
+        self.btn_respC.setStyleSheet("background-color:#EEF2F3;\n"
 "border-radius: 20px;\n"
-"border-style: outset;\n"
-"/*background: qradialgradient(\n"
-"cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
-"radius: 1.35, stop: 0 #fff, stop: 1 #888\n"
-");*/\n"
-"padding: 5px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"background: qradialgradient(\n"
-"cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
-"radius: 1.35, stop: 0 #fff, stop: 1 #bbb\n"
-");\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"border-style: inset;\n"
-"background: qradialgradient(\n"
-"cx: 0.4, cy: -0.1, fx: 0.4, fy: -0.1,\n"
-"radius: 1.35, stop: 0 #fff, stop: 1 #ddd\n"
-");\n"
-"}")
-        self.btn_Datos_3.setObjectName("btn_Datos_3")
-        self.btn_Datos_2 = QtWidgets.QPushButton(Form)
-        self.btn_Datos_2.setGeometry(QtCore.QRect(50, 280, 89, 81))
+"border: 1px solid #555;")
+        self.btn_respC.setObjectName("btn_respC")
+        self.btn_respB = QtWidgets.QPushButton(Form)
+        self.btn_respB.setGeometry(QtCore.QRect(50, 280, 89, 81))
         font = QtGui.QFont()
         font.setPointSize(60)
-        self.btn_Datos_2.setFont(font)
-        self.btn_Datos_2.setStyleSheet("QPushButton {\n"
-"/*color: #333;*/\n"
-"border: 1px solid #555;\n"
+        self.btn_respB.setFont(font)
+        self.btn_respB.setStyleSheet("background-color:#EEF2F3;\n"
 "border-radius: 20px;\n"
-"border-style: outset;\n"
-"/*background: qradialgradient(\n"
-"cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
-"radius: 1.35, stop: 0 #fff, stop: 1 #888\n"
-");*/\n"
-"padding: 5px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"background: qradialgradient(\n"
-"cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
-"radius: 1.35, stop: 0 #fff, stop: 1 #bbb\n"
-");\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"border-style: inset;\n"
-"background: qradialgradient(\n"
-"cx: 0.4, cy: -0.1, fx: 0.4, fy: -0.1,\n"
-"radius: 1.35, stop: 0 #fff, stop: 1 #ddd\n"
-");\n"
-"}")
-        self.btn_Datos_2.setObjectName("btn_Datos_2")
+"border: 1px solid #555;")
+        self.btn_respB.setObjectName("btn_respB")
         self.txtEdit_preg = QtWidgets.QTextEdit(Form)
         self.txtEdit_preg.setGeometry(QtCore.QRect(130, 40, 631, 111))
         self.txtEdit_preg.setStyleSheet("  background-color: #19232D;\n"
@@ -241,9 +149,9 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.btn_Datos_4.setText(_translate("Form", "D"))
-        self.btn_Datos.setText(_translate("Form", "A"))
-        self.btn_Datos_3.setText(_translate("Form", "C"))
-        self.btn_Datos_2.setText(_translate("Form", "B"))
+        self.btn_respD.setText(_translate("Form", "D"))
+        self.btn_respA.setText(_translate("Form", "A"))
+        self.btn_respC.setText(_translate("Form", "C"))
+        self.btn_respB.setText(_translate("Form", "B"))
 
 import imagenes_rc
