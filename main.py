@@ -174,11 +174,7 @@ if __name__ == "__main__":
         self.txtEdit_preg.setMinimumSize(100,valor*3)
 
     def changedSize(self):
-        #Cambiando el tamaño
-        newTam=self.lineEdit_tamano.text()
-        font = QtGui.QFont()
-        font.setPointSize(int(newTam))
-        self.txtEdit_preg.setFont(font)
+
 
 
 

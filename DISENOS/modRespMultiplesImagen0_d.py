@@ -12,17 +12,6 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(852, 385)
-        self.txt_respB = QtWidgets.QTextEdit(Form)
-        self.txt_respB.setGeometry(QtCore.QRect(150, 280, 251, 81))
-        self.txt_respB.setStyleSheet("  background-color: #19232D;\n"
-"  border: 0px solid #32414B;\n"
-"  padding: 0px;\n"
-"  color: #F0F0F0;\n"
-"  selection-background-color: #1464A0;\n"
-"  selection-color: #F0F0F0;\n"
-"\n"
-"    border-radius: 10;")
-        self.txt_respB.setObjectName("txt_respB")
         self.btn_Datos_4 = QtWidgets.QPushButton(Form)
         self.btn_Datos_4.setGeometry(QtCore.QRect(430, 280, 89, 81))
         font = QtGui.QFont()
@@ -55,39 +44,6 @@ class Ui_Form(object):
 ");\n"
 "}")
         self.btn_Datos_4.setObjectName("btn_Datos_4")
-        self.txtEdit_respD = QtWidgets.QTextEdit(Form)
-        self.txtEdit_respD.setGeometry(QtCore.QRect(530, 280, 251, 81))
-        self.txtEdit_respD.setStyleSheet("  background-color: #19232D;\n"
-"  border: 0px solid #32414B;\n"
-"  padding: 0px;\n"
-"  color: #F0F0F0;\n"
-"  selection-background-color: #1464A0;\n"
-"  selection-color: #F0F0F0;\n"
-"\n"
-"    border-radius: 10;")
-        self.txtEdit_respD.setObjectName("txtEdit_respD")
-        self.txtEdit_respA = QtWidgets.QTextEdit(Form)
-        self.txtEdit_respA.setGeometry(QtCore.QRect(150, 190, 251, 81))
-        self.txtEdit_respA.setStyleSheet("  background-color: #19232D;\n"
-"  border: 0px solid #32414B;\n"
-"  padding: 0px;\n"
-"  color: #F0F0F0;\n"
-"  selection-background-color: #1464A0;\n"
-"  selection-color: #F0F0F0;\n"
-"\n"
-"    border-radius: 10;")
-        self.txtEdit_respA.setObjectName("txtEdit_respA")
-        self.txtEdit_respC = QtWidgets.QTextEdit(Form)
-        self.txtEdit_respC.setGeometry(QtCore.QRect(530, 190, 251, 81))
-        self.txtEdit_respC.setStyleSheet("  background-color: #19232D;\n"
-"  border: 0px solid #32414B;\n"
-"  padding: 0px;\n"
-"  color: #F0F0F0;\n"
-"  selection-background-color: #1464A0;\n"
-"  selection-color: #F0F0F0;\n"
-"\n"
-"    border-radius: 10;")
-        self.txtEdit_respC.setObjectName("txtEdit_respC")
         self.btn_Datos = QtWidgets.QPushButton(Form)
         self.btn_Datos.setGeometry(QtCore.QRect(50, 190, 89, 81))
         font = QtGui.QFont()
@@ -185,7 +141,7 @@ class Ui_Form(object):
 "}")
         self.btn_Datos_2.setObjectName("btn_Datos_2")
         self.txtEdit_preg = QtWidgets.QTextEdit(Form)
-        self.txtEdit_preg.setGeometry(QtCore.QRect(150, 40, 631, 111))
+        self.txtEdit_preg.setGeometry(QtCore.QRect(130, 40, 631, 111))
         self.txtEdit_preg.setStyleSheet("  background-color: #19232D;\n"
 "  border: 0px solid #32414B;\n"
 "  padding: 0px;\n"
@@ -202,13 +158,13 @@ class Ui_Form(object):
         self.dSpin_pregTam.setGeometry(QtCore.QRect(710, 10, 69, 26))
         self.dSpin_pregTam.setObjectName("dSpin_pregTam")
         self.btn_pregCen = QtWidgets.QPushButton(Form)
-        self.btn_pregCen.setGeometry(QtCore.QRect(620, 10, 21, 21))
+        self.btn_pregCen.setGeometry(QtCore.QRect(650, 10, 21, 21))
         self.btn_pregCen.setStyleSheet("border-image: url(:/alinear/IMAGENES/alinear_centrar.png);")
         self.btn_pregCen.setText("")
         self.btn_pregCen.setProperty("id", 0)
         self.btn_pregCen.setObjectName("btn_pregCen")
         self.btn_pregIzq = QtWidgets.QPushButton(Form)
-        self.btn_pregIzq.setGeometry(QtCore.QRect(650, 10, 21, 21))
+        self.btn_pregIzq.setGeometry(QtCore.QRect(620, 10, 21, 21))
         self.btn_pregIzq.setStyleSheet("border-image: url(:/alinear/IMAGENES/alinear_izquierda.png);")
         self.btn_pregIzq.setText("")
         self.btn_pregIzq.setProperty("id", 1)
@@ -225,15 +181,59 @@ class Ui_Form(object):
         self.btn_respDer.setText("")
         self.btn_respDer.setObjectName("btn_respDer")
         self.btn_respCen = QtWidgets.QPushButton(Form)
-        self.btn_respCen.setGeometry(QtCore.QRect(620, 160, 21, 21))
+        self.btn_respCen.setGeometry(QtCore.QRect(650, 160, 21, 21))
         self.btn_respCen.setStyleSheet("border-image: url(:/alinear/IMAGENES/alinear_centrar.png);")
         self.btn_respCen.setText("")
         self.btn_respCen.setObjectName("btn_respCen")
         self.btn_respIzq = QtWidgets.QPushButton(Form)
-        self.btn_respIzq.setGeometry(QtCore.QRect(650, 160, 21, 21))
+        self.btn_respIzq.setGeometry(QtCore.QRect(620, 160, 21, 21))
         self.btn_respIzq.setStyleSheet("border-image: url(:/alinear/IMAGENES/alinear_izquierda.png);")
         self.btn_respIzq.setText("")
         self.btn_respIzq.setObjectName("btn_respIzq")
+        self.txtEdit_respA = QtWidgets.QTextEdit(Form)
+        self.txtEdit_respA.setGeometry(QtCore.QRect(160, 190, 241, 81))
+        self.txtEdit_respA.setStyleSheet("  background-color: #19232D;\n"
+"  border: 0px solid #32414B;\n"
+"  padding: 0px;\n"
+"  color: #F0F0F0;\n"
+"  selection-background-color: #1464A0;\n"
+"  selection-color: #F0F0F0;\n"
+"\n"
+"    border-radius: 10;")
+        self.txtEdit_respA.setObjectName("txtEdit_respA")
+        self.txtEdit_respB = QtWidgets.QTextEdit(Form)
+        self.txtEdit_respB.setGeometry(QtCore.QRect(160, 280, 241, 81))
+        self.txtEdit_respB.setStyleSheet("  background-color: #19232D;\n"
+"  border: 0px solid #32414B;\n"
+"  padding: 0px;\n"
+"  color: #F0F0F0;\n"
+"  selection-background-color: #1464A0;\n"
+"  selection-color: #F0F0F0;\n"
+"\n"
+"    border-radius: 10;")
+        self.txtEdit_respB.setObjectName("txtEdit_respB")
+        self.txtEdit_respC = QtWidgets.QTextEdit(Form)
+        self.txtEdit_respC.setGeometry(QtCore.QRect(540, 190, 241, 81))
+        self.txtEdit_respC.setStyleSheet("  background-color: #19232D;\n"
+"  border: 0px solid #32414B;\n"
+"  padding: 0px;\n"
+"  color: #F0F0F0;\n"
+"  selection-background-color: #1464A0;\n"
+"  selection-color: #F0F0F0;\n"
+"\n"
+"    border-radius: 10;")
+        self.txtEdit_respC.setObjectName("txtEdit_respC")
+        self.txtEdit_respD = QtWidgets.QTextEdit(Form)
+        self.txtEdit_respD.setGeometry(QtCore.QRect(540, 280, 241, 81))
+        self.txtEdit_respD.setStyleSheet("  background-color: #19232D;\n"
+"  border: 0px solid #32414B;\n"
+"  padding: 0px;\n"
+"  color: #F0F0F0;\n"
+"  selection-background-color: #1464A0;\n"
+"  selection-color: #F0F0F0;\n"
+"\n"
+"    border-radius: 10;")
+        self.txtEdit_respD.setObjectName("txtEdit_respD")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)

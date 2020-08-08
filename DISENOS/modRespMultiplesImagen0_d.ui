@@ -13,26 +13,6 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QTextEdit" name="txt_respB">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>280</y>
-     <width>251</width>
-     <height>81</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">  background-color: #19232D;
-  border: 0px solid #32414B;
-  padding: 0px;
-  color: #F0F0F0;
-  selection-background-color: #1464A0;
-  selection-color: #F0F0F0;
-
-	border-radius: 10;</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="btn_Datos_4">
    <property name="geometry">
     <rect>
@@ -77,66 +57,6 @@ radius: 1.35, stop: 0 #fff, stop: 1 #ddd
    </property>
    <property name="text">
     <string>D</string>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="txtEdit_respD">
-   <property name="geometry">
-    <rect>
-     <x>530</x>
-     <y>280</y>
-     <width>251</width>
-     <height>81</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">  background-color: #19232D;
-  border: 0px solid #32414B;
-  padding: 0px;
-  color: #F0F0F0;
-  selection-background-color: #1464A0;
-  selection-color: #F0F0F0;
-
-	border-radius: 10;</string>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="txtEdit_respA">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>190</y>
-     <width>251</width>
-     <height>81</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">  background-color: #19232D;
-  border: 0px solid #32414B;
-  padding: 0px;
-  color: #F0F0F0;
-  selection-background-color: #1464A0;
-  selection-color: #F0F0F0;
-
-	border-radius: 10;</string>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="txtEdit_respC">
-   <property name="geometry">
-    <rect>
-     <x>530</x>
-     <y>190</y>
-     <width>251</width>
-     <height>81</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">  background-color: #19232D;
-  border: 0px solid #32414B;
-  padding: 0px;
-  color: #F0F0F0;
-  selection-background-color: #1464A0;
-  selection-color: #F0F0F0;
-
-	border-radius: 10;</string>
    </property>
   </widget>
   <widget class="QPushButton" name="btn_Datos">
@@ -280,7 +200,7 @@ radius: 1.35, stop: 0 #fff, stop: 1 #ddd
   <widget class="QTextEdit" name="txtEdit_preg">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>130</x>
      <y>40</y>
      <width>631</width>
      <height>111</height>
@@ -320,7 +240,7 @@ radius: 1.35, stop: 0 #fff, stop: 1 #ddd
   <widget class="QPushButton" name="btn_pregCen">
    <property name="geometry">
     <rect>
-     <x>620</x>
+     <x>650</x>
      <y>10</y>
      <width>21</width>
      <height>21</height>
@@ -339,7 +259,7 @@ radius: 1.35, stop: 0 #fff, stop: 1 #ddd
   <widget class="QPushButton" name="btn_pregIzq">
    <property name="geometry">
     <rect>
-     <x>650</x>
+     <x>620</x>
      <y>10</y>
      <width>21</width>
      <height>21</height>
@@ -393,7 +313,7 @@ radius: 1.35, stop: 0 #fff, stop: 1 #ddd
   <widget class="QPushButton" name="btn_respCen">
    <property name="geometry">
     <rect>
-     <x>620</x>
+     <x>650</x>
      <y>160</y>
      <width>21</width>
      <height>21</height>
@@ -409,7 +329,7 @@ radius: 1.35, stop: 0 #fff, stop: 1 #ddd
   <widget class="QPushButton" name="btn_respIzq">
    <property name="geometry">
     <rect>
-     <x>650</x>
+     <x>620</x>
      <y>160</y>
      <width>21</width>
      <height>21</height>
@@ -420,6 +340,86 @@ radius: 1.35, stop: 0 #fff, stop: 1 #ddd
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="txtEdit_respA">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>190</y>
+     <width>241</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">  background-color: #19232D;
+  border: 0px solid #32414B;
+  padding: 0px;
+  color: #F0F0F0;
+  selection-background-color: #1464A0;
+  selection-color: #F0F0F0;
+
+	border-radius: 10;</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="txtEdit_respB">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>280</y>
+     <width>241</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">  background-color: #19232D;
+  border: 0px solid #32414B;
+  padding: 0px;
+  color: #F0F0F0;
+  selection-background-color: #1464A0;
+  selection-color: #F0F0F0;
+
+	border-radius: 10;</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="txtEdit_respC">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>190</y>
+     <width>241</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">  background-color: #19232D;
+  border: 0px solid #32414B;
+  padding: 0px;
+  color: #F0F0F0;
+  selection-background-color: #1464A0;
+  selection-color: #F0F0F0;
+
+	border-radius: 10;</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="txtEdit_respD">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>280</y>
+     <width>241</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">  background-color: #19232D;
+  border: 0px solid #32414B;
+  padding: 0px;
+  color: #F0F0F0;
+  selection-background-color: #1464A0;
+  selection-color: #F0F0F0;
+
+	border-radius: 10;</string>
    </property>
   </widget>
  </widget>

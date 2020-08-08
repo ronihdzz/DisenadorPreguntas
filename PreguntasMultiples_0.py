@@ -37,30 +37,53 @@ class PreguntasMultiples(QtWidgets.QWidget, Ui_Form):
         # self.COLOR_SELECTION="#CB77D1"
 
 
-        self.listImagBtnPos=    ["ICONOS/alinear_centrar.png",
-                                 "ICONOS/alinear_izquierda.png",
+        #Metodologia empleada para elegir las RESPUESTAS CORRECTAS
+
+
+
+        #Metodologia empleada para el diseño de las R E S P U E S T A S :
+
+
+
+
+
+        #Metodologia empleada para el diseño de la  P R E G U N T A :
+
+        self.listImagBtnPos=    ["ICONOS/alinear_izquierda.png",
+                                 "ICONOS/alinear_centrar.png",
                                  "ICONOS/alinear_derecho.png"
                                  ]
-
         self.posPregunta = -1  # 0=centrado 1=izquierda 2=derecha
-        self.listBtnPosPreg=[self.btn_pregCen,self.btn_pregIzq,self.btn_pregDer]
-
+        self.listBtnPosPreg=[self.btn_pregIzq,self.btn_pregCen,self.btn_pregDer]
         self.posRespuesta=-1  #0=centrado 1=izquierda 2=derecha
-        self.listBtnPosResp=[self.btn_respCen,self.btn_respIzq,self.btn_respDer]
-
-        self.editPosPregunta(0)
-        self.editPosRespuesta(0)
-
-
+        self.listBtnPosResp=[self.btn_respIzq,self.btn_respCen,self.btn_respDer]
+        self.editPosPregunta(1)
+        self.editPosRespuesta(1)
         for x in range(len(self.listBtnPosPreg)):
             self.listBtnPosPreg[x].clicked.connect(partial(self.editPosPregunta,x))
-
         for x in range(len(self.listBtnPosResp)):
             self.listBtnPosResp[x].clicked.connect(partial(self.editPosRespuesta, x))
 
+        #Minima fuente de la pregunta
+        self.dSpin_pregTam.setMinimum(8)
+        self.dSpin_pregTam.setMaximum(40)
+        self.dSpin_pregTam.setValue(15)
+        self.cambiarTamPreg(15)
+        self.dSpin_pregTam.valueChanged.connect(self.cambiarTamPreg)
+
+    def cambiarTamPreg(self,newValor):
+        #Cambiando el tamaño
+        font = QtGui.QFont()
+        font.setPointSize(int(newValor))
+        self.txtEdit_preg.setFont(font)
+
     def editPosPregunta(self, newPosicion):
-        print(newPosicion)
-        if newPosicion != self.posPregunta:
+            if newPosicion==0:
+                self.txtEdit_preg.setAlignment(Qt.AlignLeft)
+            elif newPosicion==1:
+                self.txtEdit_preg.setAlignment(Qt.AlignHCenter)
+            elif newPosicion==2:
+                self.txtEdit_preg.setAlignment(Qt.AlignRight)
             self.listBtnPosPreg[self.posPregunta].setStyleSheet(f"background-color:{self.COLOR_NORMAL};"
                                     f"border-image: url({self.listImagBtnPos[self.posPregunta]});")
             self.posPregunta=newPosicion
