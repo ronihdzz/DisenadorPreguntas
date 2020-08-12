@@ -11,7 +11,7 @@ from menuTipoPreguntas import menuTipoPreguntas
 from PreguntasMultiplesImagen_0 import PreguntasMultiplesImagen_0
 from PreguntasMultiplesImagen_50 import PreguntasMultiplesImagen50
 from PreguntasMultiplesImagen_100 import PreguntasMultiplesImagen100
-
+from PyQt5.QtWidgets import  QMessageBox
 
 
 #https://www.youtube.com/watch?v=P-SZn5eSDp8&list=PL7Euic11sPg_OYLhPN3QUh3BZINlhFApE
@@ -35,6 +35,36 @@ class PreguntasMultiples(QtWidgets.QWidget, Ui_Form):
         # VENTANA CON LA QUE SE INICIA POR DEFAULT...
         self.listWidget_panelVersion.setCurrentIndex(0)
         self.listWidget_panelVersion.showFullScreen()
+
+        self.btn_pregImag0.clicked.connect(self.abrirPreg_normal)
+        self.btn_pregImag50.clicked.connect(self.abrirPreg_imagen)
+        self.btn_pregImag100.clicked.connect(self.abrirPregResp_imagen)
+
+
+
+    def abrirPreg_normal(self):
+        resultado = QMessageBox.question(self, "DelphiPreguntas",
+                                         "¿Esta seguro que quiere cambiar de formato: \n"
+                                         "de preguntas?\n",
+                                         QMessageBox.Yes | QMessageBox.No)
+        if resultado == QMessageBox.Yes:
+            self.listWidget_panelVersion.setCurrentIndex(0)
+
+    def abrirPreg_imagen(self):
+        resultado = QMessageBox.question(self, "DelphiPreguntas",
+                                         "¿Esta seguro que quiere cambiar de formato: \n"
+                                         "de preguntas?\n",
+                                         QMessageBox.Yes | QMessageBox.No)
+        if resultado == QMessageBox.Yes:
+            self.listWidget_panelVersion.setCurrentIndex(1)
+
+    def abrirPregResp_imagen(self):
+        resultado = QMessageBox.question(self, "DelphiPreguntas",
+                                         "¿Esta seguro que quiere cambiar de formato: \n"
+                                         "de preguntas?\n",
+                                         QMessageBox.Yes | QMessageBox.No)
+        if resultado == QMessageBox.Yes:
+            self.listWidget_panelVersion.setCurrentIndex(2)
 
 
 if __name__ == "__main__":

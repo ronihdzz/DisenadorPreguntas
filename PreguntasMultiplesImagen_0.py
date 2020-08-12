@@ -9,6 +9,9 @@ from menuTipoPreguntas import menuTipoPreguntas
 
 from PyQt5.QtCore import Qt, pyqtSignal, QFile
 from functools import partial
+
+from comporEdit_TextEdit import comporEdit_TextEdit
+from comporSelecBtnsResp import comporSelecBtnsResp
 #DISENOS DE LOS MULTIPLES TIPOS DE PREGUNTAS
 
 
@@ -21,135 +24,18 @@ class PreguntasMultiplesImagen_0(QtWidgets.QWidget, Ui_Form):
         QtWidgets.QWidget.__init__(self)
         self.setupUi(self)
 
-        self.widget = QWidget()                 # Widget that contains the collection of Vertical Box
-        self.vbox = QVBoxLayout()               # The Vertical Box that contains the Horizontal Boxes of  labels and buttons
-
-        #Alinear pregunta...
-
-        self.COLOR_NORMAL="#EEF2F3"
-        self.COLOR_SELECCION= "#9AE5E0"
-        #self.COLOR_RESPUESTA="#9AE5E0"
-        #self.COLOR_SELECTION="#CB77D1"
-
-        self.COLOR_NORMAL = "#EEF2F3"
-        self.COLOR_SELECCION = "#9AE5E0"
-        # self.COLOR_RESPUESTA="#9AE5E0"
-        # self.COLOR_SELECTION="#CB77D1"
-
-
-        #Metodologia empleada para elegir las RESPUESTAS CORRECTAS
-        self.listBtnPunterosResp=(self.btn_respA,self.btn_respB,self.btn_respC,self.btn_respD)
-        self.listRespCorrectas=[False,False,False,False] #todas inicialmente son consideradas
-                                                         #incorrectas...
-        for x in range(len(self.listBtnPunterosResp)):
-            self.listBtnPunterosResp[x].clicked.connect(partial(self.marcarDesmarcarRespuesta,x))
-
-
-
-
-        #Metodologia empleada para el diseño de la  P R E G U N T A y R E S P U E S T A S:
-        self.listImagBtnPos=    ["ICONOS/alinear_izquierda.png",
-                                 "ICONOS/alinear_centrar.png",
-                                 "ICONOS/alinear_derecho.png"
-                                 ]
-        #Posicion del texto de  la pregunta...
-        self.posPregunta = 1  # 0=izquierda 1=centro 2=derecha
+## Comportamiento de las ediciones de un edit text...
         self.listBtnPosPreg=(self.btn_pregIzq,self.btn_pregCen,self.btn_pregDer)
-        for x in range(len(self.listBtnPosPreg)):
-            self.listBtnPosPreg[x].clicked.connect(partial(self.editPosPregunta,x))
-        self.editPosPregunta(1)
+        self.control=comporEdit_TextEdit(self.listBtnPosPreg,self.dSpin_pregTam,[self.txtEdit_preg])
 
-        #Posicion del texto de la respuesta
-        self.posRespuesta= 1  #0=izquierda 1=centro 2=derecha
+## Comportamiento de las ediciones de un edit text...
         self.listBtnPosResp=(self.btn_respIzq,self.btn_respCen,self.btn_respDer)
-        for x in range(len(self.listBtnPosResp)):
-            self.listBtnPosResp[x].clicked.connect(partial(self.editPosRespuesta, x))
-        self.editPosRespuesta(1)
-
-        #Cambiar tamaño de pregunta....
-        self.dSpin_pregTam.setMinimum(8)
-        self.dSpin_pregTam.setMaximum(40)
-        self.dSpin_pregTam.setValue(15)
-        self.cambiarTamPreg(15)
-        self.dSpin_pregTam.valueChanged.connect(self.cambiarTamPreg)
-        #Cambiar tamaño de las respuestas de la pregunta...
-        self.dSpin_respTam.setMinimum(8)
-        self.dSpin_respTam.setMaximum(40)
-        self.dSpin_respTam.setValue(15)
-        self.cambiarTamResp(15)
-        self.dSpin_respTam.valueChanged.connect(self.cambiarTamResp)
-
-###################################################################################################
-#   S E C C I O N     BOTONES SELECCIONADOS
-####################################################################################################
-    def marcarDesmarcarRespuesta(self,idBtnRespuesta):
-        print("boton:",idBtnRespuesta)
-        if self.listRespCorrectas[idBtnRespuesta]==True:
-            self.listRespCorrectas[idBtnRespuesta]=False
-            self.listBtnPunterosResp[idBtnRespuesta].setStyleSheet(f"background-color:{self.COLOR_NORMAL};"
-                                                                   "border-radius: 20px;"
-                                                                   "border: 1px solid #555;")
-        else:
-            self.listRespCorrectas[idBtnRespuesta]=True
-            self.listBtnPunterosResp[idBtnRespuesta].setStyleSheet(f"background-color:{self.COLOR_SELECCION};"
-                                                                   f"border-radius: 20px;"
-                                                                   "border: 1px solid #555;")
+        self.control2 = comporEdit_TextEdit(self.listBtnPosResp, self.dSpin_respTam,[self.txtEdit_respA,self.txtEdit_respB,self.txtEdit_respC,self.txtEdit_respD])
 
 
-###################################################################################################
-#   S E C C I O N     DISENO DE PREGUNTAS Y RESPUESTAS
-####################################################################################################
-
-    def cambiarTamPreg(self,newValor):
-        #Cambiando el tamaño
-        font = QtGui.QFont()
-        font.setPointSize(int(newValor))
-        self.txtEdit_preg.setFont(font)
-
-    def cambiarTamResp(self,newValor):
-        # Cambiando el tamaño
-        font = QtGui.QFont()
-        font.setPointSize(int(newValor))
-        self.txtEdit_respA.setFont(font)
-        self.txtEdit_respB.setFont(font)
-        self.txtEdit_respC.setFont(font)
-        self.txtEdit_respD.setFont(font)
-
-
-    def editPosPregunta(self, newPosicion):
-            if newPosicion==0:
-                self.txtEdit_preg.setAlignment(Qt.AlignLeft)
-            elif newPosicion==1:
-                self.txtEdit_preg.setAlignment(Qt.AlignHCenter)
-            elif newPosicion==2:
-                self.txtEdit_preg.setAlignment(Qt.AlignRight)
-            self.listBtnPosPreg[self.posPregunta].setStyleSheet(f"background-color:{self.COLOR_NORMAL};"
-                                    f"border-image: url({self.listImagBtnPos[self.posPregunta]});")
-            self.posPregunta=newPosicion
-            self.listBtnPosPreg[self.posPregunta].setStyleSheet(f"background-color:{self.COLOR_SELECCION};"
-                                    f"border-image: url({self.listImagBtnPos[self.posPregunta]});")
-
-    def editPosRespuesta(self, newPosicion):
-            if newPosicion==0:
-                self.txtEdit_respA.setAlignment(Qt.AlignLeft)
-                self.txtEdit_respB.setAlignment(Qt.AlignLeft)
-                self.txtEdit_respC.setAlignment(Qt.AlignLeft)
-                self.txtEdit_respD.setAlignment(Qt.AlignLeft)
-            elif newPosicion==1:
-                self.txtEdit_respA.setAlignment(Qt.AlignHCenter)
-                self.txtEdit_respB.setAlignment(Qt.AlignHCenter)
-                self.txtEdit_respC.setAlignment(Qt.AlignHCenter)
-                self.txtEdit_respD.setAlignment(Qt.AlignHCenter)
-            elif newPosicion==2:
-                self.txtEdit_respA.setAlignment(Qt.AlignRight)
-                self.txtEdit_respB.setAlignment(Qt.AlignRight)
-                self.txtEdit_respC.setAlignment(Qt.AlignRight)
-                self.txtEdit_respD.setAlignment(Qt.AlignRight)
-            self.listBtnPosResp[self.posRespuesta].setStyleSheet(f"background-color:{self.COLOR_NORMAL};"
-                                    f"border-image: url({self.listImagBtnPos[self.posRespuesta]});")
-            self.posRespuesta=newPosicion
-            self.listBtnPosResp[self.posRespuesta].setStyleSheet(f"background-color:{self.COLOR_SELECCION};"
-                                    f"border-image: url({self.listImagBtnPos[self.posRespuesta]});")
+#Metodologia empleada para elegir las RESPUESTAS CORRECTAS
+        self.listBtnPunterosResp=(self.btn_respA,self.btn_respB,self.btn_respC,self.btn_respD)
+        self.control3=comporSelecBtnsResp(self.listBtnPunterosResp)
 
 
 if __name__ == "__main__":
