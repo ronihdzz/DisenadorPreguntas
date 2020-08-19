@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>852</width>
-    <height>385</height>
+    <width>898</width>
+    <height>514</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QPushButton" name="btn_respD">
    <property name="geometry">
     <rect>
-     <x>430</x>
-     <y>280</y>
+     <x>460</x>
+     <y>410</y>
      <width>89</width>
      <height>81</height>
     </rect>
@@ -39,8 +39,8 @@ border: 1px solid #555;</string>
   <widget class="QPushButton" name="btn_respA">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>190</y>
+     <x>10</x>
+     <y>270</y>
      <width>89</width>
      <height>81</height>
     </rect>
@@ -62,8 +62,8 @@ border: 1px solid #555;</string>
   <widget class="QPushButton" name="btn_respC">
    <property name="geometry">
     <rect>
-     <x>430</x>
-     <y>190</y>
+     <x>460</x>
+     <y>270</y>
      <width>89</width>
      <height>81</height>
     </rect>
@@ -85,8 +85,8 @@ border: 1px solid #555;</string>
   <widget class="QPushButton" name="btn_respB">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>280</y>
+     <x>10</x>
+     <y>410</y>
      <width>89</width>
      <height>81</height>
     </rect>
@@ -108,10 +108,10 @@ border: 1px solid #555;</string>
   <widget class="QTextEdit" name="txtEdit_preg">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>30</x>
      <y>40</y>
-     <width>631</width>
-     <height>111</height>
+     <width>851</width>
+     <height>171</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -128,8 +128,8 @@ border: 1px solid #555;</string>
   <widget class="QDoubleSpinBox" name="dSpin_respTam">
    <property name="geometry">
     <rect>
-     <x>710</x>
-     <y>160</y>
+     <x>800</x>
+     <y>220</y>
      <width>69</width>
      <height>26</height>
     </rect>
@@ -205,8 +205,8 @@ border: 1px solid #555;</string>
   <widget class="QPushButton" name="btn_respDer">
    <property name="geometry">
     <rect>
-     <x>680</x>
-     <y>160</y>
+     <x>770</x>
+     <y>220</y>
      <width>21</width>
      <height>21</height>
     </rect>
@@ -221,8 +221,8 @@ border: 1px solid #555;</string>
   <widget class="QPushButton" name="btn_respCen">
    <property name="geometry">
     <rect>
-     <x>650</x>
-     <y>160</y>
+     <x>740</x>
+     <y>220</y>
      <width>21</width>
      <height>21</height>
     </rect>
@@ -237,8 +237,8 @@ border: 1px solid #555;</string>
   <widget class="QPushButton" name="btn_respIzq">
    <property name="geometry">
     <rect>
-     <x>620</x>
-     <y>160</y>
+     <x>710</x>
+     <y>220</y>
      <width>21</width>
      <height>21</height>
     </rect>
@@ -253,10 +253,10 @@ border: 1px solid #555;</string>
   <widget class="QTextEdit" name="txtEdit_respA">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>190</y>
-     <width>241</width>
-     <height>81</height>
+     <x>110</x>
+     <y>250</y>
+     <width>311</width>
+     <height>121</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -273,10 +273,10 @@ border: 1px solid #555;</string>
   <widget class="QTextEdit" name="txtEdit_respB">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>280</y>
-     <width>241</width>
-     <height>81</height>
+     <x>110</x>
+     <y>390</y>
+     <width>311</width>
+     <height>121</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -293,10 +293,10 @@ border: 1px solid #555;</string>
   <widget class="QTextEdit" name="txtEdit_respC">
    <property name="geometry">
     <rect>
-     <x>540</x>
-     <y>190</y>
-     <width>241</width>
-     <height>81</height>
+     <x>560</x>
+     <y>250</y>
+     <width>311</width>
+     <height>121</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -313,10 +313,10 @@ border: 1px solid #555;</string>
   <widget class="QTextEdit" name="txtEdit_respD">
    <property name="geometry">
     <rect>
-     <x>540</x>
-     <y>280</y>
-     <width>241</width>
-     <height>81</height>
+     <x>560</x>
+     <y>390</y>
+     <width>311</width>
+     <height>121</height>
     </rect>
    </property>
    <property name="styleSheet">

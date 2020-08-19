@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>850</width>
-    <height>383</height>
+    <width>897</width>
+    <height>525</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QPushButton" name="btn_respD">
    <property name="geometry">
     <rect>
-     <x>310</x>
-     <y>300</y>
+     <x>460</x>
+     <y>440</y>
      <width>81</width>
      <height>71</height>
     </rect>
@@ -39,8 +39,8 @@ border: 1px solid #555;</string>
   <widget class="QPushButton" name="btn_respA">
    <property name="geometry">
     <rect>
-     <x>310</x>
-     <y>60</y>
+     <x>10</x>
+     <y>340</y>
      <width>81</width>
      <height>71</height>
     </rect>
@@ -62,8 +62,8 @@ border: 1px solid #555;</string>
   <widget class="QPushButton" name="btn_respB">
    <property name="geometry">
     <rect>
-     <x>310</x>
-     <y>140</y>
+     <x>10</x>
+     <y>440</y>
      <width>81</width>
      <height>71</height>
     </rect>
@@ -85,8 +85,8 @@ border: 1px solid #555;</string>
   <widget class="QPushButton" name="btn_respC">
    <property name="geometry">
     <rect>
-     <x>310</x>
-     <y>220</y>
+     <x>460</x>
+     <y>340</y>
      <width>81</width>
      <height>71</height>
     </rect>
@@ -108,10 +108,10 @@ border: 1px solid #555;</string>
   <widget class="QTextEdit" name="txtEdit_respA">
    <property name="geometry">
     <rect>
-     <x>400</x>
-     <y>60</y>
-     <width>431</width>
-     <height>71</height>
+     <x>100</x>
+     <y>330</y>
+     <width>341</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -128,49 +128,9 @@ border: 1px solid #555;</string>
   <widget class="QTextEdit" name="txtEdit_respB">
    <property name="geometry">
     <rect>
-     <x>400</x>
-     <y>140</y>
-     <width>431</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">  background-color: #19232D;
-  border: 0px solid #32414B;
-  padding: 0px;
-  color: #F0F0F0;
-  selection-background-color: #1464A0;
-  selection-color: #F0F0F0;
-
-	border-radius: 10;</string>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="txtEdit_respC">
-   <property name="geometry">
-    <rect>
-     <x>400</x>
-     <y>220</y>
-     <width>431</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">  background-color: #19232D;
-  border: 0px solid #32414B;
-  padding: 0px;
-  color: #F0F0F0;
-  selection-background-color: #1464A0;
-  selection-color: #F0F0F0;
-
-	border-radius: 10;</string>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="txtEdit_respD">
-   <property name="geometry">
-    <rect>
-     <x>400</x>
-     <y>300</y>
-     <width>431</width>
+     <x>100</x>
+     <y>440</y>
+     <width>301</width>
      <height>71</height>
     </rect>
    </property>
@@ -188,10 +148,10 @@ border: 1px solid #555;</string>
   <widget class="QTextEdit" name="txtEdit_preg">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>60</y>
-     <width>251</width>
-     <height>91</height>
+     <x>10</x>
+     <y>110</y>
+     <width>211</width>
+     <height>151</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -208,10 +168,10 @@ border: 1px solid #555;</string>
   <widget class="QLabel" name="bel_pregImage">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>160</y>
-     <width>251</width>
-     <height>211</height>
+     <x>240</x>
+     <y>10</y>
+     <width>451</width>
+     <height>311</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -231,8 +191,8 @@ border: 1px solid #555;</string>
   <widget class="QDoubleSpinBox" name="dSpin_pregTam">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>20</y>
+     <x>150</x>
+     <y>70</y>
      <width>69</width>
      <height>26</height>
     </rect>
@@ -241,8 +201,8 @@ border: 1px solid #555;</string>
   <widget class="QPushButton" name="btn_pregCen">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>20</y>
+     <x>90</x>
+     <y>70</y>
      <width>21</width>
      <height>21</height>
     </rect>
@@ -260,8 +220,8 @@ border: 1px solid #555;</string>
   <widget class="QPushButton" name="btn_pregIzq">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>20</y>
+     <x>60</x>
+     <y>70</y>
      <width>21</width>
      <height>21</height>
     </rect>
@@ -279,8 +239,8 @@ border: 1px solid #555;</string>
   <widget class="QPushButton" name="btn_pregDer">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>20</y>
+     <x>120</x>
+     <y>70</y>
      <width>21</width>
      <height>21</height>
     </rect>
@@ -295,11 +255,87 @@ border: 1px solid #555;</string>
     <number>2</number>
    </property>
   </widget>
+  <widget class="QPushButton" name="btn_pregImage">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>20</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/alinear/IMAGENES/imagen_carga.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="txtEdit_respB_2">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>430</y>
+     <width>341</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">  background-color: #19232D;
+  border: 0px solid #32414B;
+  padding: 0px;
+  color: #F0F0F0;
+  selection-background-color: #1464A0;
+  selection-color: #F0F0F0;
+
+	border-radius: 10;</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="txtEdit_respC">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>330</y>
+     <width>341</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">  background-color: #19232D;
+  border: 0px solid #32414B;
+  padding: 0px;
+  color: #F0F0F0;
+  selection-background-color: #1464A0;
+  selection-color: #F0F0F0;
+
+	border-radius: 10;</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="txtEdit_respD">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>430</y>
+     <width>341</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">  background-color: #19232D;
+  border: 0px solid #32414B;
+  padding: 0px;
+  color: #F0F0F0;
+  selection-background-color: #1464A0;
+  selection-color: #F0F0F0;
+
+	border-radius: 10;</string>
+   </property>
+  </widget>
   <widget class="QDoubleSpinBox" name="dSpin_respTam">
    <property name="geometry">
     <rect>
-     <x>760</x>
-     <y>20</y>
+     <x>820</x>
+     <y>300</y>
      <width>69</width>
      <height>26</height>
     </rect>
@@ -308,8 +344,8 @@ border: 1px solid #555;</string>
   <widget class="QPushButton" name="btn_respDer">
    <property name="geometry">
     <rect>
-     <x>730</x>
-     <y>20</y>
+     <x>790</x>
+     <y>300</y>
      <width>21</width>
      <height>21</height>
     </rect>
@@ -324,8 +360,8 @@ border: 1px solid #555;</string>
   <widget class="QPushButton" name="btn_respIzq">
    <property name="geometry">
     <rect>
-     <x>670</x>
-     <y>20</y>
+     <x>725</x>
+     <y>300</y>
      <width>21</width>
      <height>21</height>
     </rect>
@@ -340,30 +376,14 @@ border: 1px solid #555;</string>
   <widget class="QPushButton" name="btn_respCen">
    <property name="geometry">
     <rect>
-     <x>700</x>
-     <y>20</y>
+     <x>760</x>
+     <y>300</y>
      <width>21</width>
      <height>21</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">border-image: url(:/alinear/IMAGENES/alinear_centrar.png);</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btn_pregImage">
-   <property name="geometry">
-    <rect>
-     <x>60</x>
-     <y>0</y>
-     <width>51</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border-image: url(:/alinear/IMAGENES/imagen_carga.png);</string>
    </property>
    <property name="text">
     <string/>

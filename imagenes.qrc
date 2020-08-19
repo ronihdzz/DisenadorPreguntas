@@ -1,10 +1,12 @@
 <RCC>
   <qresource prefix="alinear">
-    <file>ICONOS/iconImage.png</file>
-    <file>ICONOS/icon_noImagen.png</file>
-    <file>ICONOS/icon_galeri.png</file>
-    <file>ICONOS/icon_image.png</file>
+    <file>ICONOS/icon_and.png</file>
+    <file>ICONOS/icon_or.png</file>
     <file>IMAGENES/pregunta_add.png</file>
+    <file>ICONOS/icon_preg0.png</file>
+    <file>ICONOS/icon_preg50.png</file>
+    <file>ICONOS/icon_preg75.png</file>
+    <file>ICONOS/icon_preg100.png</file>
     <file>IMAGENES/pregunta_ver.png</file>
     <file>IMAGENES/preguntas_mandar.png</file>
     <file>IMAGENES/pregunta_guardar.png</file>
