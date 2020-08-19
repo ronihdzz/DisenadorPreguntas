@@ -4,7 +4,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QTableWidgetItem #para las tablas...
 
 from PyQt5.QtGui import QIcon, QPixmap
-from DISENOS.modRespMultiplesImagen100_d   import Ui_Form
+from DISENOS.modRespMultiplesImagen100copy_d  import Ui_Form
 from menuTipoPreguntas import menuTipoPreguntas
 
 #DISENOS DE LOS MULTIPLES TIPOS DE PREGUNTAS

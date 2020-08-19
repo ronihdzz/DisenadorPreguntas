@@ -28,6 +28,8 @@ class PreguntasMultiplesImagen_0(QtWidgets.QWidget, Ui_Form):
         self.listBtnPosPreg=(self.btn_pregIzq,self.btn_pregCen,self.btn_pregDer)
         self.control=comporEdit_TextEdit(self.listBtnPosPreg,self.dSpin_pregTam,[self.txtEdit_preg])
 
+        self.txtEdit_preg.textChanged.connect(self.imprimir)
+
 ## Comportamiento de las ediciones de un edit text...
         self.listBtnPosResp=(self.btn_respIzq,self.btn_respCen,self.btn_respDer)
         self.control2 = comporEdit_TextEdit(self.listBtnPosResp, self.dSpin_respTam,[self.txtEdit_respA,self.txtEdit_respB,self.txtEdit_respC,self.txtEdit_respD])
@@ -36,6 +38,34 @@ class PreguntasMultiplesImagen_0(QtWidgets.QWidget, Ui_Form):
 #Metodologia empleada para elegir las RESPUESTAS CORRECTAS
         self.listBtnPunterosResp=(self.btn_respA,self.btn_respB,self.btn_respC,self.btn_respD)
         self.control3=comporSelecBtnsResp(self.listBtnPunterosResp)
+
+
+#Lista de respuestas....
+
+        #Texto pregunta....
+        self.dataPregunta={"PREGUNTA":[None,None],
+                           "RESP_A":[None,None],
+                           "RESP_B":[None,None],
+                           "RESP_C":[None,None],
+                           "RESP_D":[None,None]
+                           }
+
+        self.guardarEnListCada=10 #guardar en lista cada 5 caracteres...
+        self.puntero_guardarEnListCada=self.guardarEnListCada-5
+        self.txtEdit_preg.selectionChanged.connect(self.holi)  #me dira cuando lo seleccionaron...
+
+
+    def  holi(self):
+        print("holi")
+
+    def imprimir(self):
+        if self.puntero_guardarEnListCada>self.guardarEnListCada:
+            self.puntero_guardarEnListCada=0
+            #print(self.txtEdit_preg.toPlainText())
+            self.dataPregunta["PREGUNTA"][0]=self.txtEdit_preg.toPlainText()
+            print(self.dataPregunta["PREGUNTA"][0])
+        self.puntero_guardarEnListCada+=1
+
 
 
 if __name__ == "__main__":

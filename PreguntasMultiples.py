@@ -89,7 +89,7 @@ class PreguntasMultiples(QtWidgets.QWidget, Ui_Form):
         if resultado == QMessageBox.Yes:
             self.listWidget_panelVersion.setCurrentIndex(idBtnFuePresionado)
             self.control.marcarDesmarcarRespuesta_automatico(idBtnFuePresionado,False)
-
+################################################################################################################
 
 
 

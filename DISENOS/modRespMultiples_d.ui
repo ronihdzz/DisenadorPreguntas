@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>60</y>
+     <y>70</y>
      <width>901</width>
      <height>541</height>
     </rect>
@@ -44,7 +44,7 @@ border: 1px solid red;
    <property name="geometry">
     <rect>
      <x>630</x>
-     <y>0</y>
+     <y>20</y>
      <width>51</width>
      <height>51</height>
     </rect>
@@ -60,7 +60,7 @@ border: 1px solid red;
    <property name="geometry">
     <rect>
      <x>700</x>
-     <y>0</y>
+     <y>20</y>
      <width>51</width>
      <height>51</height>
     </rect>
@@ -76,7 +76,7 @@ border: 1px solid red;
    <property name="geometry">
     <rect>
      <x>760</x>
-     <y>0</y>
+     <y>20</y>
      <width>51</width>
      <height>51</height>
     </rect>
@@ -88,13 +88,154 @@ border: 1px solid red;
     <string/>
    </property>
   </widget>
+  <widget class="QPushButton" name="btn_pregImag100">
+   <property name="geometry">
+    <rect>
+     <x>830</x>
+     <y>20</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/alinear/ICONOS/icon_preg100.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_respDer">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>30</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/alinear/IMAGENES/alinear_derecho.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_respCen">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>30</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/alinear/IMAGENES/alinear_centrar.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_respIzq">
+   <property name="geometry">
+    <rect>
+     <x>275</x>
+     <y>30</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/alinear/IMAGENES/alinear_izquierda.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="dSpin_respTam">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>30</y>
+     <width>69</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="dSpin_pregTam">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>30</y>
+     <width>69</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_pregDer">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>30</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/alinear/IMAGENES/alinear_derecho.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="id" stdset="0">
+    <number>2</number>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_pregCen">
+   <property name="geometry">
+    <rect>
+     <x>490</x>
+     <y>30</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/alinear/IMAGENES/alinear_centrar.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="id" stdset="0">
+    <number>0</number>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_pregIzq">
+   <property name="geometry">
+    <rect>
+     <x>460</x>
+     <y>30</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/alinear/IMAGENES/alinear_izquierda.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="id" stdset="0">
+    <number>1</number>
+   </property>
+  </widget>
   <widget class="QTimeEdit" name="timeEdit">
    <property name="geometry">
     <rect>
-     <x>300</x>
+     <x>10</x>
      <y>10</y>
      <width>131</width>
-     <height>41</height>
+     <height>51</height>
     </rect>
    </property>
    <property name="font">
@@ -115,29 +256,13 @@ border: 1px solid red;
     <number>0</number>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn_pregImag100">
-   <property name="geometry">
-    <rect>
-     <x>830</x>
-     <y>0</y>
-     <width>51</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border-image: url(:/alinear/ICONOS/icon_preg100.png);</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
   <widget class="QPushButton" name="btn_pregOR">
    <property name="geometry">
     <rect>
-     <x>540</x>
-     <y>0</y>
-     <width>61</width>
-     <height>51</height>
+     <x>210</x>
+     <y>30</y>
+     <width>41</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -150,10 +275,10 @@ border: 1px solid red;
   <widget class="QPushButton" name="btn_pregAND">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>0</y>
-     <width>91</width>
-     <height>51</height>
+     <x>150</x>
+     <y>30</y>
+     <width>51</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -161,6 +286,58 @@ border: 1px solid red;
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>0</y>
+     <width>141</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Posicion respuestas</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>0</y>
+     <width>141</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Posicion pregunta</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>690</x>
+     <y>0</y>
+     <width>141</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Incluir imagenes</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>0</y>
+     <width>121</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Tipo de pregunta</string>
    </property>
   </widget>
  </widget>
