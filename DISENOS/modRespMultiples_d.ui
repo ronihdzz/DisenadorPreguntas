@@ -104,68 +104,10 @@ border: 1px solid red;
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn_respDer">
-   <property name="geometry">
-    <rect>
-     <x>340</x>
-     <y>30</y>
-     <width>21</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border-image: url(:/alinear/IMAGENES/alinear_derecho.png);</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btn_respCen">
-   <property name="geometry">
-    <rect>
-     <x>310</x>
-     <y>30</y>
-     <width>21</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border-image: url(:/alinear/IMAGENES/alinear_centrar.png);</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btn_respIzq">
-   <property name="geometry">
-    <rect>
-     <x>275</x>
-     <y>30</y>
-     <width>21</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border-image: url(:/alinear/IMAGENES/alinear_izquierda.png);</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QDoubleSpinBox" name="dSpin_respTam">
-   <property name="geometry">
-    <rect>
-     <x>370</x>
-     <y>30</y>
-     <width>69</width>
-     <height>26</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QDoubleSpinBox" name="dSpin_pregTam">
    <property name="geometry">
     <rect>
-     <x>550</x>
+     <x>360</x>
      <y>30</y>
      <width>69</width>
      <height>26</height>
@@ -175,7 +117,7 @@ border: 1px solid red;
   <widget class="QPushButton" name="btn_pregDer">
    <property name="geometry">
     <rect>
-     <x>520</x>
+     <x>330</x>
      <y>30</y>
      <width>21</width>
      <height>21</height>
@@ -194,7 +136,7 @@ border: 1px solid red;
   <widget class="QPushButton" name="btn_pregCen">
    <property name="geometry">
     <rect>
-     <x>490</x>
+     <x>300</x>
      <y>30</y>
      <width>21</width>
      <height>21</height>
@@ -213,7 +155,7 @@ border: 1px solid red;
   <widget class="QPushButton" name="btn_pregIzq">
    <property name="geometry">
     <rect>
-     <x>460</x>
+     <x>270</x>
      <y>30</y>
      <width>21</width>
      <height>21</height>
@@ -338,6 +280,64 @@ border: 1px solid red;
    </property>
    <property name="text">
     <string>Tipo de pregunta</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_respCen">
+   <property name="geometry">
+    <rect>
+     <x>490</x>
+     <y>30</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/alinear/IMAGENES/alinear_centrar.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_respIzq">
+   <property name="geometry">
+    <rect>
+     <x>455</x>
+     <y>30</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/alinear/IMAGENES/alinear_izquierda.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="dSpin_respTam">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>30</y>
+     <width>69</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_respDer">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>30</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/alinear/IMAGENES/alinear_derecho.png);</string>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

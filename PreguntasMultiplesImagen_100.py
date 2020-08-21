@@ -4,7 +4,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QTableWidgetItem #para las tablas...
 
 from PyQt5.QtGui import QIcon, QPixmap
-from DISENOS.modRespMultiplesImagen100copy_d  import Ui_Form
+from DISENOS.modRespMultiplesImagen100_d import Ui_Form
 from menuTipoPreguntas import menuTipoPreguntas
 
 #DISENOS DE LOS MULTIPLES TIPOS DE PREGUNTAS
@@ -18,6 +18,18 @@ class PreguntasMultiplesImagen100(QtWidgets.QWidget, Ui_Form):
         QtWidgets.QWidget.__init__(self)
         self.setupUi(self)
 
+
+if __name__ == "__main__":
+    app = QtWidgets.QApplication([])
+    application = PreguntasMultiplesImagen100()
+    application.show()
+    app.exec()
+    #sys.exit(app.exec())
+
+
+'''
+
+
         ## Comportamiento de las ediciones de un edit text...
         self.listBtnPosPreg = (self.btn_pregIzq, self.btn_pregCen, self.btn_pregDer)
         self.control = comporEdit_TextEdit(self.listBtnPosPreg, self.dSpin_pregTam, [self.txtEdit_preg])
@@ -27,9 +39,8 @@ class PreguntasMultiplesImagen100(QtWidgets.QWidget, Ui_Form):
         self.control3 = comporSelecBtnsResp(self.listBtnPunterosResp)
 
 
-if __name__ == "__main__":
-    app = QtWidgets.QApplication([])
-    application = PreguntasMultiplesImagen100()
-    application.show()
-    app.exec()
-    #sys.exit(app.exec())
+
+
+
+
+'''

@@ -1,0 +1,67 @@
+from functools import partial
+from PyQt5 import QtWidgets, QtGui, Qt, QtCore
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton, QHBoxLayout
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QTableWidgetItem  # para las tablas...
+
+from PyQt5.QtGui import QIcon, QPixmap
+from DISENOS.modRespMultiplesImagen0_d import Ui_Form
+from menuTipoPreguntas import menuTipoPreguntas
+
+from PyQt5.QtCore import Qt, pyqtSignal, QFile
+from functools import partial
+
+# Comportamiento de selecciones de botones....
+class comporSelecBtnsResp():
+    # quierePreguntaImagen = pyqtSignal()
+    # listEditText,listBtn
+    '''
+    1)lisBtnResp ==> Lista de los botones que representan
+    a la respuesta correcta...
+
+    '''
+
+    def __init__(self,matrizBotones,BORDER_RADIUS = "7"):
+
+        self.COLOR_NORMAL = "#EEF2F3"
+        self.COLOR_SELECCION = "#9AE5E0"
+        self.BORDER_RADIUS = BORDER_RADIUS
+
+        # Metodologia empleada para elegir las RESPUESTAS CORRECTAS
+        self.matrizBotones =matrizBotones
+
+        self.listRespCorrectas=[]
+        # todas inicialmente son consideradas
+        # incorrectas...
+        for _ in range(self.matrizBotones.shape[1]):
+            self.listRespCorrectas.append(False)
+
+        for c in range(self.matrizBotones.shape[1]): #columnas
+            for r in range(self.matrizBotones.shape[0]): #renglones
+                self.matrizBotones[r][c].clicked.connect(partial(self.marcarDesmarcarRespuesta,c))
+
+###################################################################################################
+#   S E C C I O N     BOTONES SELECCIONADOS
+####################################################################################################
+    def marcarDesmarcarRespuesta(self,idBtnRespuesta):
+        print("boton:",idBtnRespuesta)
+        if self.listRespCorrectas[idBtnRespuesta]==True:
+            self.listRespCorrectas[idBtnRespuesta]=False
+            for r in range(self.matrizBotones.shape[0]):  # renglones
+                self.matrizBotones[r][idBtnRespuesta].setStyleSheet(f"background-color:{self.COLOR_NORMAL};"
+                                                                    f"border-radius:{self.BORDER_RADIUS}px;"
+                                                                   "border: 1px solid #555;")
+        else:
+            self.listRespCorrectas[idBtnRespuesta]=True
+            for r in range(self.matrizBotones.shape[0]):  # renglones
+                self.matrizBotones[r][idBtnRespuesta].setStyleSheet(f"background-color:{self.COLOR_SELECCION};"
+                                                                    f"border-radius:{self.BORDER_RADIUS}px;"
+                                                                    "border: 1px solid #555;")
+    def setColor(self, newColor):
+        self.COLOR_SELECCION=newColor #actualizando el color...
+        for columna in range(self.matrizBotones.shape[1]):  # columnas...
+            if self.listRespCorrectas[columna]==True:
+                for renglon in range(self.matrizBotones.shape[0]): #renglones...
+                    self.matrizBotones[renglon][columna].setStyleSheet(f"background-color:{self.COLOR_SELECCION};"
+                                                                       f"border-radius:{self.BORDER_RADIUS}px;"
+                                                                       "border: 1px solid #555;")

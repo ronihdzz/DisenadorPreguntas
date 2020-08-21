@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QTableWidgetItem #para las tablas...
 from PyQt5.QtGui import QIcon, QPixmap
 from DISENOS.modRespMultiples_d import Ui_Form
 from menuTipoPreguntas import menuTipoPreguntas
-
+from comportSelectBtnsRespG import comporSelecBtnsResp
 
 
 #DISENOS DE LOS MULTIPLES TIPOS DE PREGUNTAS
@@ -15,8 +15,9 @@ from PreguntasMultiplesImagen_50 import PreguntasMultiplesImagen50
 from PreguntasMultiplesImagen_75 import PreguntasMultiplesImagen75
 from PreguntasMultiplesImagen_100 import PreguntasMultiplesImagen100
 from comporSelect_btnsImagen import comporSelec_btnsImagen
+from comportEditTextEdit import comportEditTextEdit
 from PyQt5.QtWidgets import  QMessageBox
-
+import numpy as np
 
 #https://www.youtube.com/watch?v=P-SZn5eSDp8&list=PL7Euic11sPg_OYLhPN3QUh3BZINlhFApE
 class PreguntasMultiples(QtWidgets.QWidget, Ui_Form):
@@ -24,15 +25,12 @@ class PreguntasMultiples(QtWidgets.QWidget, Ui_Form):
         Ui_Form.__init__(self)
         QtWidgets.QWidget.__init__(self)
         self.setupUi(self)
-
         # creando multiples ventanas...
         self.ventanas = []
-
         self.ventanas.append(PreguntasMultiplesImagen_0())  # pregunta binaria
         self.ventanas.append(PreguntasMultiplesImagen50())  # preguntas multiples
         self.ventanas.append(PreguntasMultiplesImagen75())
         self.ventanas.append(PreguntasMultiplesImagen100())  # preguntas especificas
-
         # Cargando todos los disenos
         for i in range(len(self.ventanas)):
             self.listWidget_panelVersion.addWidget(self.ventanas[i])
@@ -40,8 +38,60 @@ class PreguntasMultiples(QtWidgets.QWidget, Ui_Form):
         # VENTANA CON LA QUE SE INICIA POR DEFAULT...
         self.listWidget_panelVersion.setCurrentIndex(0)
         self.listWidget_panelVersion.showFullScreen()
+####################################################################################################################################
+#       C O N T R O L    D E     B O T O N E S :
+####################################################################################################################################
 
-########################################################################################################################
+        #CREANDO UNA MATRIZ DE PUROS BOTONES...
+        renglonBotones= np.array( [[self.ventanas[0].btn_respA,self.ventanas[0].btn_respB,
+                                    self.ventanas[0].btn_respC,self.ventanas[0].btn_respD]] )
+        self.matrizBotonesRespuesta=renglonBotones
+        for i in range(1, len(self.ventanas)):
+            # Metodologia empleada para elegir las RESPUESTAS CORRECTAS
+            renglonBotones = np.array( [[self.ventanas[i].btn_respA, self.ventanas[i].btn_respB,
+                                       self.ventanas[i].btn_respC, self.ventanas[i].btn_respD]])
+            self.matrizBotonesRespuesta = np.append(self.matrizBotonesRespuesta, renglonBotones, axis=0)
+        self.controlABSOLUTO_botones=comporSelecBtnsResp(self.matrizBotonesRespuesta,BORDER_RADIUS="5")
+        print(self.matrizBotonesRespuesta.shape)
+####################################################################################################################################
+#       C O N T R O L    D E     POSICIONES DE RESPUESTAS :
+####################################################################################################################################
+        # CREANDO LA MATRIZ DE EDIT TEXT...
+        renglonTxtEditRespuestas = np.array([[self.ventanas[0].txtEdit_respA, self.ventanas[0].txtEdit_respB,
+                                    self.ventanas[0].txtEdit_respC, self.ventanas[0].txtEdit_respD]])
+        self.matrizEditTextRespuestas = renglonTxtEditRespuestas
+        for i in range(1, len(self.ventanas)):
+            renglonTxtEditRespuestas = np.array([[self.ventanas[i].txtEdit_respA, self.ventanas[i].txtEdit_respB,
+                                        self.ventanas[i].txtEdit_respC, self.ventanas[i].txtEdit_respD]])
+            self.matrizEditTextRespuestas= np.append(self.matrizEditTextRespuestas, renglonTxtEditRespuestas, axis=0)
+
+       #CREANDO EL VECTOR REGLON DE BOTONES ALIGN...
+        ## Comportamiento de las ediciones de un edit text...
+        self.vectorRenglon_btnAlignRespuestas = np.array([[self.btn_respIzq, self.btn_respCen, self.btn_respDer]])
+
+        self.controlABSOLUTO_editTextRespuestas = comportEditTextEdit(self.vectorRenglon_btnAlignRespuestas,
+                                                                      self.dSpin_respTam,
+                                                                      self.matrizEditTextRespuestas)
+####################################################################################################################################
+#       C O N T R O L    D E     POSICIONES DE PREGUNTAS :
+####################################################################################################################################
+        # CREANDO LA MATRIZ DE EDIT TEXT...
+        renglonTxtEditPreguntas= np.array([[self.ventanas[0].txtEdit_preg]])
+        self.matrizEditTextPreguntas = renglonTxtEditPreguntas
+        for i in range(1, len(self.ventanas)):
+            renglonTxtEditPreguntas = np.array([[self.ventanas[i].txtEdit_preg]])
+            self.matrizEditTextPreguntas = np.append(self.matrizEditTextPreguntas, renglonTxtEditPreguntas, axis=0)
+
+        # CREANDO EL VECTOR REGLON DE BOTONES ALIGN...
+        ## Comportamiento de las ediciones de un edit text...
+        self.vectorRenglon_btnAlignPreguntas = np.array([[self.btn_pregIzq, self.btn_pregCen,self.btn_pregDer]])
+
+        self.controlABSOLUTO_editTextPreguntas = comportEditTextEdit(self.vectorRenglon_btnAlignPreguntas,
+                                                                      self.dSpin_pregTam,
+                                                                      self.matrizEditTextPreguntas)
+####################################################################################################################################
+#       C O N T R O L    D E     BOTONES DE PREGUNTAS HIBRIDAS :
+####################################################################################################################################
         ## Comportamiento de las ediciones de un edit text...
         self.listBtnPunteros_hibridasPreg = (self.btn_pregImag0, self.btn_pregImag50, self.btn_pregImag75,
                                self.btn_pregImag100)
@@ -50,10 +100,8 @@ class PreguntasMultiples(QtWidgets.QWidget, Ui_Form):
                                       "ICONOS/icon_preg75.png",
                                       "ICONOS/icon_preg100.png"
                                      )
-
         self.listNombres_preguntasHibridas=["MUTAPREGIMAG 0%","MUTAPREGIMAG 50%",
                                             "MUTAPREGIMAG 75%", "MUTAPREGIMAG 100%"]
-
         self.control=comporSelec_btnsImagen(self.listBtnPunteros_hibridasPreg,
                                             self.listImagen_hibridasPreg)
         self.control.COLOR_SELECCION="#D79DDB" #cambiando el color de seleccion
@@ -62,8 +110,10 @@ class PreguntasMultiples(QtWidgets.QWidget, Ui_Form):
         self.mutacionPregunta=0
         self.control.btnElegido=-1
         self.control.marcarDesmarcarRespuesta_automatico(self.mutacionPregunta,False)
-####################################################################################################################
-     ## Comportamiento de las ediciones de un edit text...
+####################################################################################################################################
+#       C O N T R O L    D E   PREGUNTAS ESPECIFICAS U ABIERTAS :
+####################################################################################################################################
+        ## Comportamiento de las ediciones de un edit text...
         self.listBtnPunteros_pregANDpregOR= (self.btn_pregAND,self.btn_pregOR)
         self.listImagen_pregANDpregOR=("ICONOS/icon_and.png",
                                       "ICONOS/icon_or.png",
@@ -76,10 +126,25 @@ class PreguntasMultiples(QtWidgets.QWidget, Ui_Form):
         self.pregAND_pregOR=1 #PREGUNTA DEFAULT PREG OR
         self.control_2.btnElegido=-1
         self.control_2.marcarDesmarcarRespuesta_automatico(self.pregAND_pregOR,False)
+        self.COLOR_OR="#5DD1D6"
+        self.COLOR_AND="#F51E8C"
+
+###########################################################################################################################
+#
+#
+#       M    E     T     O     D     O     S    :
+#
+#
+##############################################################################################################################
 
     def cambio_pregANDpregOR(self,idBtnFuePresionado):
         self.control_2.marcarDesmarcarRespuesta_automatico(idBtnFuePresionado,False)
-
+        self.pregAND_pregOR=idBtnFuePresionado
+        print("BOTON...",self.pregAND_pregOR)
+        if idBtnFuePresionado==0:
+            self.controlABSOLUTO_botones.setColor(self.COLOR_AND)
+        else:
+            self.controlABSOLUTO_botones.setColor(self.COLOR_OR)
 
     def cambioHibridoPregunta(self,idBtnFuePresionado):
         resultado = QMessageBox.question(self, "DelphiPreguntas",
