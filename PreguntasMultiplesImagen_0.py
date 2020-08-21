@@ -26,47 +26,6 @@ class PreguntasMultiplesImagen_0(QtWidgets.QWidget, Ui_Form):
         self.setupUi(self)
 
 
-        self.txtEdit_preg.textChanged.connect(self.imprimir)
-        self.txtEdit_preg.selectionChanged.connect(self.holi)  # me dira cuando lo seleccionaron...
-        self.idTextEdit_estanEditando=0
-
-        self.vectorRenglon_txtEdit=np.array([[self.txtEdit_respA, self.txtEdit_respB,
-                                             self.txtEdit_respC, self.txtEdit_respD]]).reshape(1,4)
-        self.vectorRenglon_cambiosRespuestas=np.zeros([1,4], dtype = int)
-
-        for x in range(self.vectorRenglon_txtEdit.shape[1]):
-            self.vectorRenglon_txtEdit[0][x].textChanged.connect(partial(self.registrarRespuestas,x))
-            self.vectorRenglon_txtEdit[0][x].selectionChanged.connect(partial(self.cambioTextEdit,x))
-        self.GUARDAR_CADA=10
-
-
-    def cambioTextEdit(self,idTextEdit):
-        if idTextEdit!=self.idTextEdit_estanEditando:
-            print("PREV ID:",self.idTextEdit_estanEditando,
-                  "TEXTO:", self.vectorRenglon_txtEdit[0][self.idTextEdit_estanEditando].toPlainText())
-            self.idTextEdit_estanEditando=idTextEdit
-            print("NEW ID:", self.idTextEdit_estanEditando)
-
-    def registrarRespuestas(self, idTextEdit):
-        if self.vectorRenglon_cambiosRespuestas[0][idTextEdit]>self.GUARDAR_CADA:
-            self.vectorRenglon_cambiosRespuestas[0][idTextEdit]=0
-            print("ID:",idTextEdit,"TEXTO:",self.vectorRenglon_txtEdit[0][idTextEdit].toPlainText())
-        self.vectorRenglon_cambiosRespuestas[0][idTextEdit]+=1
-
-
-
-    def  holi(self):
-        print("holi")
-
-    def imprimir(self):
-        if self.puntero_guardarEnListCada>self.GUARDAR_CADA:
-            self.puntero_guardarEnListCada=0
-            #print(self.txtEdit_preg.toPlainText())
-            self.dataPregunta["PREGUNTA"][0]=self.txtEdit_preg.toPlainText()
-            print(self.dataPregunta["PREGUNTA"][0])
-        self.puntero_guardarEnListCada+=1
-
-
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])

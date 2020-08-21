@@ -70,6 +70,18 @@ class comportEditTextEdit():
             for columna in range(self.matrizEditText.shape[1]):
                 self.matrizEditText[renglon][columna].setFont(font)
 
+    def refrescarPosEditText(self,widgetNo):
+        posicion=self.posPregunta
+        if posicion == 0:
+            for columna in range(self.matrizEditText.shape[1]):
+                self.matrizEditText[widgetNo][columna].setAlignment(Qt.AlignLeft)
+        elif posicion == 1:
+            for columna in range(self.matrizEditText.shape[1]):
+                self.matrizEditText[widgetNo][columna].setAlignment(Qt.AlignHCenter)
+        elif posicion == 2:
+            for columna in range(self.matrizEditText.shape[1]):
+                self.matrizEditText[widgetNo][columna].setAlignment(Qt.AlignRight)
+
     def editPosEditsText(self, newPosicion):
         if newPosicion == 0:
             for renglon in range(self.matrizEditText.shape[0]):

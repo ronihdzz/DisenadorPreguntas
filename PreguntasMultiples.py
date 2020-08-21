@@ -16,6 +16,7 @@ from PreguntasMultiplesImagen_75 import PreguntasMultiplesImagen75
 from PreguntasMultiplesImagen_100 import PreguntasMultiplesImagen100
 from comporSelect_btnsImagen import comporSelec_btnsImagen
 from comportEditTextEdit import comportEditTextEdit
+from comportAutoguardado_textEdit import comportAutoguardado_textEdit
 from PyQt5.QtWidgets import  QMessageBox
 import numpy as np
 
@@ -129,6 +130,21 @@ class PreguntasMultiples(QtWidgets.QWidget, Ui_Form):
         self.COLOR_OR="#5DD1D6"
         self.COLOR_AND="#F51E8C"
 
+####################################################################################################################################
+#       C O N T R O L    D E     AUTOGUARDADO....
+####################################################################################################################################
+
+        self.matrizTodos_textEdit=self.matrizEditTextPreguntas
+        print(self.matrizTodos_textEdit.shape)
+        self.matrizTodos_textEdit=np.append(self.matrizTodos_textEdit,self.matrizEditTextRespuestas,axis=1)
+        self.controlABSOULUTO_autoguardado=comportAutoguardado_textEdit(self.matrizTodos_textEdit)
+        self.controlABSOULUTO_autoguardado.horaGuardarCambios.connect(self.guardarCambios)
+        self.textoPregunta=""
+        self.textoRespuestas=["","","",""]
+
+        print(self.matrizTodos_textEdit.shape)
+
+
 ###########################################################################################################################
 #
 #
@@ -136,6 +152,17 @@ class PreguntasMultiples(QtWidgets.QWidget, Ui_Form):
 #
 #
 ##############################################################################################################################
+
+
+    def guardarCambios(self,listaDatos):
+        idTxtRespueta=listaDatos[0]
+        texto=listaDatos[1]
+        if idTxtRespueta==0: #significa que es de la pregunta...
+            self.textoPregunta=texto
+        else: #significara que son los edit text de las respuestas..
+            self.textoRespuestas[idTxtRespueta-1]=texto
+        print(texto)
+
 
     def cambio_pregANDpregOR(self,idBtnFuePresionado):
         self.control_2.marcarDesmarcarRespuesta_automatico(idBtnFuePresionado,False)
@@ -152,6 +179,21 @@ class PreguntasMultiples(QtWidgets.QWidget, Ui_Form):
                                          f"de pregunta: '{self.listNombres_preguntasHibridas[idBtnFuePresionado]}' ?\n",
                                          QMessageBox.Yes | QMessageBox.No)
         if resultado == QMessageBox.Yes:
+            #actulizando contenido de respuestas
+            self.controlABSOULUTO_autoguardado.registrarRespuestas(False) #actualizamos los datos
+                                                     #del ultimo edit text que se estaba editando
+
+            #cargando el texto del edit text del widget al que nos pasaremos...
+            self.matrizEditTextPreguntas[idBtnFuePresionado][0].setText(self.textoPregunta)
+            #cargando el texto en lo edit text de las respuesta del widget donde nos pasaremos
+            for respuesta in range(len(self.textoRespuestas)):
+                self.matrizEditTextRespuestas[idBtnFuePresionado][respuesta].setText(self.textoRespuestas[respuesta])
+
+            #Refrescando las posiciones ya que por alguna extraña razon, cuando lo poner un nuevo
+            #texto su posicion de ve alterada
+            self.controlABSOLUTO_editTextPreguntas.refrescarPosEditText(idBtnFuePresionado)
+            self.controlABSOLUTO_editTextRespuestas.refrescarPosEditText(idBtnFuePresionado)
+
             self.listWidget_panelVersion.setCurrentIndex(idBtnFuePresionado)
             self.control.marcarDesmarcarRespuesta_automatico(idBtnFuePresionado,False)
 ################################################################################################################
@@ -174,3 +216,14 @@ if __name__ == "__main__":
 
 #https://www.quora.com/Whats-the-best-way-to-store-images-in-an-SQLite-database-using-Python-Ive-read-that-its-a-bad-idea-to-store-images-in-a-database-however-Im-not-building-a-mass-market-consumer-application-Is-it-a-bad-idea-What-are
 
+'''
+        self.controlABSOULUTO_autoguardadoResp=comportAutoguardado_textEdit(self.matrizEditTextRespuestas)
+        self.controlABSOULUTO_autoguardadoResp.horaGuardarCambios.connect(self.guardarCambiosRespuesta)
+
+        self.textoRespuestas=["","","",""] #a,b,c,d
+
+        self.controlABSOULUTO_autoguardadoPreg = comportAutoguardado_textEdit(self.matrizEditTextPreguntas)
+        self.controlABSOULUTO_autoguardadoPre.horaGuardarCambios.connect(self.guardarCambiosPregunta)
+        self.textoPregunta = ""
+
+'''
