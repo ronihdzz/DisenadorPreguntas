@@ -14,16 +14,47 @@ from functools import partial
 from comporSelecBtnsResp import comporSelecBtnsResp
 from comporEdit_TextEdit import comporEdit_TextEdit
 
-
+from PyQt5.QtCore import Qt, pyqtSignal, QFile,QObject
+from PyQt5.QtWidgets import (QApplication, QDialog, QLabel, QPushButton, QFileDialog,
+                             QLabel, QLineEdit, QMessageBox)
 #DISENOS DE LOS MULTIPLES TIPOS DE PREGUNTAS
+
+import numpy as np
+
+###############################################################################################################
+#   NUESTROS PAQUETES...
+###############################################################################################################
+from comportSelectImagen_label import comportSelectImagen_label
 
 
 #https://www.youtube.com/watch?v=P-SZn5eSDp8&list=PL7Euic11sPg_OYLhPN3QUh3BZINlhFApE
 class PreguntasMultiplesImagen50(QtWidgets.QWidget, Ui_Form):
+    alguienEligioImagen = pyqtSignal(list)  # idLabelEscogioImagen/direcImagenGuardada
+
     def __init__(self):
         Ui_Form.__init__(self)
         QtWidgets.QWidget.__init__(self)
         self.setupUi(self)
+
+        self.vectorRenglon_labelsImagen=np.array([[self.bel_pregImage]]).reshape(1,1)
+
+
+        self.controlABSOLUTO_pregImagen=comportSelectImagen_label(self,
+                                                                 self.vectorRenglon_labelsImagen,
+                                                                 "Roni",
+                                                                 "HOLA",
+                                                                "ICONOS/icon_escogerImagen.png")
+
+        self.controlABSOLUTO_pregImagen.alguienEligioImagen.connect(self.notificarMain)
+
+    def notificarMain(self,listaInformacion):
+        self.alguienEligioImagen.emit(listaInformacion)
+        idLabelEligioImagen=listaInformacion[0]
+        direcGuardoImagen=listaInformacion[1]
+        print("Label:",idLabelEligioImagen," Direc: ",direcGuardoImagen)
+
+    def comePolvo(self,id):
+        print("POLVO",id)
 
 
 
@@ -34,64 +65,3 @@ if __name__ == "__main__":
     app.exec()
     #sys.exit(app.exec())
 
-'''
-
-
-        ## Comportamiento de las ediciones de un edit text...
-        self.listBtnPosPreg = (self.btn_pregIzq, self.btn_pregCen, self.btn_pregDer)
-        self.control = comporEdit_TextEdit(self.listBtnPosPreg, self.dSpin_pregTam, [self.txtEdit_preg])
-
-        ## Comportamiento de las ediciones de un edit text...
-        self.listBtnPosResp = (self.btn_respIzq, self.btn_respCen, self.btn_respDer)
-        self.control2 = comporEdit_TextEdit(self.listBtnPosResp, self.dSpin_respTam,
-                                            [self.txtEdit_respA, self.txtEdit_respB, self.txtEdit_respC,
-                                             self.txtEdit_respD])
-
-        # Metodologia empleada para elegir las RESPUESTAS CORRECTAS
-        self.listBtnPunterosResp = (self.btn_respA, self.btn_respB, self.btn_respC, self.btn_respD)
-        self.control3 = comporSelecBtnsResp(self.listBtnPunterosResp)
-
-        #Botones...
-        self.btn_pregImage.clicked.connect(self.seleccionarImagen)
-
-
-    def seleccionarImagen(self):
-        imagen, extension = QFileDialog.getOpenFileName(self, "Seleccionar imagen", getcwd(),
-                                                        "Archivos de imagen (*.png *.jpg)",
-                                                        options=QFileDialog.Options())
-        if imagen:
-            # Adaptar imagen
-            ancho=self.bel_pregImage.width()
-            alto=self.bel_pregImage.height()
-
-            #pixmapImagen = QPixmap(imagen).scaled(ancho*0.9,alto*0.9, Qt.KeepAspectRatio,
-            #                                     Qt.SmoothTransformation)
-
-            pixmapImagen = QPixmap(imagen).scaled(ancho*0.95,alto*0.95, Qt.IgnoreAspectRatio,
-                                                 Qt.SmoothTransformation)
-
-            #Qt::IgnoreAspectRatio	0 El tamaño se escala libremente.
-            # La relación de aspecto no se conserva.
-
-            #Qt::KeepAspectRatio	1	El tamaño se escala a un rectángulo lo más
-            # grande posible dentro de un rectángulo dado, conservando la relación
-            # de aspecto.
-
-            #QPixmap QPixmap::scaled(int width, int height,
-            # Qt::AspectRatioMode aspectRatioMode = Qt::IgnoreAspectRatio,
-            # Qt::TransformationMode transformMode = Qt::FastTransformation)
-
-            #Qt::FastTransformation	0	La transformación se realiza rápidamente,
-            # sin suavizado.
-            # Qt::SmoothTransformation	1 La imagen resultante se transforma
-            # mediante filtrado bilineal.
-
-            # Mostrar imagen
-            self.bel_pregImage.setAlignment(Qt.AlignCenter)
-            self.bel_pregImage.setPixmap(pixmapImagen)
-
-
-
-
-
-'''
