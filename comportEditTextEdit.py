@@ -53,7 +53,7 @@ class comportEditTextEdit():
         self.editPosEditsText(1)
 
         #Estableciendo tamanos por default...
-        self.dSpinEditTam.setMinimum(8)
+        self.dSpinEditTam.setMinimum(10)
         self.dSpinEditTam.setMaximum(40)
         self.dSpinEditTam.setValue(15)
         self.dSpinEditTam.valueChanged.connect(self.cambiarTam)
