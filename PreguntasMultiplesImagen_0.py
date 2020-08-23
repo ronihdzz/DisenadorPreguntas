@@ -78,15 +78,6 @@ if __name__ == "__main__":
             self.dataPregunta["PREGUNTA"][0]=self.txtEdit_preg.toPlainText()
             print(self.dataPregunta["PREGUNTA"][0])
         self.puntero_guardarEnListCada+=1
-
-
-
-
-
-
-
-
-
 '''
 
 #FUENTE DE ICONOS:

@@ -18,7 +18,7 @@
     <rect>
      <x>10</x>
      <y>80</y>
-     <width>901</width>
+     <width>331</width>
      <height>531</height>
     </rect>
    </property>
@@ -26,9 +26,7 @@
     <number>0</number>
    </property>
    <property name="styleSheet">
-    <string notr="true">padding:0px;
-border: 1px solid red;
-</string>
+    <string notr="true"/>
    </property>
    <property name="frameShape">
     <enum>QFrame::NoFrame</enum>
@@ -221,7 +219,7 @@ border: 1px solid red;
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>80</x>
+     <x>70</x>
      <y>0</y>
      <width>141</width>
      <height>21</height>
@@ -234,7 +232,7 @@ border: 1px solid red;
   <widget class="QPushButton" name="btn_pregImag0">
    <property name="geometry">
     <rect>
-     <x>80</x>
+     <x>60</x>
      <y>20</y>
      <width>51</width>
      <height>51</height>
@@ -250,7 +248,7 @@ border: 1px solid red;
   <widget class="QPushButton" name="btn_pregImag50">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>140</x>
      <y>20</y>
      <width>51</width>
      <height>51</height>
@@ -261,19 +259,6 @@ border: 1px solid red;
    </property>
    <property name="text">
     <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_6">
-   <property name="geometry">
-    <rect>
-     <x>280</x>
-     <y>0</y>
-     <width>121</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Add CheckBox</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_7">
@@ -289,21 +274,63 @@ border: 1px solid red;
     <string>Tiempo pregunta</string>
    </property>
   </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>0</y>
+     <width>121</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Add CheckBox</string>
+   </property>
+  </widget>
   <widget class="QPushButton" name="btn_addCheckBox">
    <property name="geometry">
     <rect>
-     <x>300</x>
+     <x>280</x>
      <y>20</y>
      <width>51</width>
      <height>51</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/alinear/ICONOS/icon_addCheckBox.png);</string>
+    <string notr="true">border-image: url(:/alinear/ICONOS/icon_CheckBoxadd.png);</string>
    </property>
    <property name="text">
     <string/>
    </property>
+  </widget>
+  <widget class="QScrollArea" name="scroll_barra">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>80</y>
+     <width>551</width>
+     <height>531</height>
+    </rect>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOn</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>535</width>
+      <height>529</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources>

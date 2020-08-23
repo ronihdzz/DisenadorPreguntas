@@ -1,6 +1,7 @@
 <RCC>
   <qresource prefix="alinear">
-    <file>ICONOS/icon_addCheckBox.png</file>
+    <file>ICONOS/icon_CheckBoxadd.png</file>
+    <file>ICONOS/iconCheckBoxDelete.png</file>
     <file>ICONOS/icon_and.png</file>
     <file>ICONOS/icon_or.png</file>
     <file>IMAGENES/pregunta_add.png</file>

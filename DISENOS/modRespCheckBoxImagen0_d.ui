@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>894</width>
-    <height>521</height>
+    <width>330</width>
+    <height>504</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>10</x>
      <y>70</y>
      <width>301</width>
-     <height>341</height>
+     <height>381</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -32,35 +32,6 @@
 
 	border-radius: 10;</string>
    </property>
-  </widget>
-  <widget class="QScrollArea" name="scroll_barra">
-   <property name="geometry">
-    <rect>
-     <x>330</x>
-     <y>30</y>
-     <width>551</width>
-     <height>471</height>
-    </rect>
-   </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOn</enum>
-   </property>
-   <property name="horizontalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-   <property name="widgetResizable">
-    <bool>true</bool>
-   </property>
-   <widget class="QWidget" name="scrollAreaWidgetContents">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>535</width>
-      <height>469</height>
-     </rect>
-    </property>
-   </widget>
   </widget>
  </widget>
  <resources>

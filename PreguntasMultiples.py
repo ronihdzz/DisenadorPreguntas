@@ -90,6 +90,7 @@ class PreguntasMultiples(QtWidgets.QWidget, Ui_Form):
         self.controlABSOLUTO_editTextPreguntas = comportEditTextEdit(self.vectorRenglon_btnAlignPreguntas,
                                                                       self.dSpin_pregTam,
                                                                       self.matrizEditTextPreguntas)
+        print("QUE PEDO..",self.matrizEditTextPreguntas.shape)
 ####################################################################################################################################
 #       C O N T R O L    D E     BOTONES DE PREGUNTAS HIBRIDAS :
 ####################################################################################################################################

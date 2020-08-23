@@ -63,38 +63,41 @@ class comportEditTextEdit():
 #   S E C C I O N     DISENO DE PREGUNTAS Y RESPUESTAS
 ####################################################################################################
     def cambiarTam(self, newValor):
-        # Cambiando el tamaño
-        font = QtGui.QFont()
-        font.setPointSize(int(newValor))
-        for renglon in range(self.matrizEditText.shape[0]):
-            for columna in range(self.matrizEditText.shape[1]):
-                self.matrizEditText[renglon][columna].setFont(font)
+        if self.matrizEditText.shape[1]>0:
+            # Cambiando el tamaño
+            font = QtGui.QFont()
+            font.setPointSize(int(newValor))
+            for renglon in range(self.matrizEditText.shape[0]):
+                for columna in range(self.matrizEditText.shape[1]):
+                    self.matrizEditText[renglon][columna].setFont(font)
 
     def refrescarPosEditText(self,widgetNo):
         posicion=self.posPregunta
-        if posicion == 0:
-            for columna in range(self.matrizEditText.shape[1]):
-                self.matrizEditText[widgetNo][columna].setAlignment(Qt.AlignLeft)
-        elif posicion == 1:
-            for columna in range(self.matrizEditText.shape[1]):
-                self.matrizEditText[widgetNo][columna].setAlignment(Qt.AlignHCenter)
-        elif posicion == 2:
-            for columna in range(self.matrizEditText.shape[1]):
-                self.matrizEditText[widgetNo][columna].setAlignment(Qt.AlignRight)
+        if self.matrizEditText.shape[1]>0:
+            if posicion == 0:
+                for columna in range(self.matrizEditText.shape[1]):
+                    self.matrizEditText[widgetNo][columna].setAlignment(Qt.AlignLeft)
+            elif posicion == 1:
+                for columna in range(self.matrizEditText.shape[1]):
+                    self.matrizEditText[widgetNo][columna].setAlignment(Qt.AlignHCenter)
+            elif posicion == 2:
+                for columna in range(self.matrizEditText.shape[1]):
+                    self.matrizEditText[widgetNo][columna].setAlignment(Qt.AlignRight)
 
     def editPosEditsText(self, newPosicion):
-        if newPosicion == 0:
-            for renglon in range(self.matrizEditText.shape[0]):
-                for columna in range(self.matrizEditText.shape[1]):
-                    self.matrizEditText[renglon][columna].setAlignment(Qt.AlignLeft)
-        elif newPosicion == 1:
-            for renglon in range(self.matrizEditText.shape[0]):
-                for columna in range(self.matrizEditText.shape[1]):
-                    self.matrizEditText[renglon][columna].setAlignment(Qt.AlignHCenter)
-        elif newPosicion == 2:
-            for renglon in range(self.matrizEditText.shape[0]):
-                for columna in range(self.matrizEditText.shape[1]):
-                    self.matrizEditText[renglon][columna].setAlignment(Qt.AlignRight)
+        if self.matrizEditText.shape[1] > 0:
+            if newPosicion == 0:
+                for renglon in range(self.matrizEditText.shape[0]):
+                    for columna in range(self.matrizEditText.shape[1]):
+                        self.matrizEditText[renglon][columna].setAlignment(Qt.AlignLeft)
+            elif newPosicion == 1:
+                for renglon in range(self.matrizEditText.shape[0]):
+                    for columna in range(self.matrizEditText.shape[1]):
+                        self.matrizEditText[renglon][columna].setAlignment(Qt.AlignHCenter)
+            elif newPosicion == 2:
+                for renglon in range(self.matrizEditText.shape[0]):
+                    for columna in range(self.matrizEditText.shape[1]):
+                        self.matrizEditText[renglon][columna].setAlignment(Qt.AlignRight)
 
         self.vectorRenglon_btnAlin[0][self.posPregunta].setStyleSheet(f"background-color:{self.COLOR_NORMAL};"
                                                          f"border-image: url({self.listImagBtnPos[self.posPregunta]});")
