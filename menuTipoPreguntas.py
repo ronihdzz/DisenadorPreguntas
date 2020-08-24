@@ -28,17 +28,16 @@ class menuTipoPreguntas(QtWidgets.QDialog, Ui_Dialog):
         Ui_Dialog.__init__(self)
         QtWidgets.QDialog.__init__(self)
         self.setupUi(self)
-
         self.widgetTipoPreguntas = QWidget()
         self.hbox = QHBoxLayout()
         # imagenes de los iconos
         # Adaptar imagen
-        listModalidades = ["modalidad1_trueFalse.png", "modalidad2_cualDeTodas.png", "modalidad3_cualesSon.png",
-                           "modalidad5_programacion"]
+        listModalidades = ["icon_pregTrueFalse.png", "icon_pregMultiple.png",
+                           "icon_pregItems.png","icon_pregAbierta.png"]
         self.listTipoPreguntas=listModalidades
 
         for i in range(len(listModalidades)):
-            pixmapImagen = QPixmap("IMAGENES/"+listModalidades[i]).scaled(65, 65, Qt.KeepAspectRatio,
+            pixmapImagen = QPixmap("ICONOS/"+listModalidades[i]).scaled(65, 65, Qt.KeepAspectRatio,
                                                            Qt.SmoothTransformation)
             object = ImagenClick(i) # i=idPersona...
             object.setStyleSheet("margin: 1px;")
@@ -57,6 +56,8 @@ class menuTipoPreguntas(QtWidgets.QDialog, Ui_Dialog):
         self.scroll_visorTipoPreguntas.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.scroll_visorTipoPreguntas.setWidgetResizable(False)
         self.scroll_visorTipoPreguntas.setWidget(self.widgetTipoPreguntas)
+
+        self.setWindowTitle("Tipo de preguntas")
 
     def escogioPregunta(self,idPersona):
         self.usuarioEscogioPregunta.emit(idPersona)

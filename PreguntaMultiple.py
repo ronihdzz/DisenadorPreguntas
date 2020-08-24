@@ -112,6 +112,7 @@ class PreguntaMultiple(QtWidgets.QWidget, Ui_Form):
         self.mutacionPregunta=0
         self.control.btnElegido=-1
         self.control.marcarDesmarcarRespuesta_automatico(self.mutacionPregunta,False)
+
 ####################################################################################################################################
 #       C O N T R O L    D E   PREGUNTAS ESPECIFICAS U ABIERTAS :
 ####################################################################################################################################

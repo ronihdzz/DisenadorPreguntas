@@ -14,6 +14,7 @@ from organizacion import constProgram
 from PreguntaMultiple import PreguntaMultiple
 from PreguntaBinaria import PreguntaBinaria
 from PreguntaCheckBox import PreguntaCheckBox
+from PreguntaAbierta import PreguntaAbierta
 
 
 
@@ -65,6 +66,7 @@ class CreadorPreguntas(QtWidgets.QMainWindow, Ui_MainWindow):
         self.ventanas.append( PreguntaBinaria()  )#pregunta binaria
         self.ventanas.append( PreguntaMultiple()  ) #pregunta multiple
         self.ventanas.append( PreguntaCheckBox()  ) #pregunta checbox
+        self.ventanas.append( PreguntaAbierta() )#pregunta abierta
 
         #Cargando todos los disenos
         for i in range(len(self.ventanas)):

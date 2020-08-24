@@ -1,5 +1,9 @@
 <RCC>
   <qresource prefix="alinear">
+    <file>ICONOS/icon_respNumber.png</file>
+    <file>ICONOS/icon_respPalabra.png</file>
+    <file>ICONOS/icon_dificultadFacil.png</file>
+    <file>ICONOS/icon_dificultadDificil.png</file>
     <file>ICONOS/icon_CheckBoxadd.png</file>
     <file>ICONOS/iconCheckBoxDelete.png</file>
     <file>ICONOS/icon_and.png</file>

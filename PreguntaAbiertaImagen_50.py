@@ -1,0 +1,41 @@
+from PyQt5 import QtWidgets
+
+from PyQt5.QtCore import pyqtSignal
+from DISENOS.modRespAbiertaImagen50_d import  Ui_Form
+from comportSelectImagen_label import comportSelectImagen_label
+import numpy as np
+#DISENOS DE LOS MULTIPLES TIPOS DE PREGUNTAS
+
+
+#https://www.youtube.com/watch?v=P-SZn5eSDp8&list=PL7Euic11sPg_OYLhPN3QUh3BZINlhFApE
+class PreguntaAbiertaImagen_50(QtWidgets.QWidget, Ui_Form):
+    alguienEligioImagen = pyqtSignal(list)  # idLabelEscogioImagen/direcImagenGuardada
+
+    def __init__(self):
+        Ui_Form.__init__(self)
+        QtWidgets.QWidget.__init__(self)
+        self.setupUi(self)
+
+        self.vectorRenglon_labelsImagen=np.array([[self.bel_pregImage]]).reshape(1,1)
+
+
+        self.controlABSOLUTO_pregImagen=comportSelectImagen_label(self,
+                                                                 self.vectorRenglon_labelsImagen,
+                                                                 "Roni",
+                                                                 "HOLA",
+                                                                "ICONOS/icon_escogerImagen.png")
+
+        self.controlABSOLUTO_pregImagen.alguienEligioImagen.connect(self.notificarMain)
+
+    def notificarMain(self,listaInformacion):
+        self.alguienEligioImagen.emit(listaInformacion)
+        idLabelEligioImagen=listaInformacion[0]
+        direcGuardoImagen=listaInformacion[1]
+        print("Label:",idLabelEligioImagen," Direc: ",direcGuardoImagen)
+
+if __name__ == "__main__":
+    app = QtWidgets.QApplication([])
+    application = PreguntaAbiertaImagen_50()
+    application.show()
+    app.exec()
+    #sys.exit(app.exec())
