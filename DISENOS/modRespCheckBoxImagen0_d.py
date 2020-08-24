@@ -11,9 +11,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(330, 504)
+        Form.resize(324, 490)
         self.txtEdit_preg = QtWidgets.QTextEdit(Form)
-        self.txtEdit_preg.setGeometry(QtCore.QRect(10, 70, 301, 381))
+        self.txtEdit_preg.setGeometry(QtCore.QRect(10, 50, 301, 381))
         self.txtEdit_preg.setStyleSheet("  background-color: #19232D;\n"
 "  border: 0px solid #32414B;\n"
 "  padding: 0px;\n"

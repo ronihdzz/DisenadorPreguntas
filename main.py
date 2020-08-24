@@ -4,20 +4,17 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QTableWidgetItem #para las tablas...
 
 from PyQt5.QtGui import QIcon, QPixmap
-from DISENOS.creadorPreguntasMain_d import  Ui_Form
+from DISENOS.CreadorPreguntasMain_d import Ui_MainWindow
 from menuTipoPreguntas import menuTipoPreguntas
 
-#DISENOS DE LOS MULTIPLES TIPOS DE PREGUNTAS
-from PreguntasEspecificas import PreguntasEspecificas
-from PreguntasBinarias import PreguntasBinarias
-
-
-from PreguntasMultiplesImagen_50 import PreguntasMultiplesImagen50
-from PreguntasMultiplesImagen_100 import PreguntasMultiplesImagen100
 
 from PyQt5.QtCore import Qt, pyqtSignal, QFile
 from organizacion import constProgram
-from PreguntasMultiples import PreguntasMultiples
+
+from PreguntaMultiple import PreguntaMultiple
+from PreguntaBinaria import PreguntaBinaria
+from PreguntaCheckBox import PreguntaCheckBox
+
 
 
 class BotonChismoso(QPushButton):
@@ -41,10 +38,10 @@ class ImagenClick(QLabel):
             self.clicked.emit(self.idImagen)
 
 
-class evalEqui_1(QtWidgets.QWidget, Ui_Form):
+class CreadorPreguntas(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
-        Ui_Form.__init__(self)
-        QtWidgets.QWidget.__init__(self)
+        Ui_MainWindow.__init__(self)
+        QtWidgets.QMainWindow.__init__(self)
         self.setupUi(self)
 
 
@@ -65,27 +62,20 @@ class evalEqui_1(QtWidgets.QWidget, Ui_Form):
         #creando multiples ventanas...
         self.ventanas=[]
 
-        self.ventanas.append( PreguntasMultiples()  )#pregunta binaria
-        self.ventanas.append( PreguntasMultiples()  ) #preguntas multiples
-        self.ventanas.append( PreguntasMultiples()  ) #preguntas especificas
-        self.ventanas.append( PreguntasMultiples()  ) #abiertas
-        self.ventanas.append( PreguntasMultiples()  )#de codigo
-
-
+        self.ventanas.append( PreguntaBinaria()  )#pregunta binaria
+        self.ventanas.append( PreguntaMultiple()  ) #pregunta multiple
+        self.ventanas.append( PreguntaCheckBox()  ) #pregunta checbox
 
         #Cargando todos los disenos
         for i in range(len(self.ventanas)):
             self.listWidget_panelPreguntas.addWidget(self.ventanas[i])
 
-
         # VENTANA CON LA QUE SE INICIA POR DEFAULT...
         self.listWidget_panelPreguntas.setCurrentIndex(0)
         self.listWidget_panelPreguntas.showFullScreen()
 
-
         self.listBotonesPreguntas=[]
         self.contadorPreguntas=0
-
 
 
     def cambioPregunta(self,pregunta):
@@ -97,7 +87,6 @@ class evalEqui_1(QtWidgets.QWidget, Ui_Form):
         self.ventanaMenuPregunta.show()
 
     def escogioPregunta(self,idPregunta):
-        if idPregunta==constProgram.PREG_MULTIPLES:
             self.listWidget_panelPreguntas.setCurrentIndex(idPregunta)
             self.agregarPregunta()
 
@@ -114,7 +103,7 @@ class evalEqui_1(QtWidgets.QWidget, Ui_Form):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
-    application = evalEqui_1()
+    application = CreadorPreguntas()
     application.show()
     app.exec()
     #sys.exit(app.exec())

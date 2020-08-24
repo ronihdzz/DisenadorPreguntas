@@ -11,9 +11,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(898, 514)
+        Form.resize(898, 488)
         self.txtEdit_preg = QtWidgets.QTextEdit(Form)
-        self.txtEdit_preg.setGeometry(QtCore.QRect(30, 20, 851, 201))
+        self.txtEdit_preg.setGeometry(QtCore.QRect(30, 10, 851, 201))
         self.txtEdit_preg.setStyleSheet("  background-color: #19232D;\n"
 "  border: 0px solid #32414B;\n"
 "  padding: 0px;\n"
@@ -24,7 +24,7 @@ class Ui_Form(object):
 "    border-radius: 10;")
         self.txtEdit_preg.setObjectName("txtEdit_preg")
         self.txtEdit_respA = QtWidgets.QTextEdit(Form)
-        self.txtEdit_respA.setGeometry(QtCore.QRect(60, 250, 381, 111))
+        self.txtEdit_respA.setGeometry(QtCore.QRect(60, 230, 381, 111))
         self.txtEdit_respA.setStyleSheet("  background-color: #19232D;\n"
 "  border: 0px solid #32414B;\n"
 "  padding: 0px;\n"
@@ -35,7 +35,7 @@ class Ui_Form(object):
 "    border-radius: 10;")
         self.txtEdit_respA.setObjectName("txtEdit_respA")
         self.btn_respA = QtWidgets.QPushButton(Form)
-        self.btn_respA.setGeometry(QtCore.QRect(10, 280, 41, 41))
+        self.btn_respA.setGeometry(QtCore.QRect(10, 260, 41, 41))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.btn_respA.setFont(font)
@@ -44,7 +44,7 @@ class Ui_Form(object):
 "border: 1px solid #555;")
         self.btn_respA.setObjectName("btn_respA")
         self.txtEdit_respB = QtWidgets.QTextEdit(Form)
-        self.txtEdit_respB.setGeometry(QtCore.QRect(60, 390, 381, 111))
+        self.txtEdit_respB.setGeometry(QtCore.QRect(60, 370, 381, 111))
         self.txtEdit_respB.setStyleSheet("  background-color: #19232D;\n"
 "  border: 0px solid #32414B;\n"
 "  padding: 0px;\n"
@@ -55,7 +55,7 @@ class Ui_Form(object):
 "    border-radius: 10;")
         self.txtEdit_respB.setObjectName("txtEdit_respB")
         self.btn_respB = QtWidgets.QPushButton(Form)
-        self.btn_respB.setGeometry(QtCore.QRect(10, 420, 41, 41))
+        self.btn_respB.setGeometry(QtCore.QRect(10, 400, 41, 41))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.btn_respB.setFont(font)
@@ -64,7 +64,7 @@ class Ui_Form(object):
 "border: 1px solid #555;")
         self.btn_respB.setObjectName("btn_respB")
         self.txtEdit_respD = QtWidgets.QTextEdit(Form)
-        self.txtEdit_respD.setGeometry(QtCore.QRect(500, 390, 381, 111))
+        self.txtEdit_respD.setGeometry(QtCore.QRect(500, 370, 381, 111))
         self.txtEdit_respD.setStyleSheet("  background-color: #19232D;\n"
 "  border: 0px solid #32414B;\n"
 "  padding: 0px;\n"
@@ -75,7 +75,7 @@ class Ui_Form(object):
 "    border-radius: 10;")
         self.txtEdit_respD.setObjectName("txtEdit_respD")
         self.btn_respD = QtWidgets.QPushButton(Form)
-        self.btn_respD.setGeometry(QtCore.QRect(450, 420, 41, 41))
+        self.btn_respD.setGeometry(QtCore.QRect(450, 400, 41, 41))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.btn_respD.setFont(font)
@@ -84,7 +84,7 @@ class Ui_Form(object):
 "border: 1px solid #555;")
         self.btn_respD.setObjectName("btn_respD")
         self.txtEdit_respC = QtWidgets.QTextEdit(Form)
-        self.txtEdit_respC.setGeometry(QtCore.QRect(500, 250, 381, 111))
+        self.txtEdit_respC.setGeometry(QtCore.QRect(500, 230, 381, 111))
         self.txtEdit_respC.setStyleSheet("  background-color: #19232D;\n"
 "  border: 0px solid #32414B;\n"
 "  padding: 0px;\n"
@@ -95,7 +95,7 @@ class Ui_Form(object):
 "    border-radius: 10;")
         self.txtEdit_respC.setObjectName("txtEdit_respC")
         self.btn_respC = QtWidgets.QPushButton(Form)
-        self.btn_respC.setGeometry(QtCore.QRect(450, 280, 41, 41))
+        self.btn_respC.setGeometry(QtCore.QRect(450, 260, 41, 41))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.btn_respC.setFont(font)

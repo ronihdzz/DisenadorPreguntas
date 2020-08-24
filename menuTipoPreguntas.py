@@ -59,25 +59,8 @@ class menuTipoPreguntas(QtWidgets.QDialog, Ui_Dialog):
         self.scroll_visorTipoPreguntas.setWidget(self.widgetTipoPreguntas)
 
     def escogioPregunta(self,idPersona):
-
-        self.close()
         self.usuarioEscogioPregunta.emit(idPersona)
-
-        '''
-        resultado = QMessageBox.question(self, "DelphiPreguntas",
-                                         "Escogiste el tipo de pregunta: \n"
-                                         f" -{self.listTipoPreguntas[idPersona]} \n"
-                                         " ¿Estas seguro?\n",
-                                         QMessageBox.Yes | QMessageBox.No)
-        if resultado == QMessageBox.Yes:
-            self.usuarioEscogioPregunta.emit(idPersona)
-            print(idPersona)
-            self.close()
-        else:
-            print("hola")     
-        '''
-
-
+        self.close()
 
 
 

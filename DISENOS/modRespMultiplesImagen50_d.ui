@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>899</width>
-    <height>525</height>
+    <height>488</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,9 +17,9 @@
    <property name="geometry">
     <rect>
      <x>520</x>
-     <y>20</y>
+     <y>10</y>
      <width>371</width>
-     <height>111</height>
+     <height>101</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -59,7 +59,7 @@
      <x>20</x>
      <y>140</y>
      <width>441</width>
-     <height>371</height>
+     <height>341</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -80,7 +80,7 @@
    <property name="geometry">
     <rect>
      <x>470</x>
-     <y>50</y>
+     <y>40</y>
      <width>41</width>
      <height>41</height>
     </rect>
@@ -103,9 +103,9 @@ border: 1px solid #555;</string>
    <property name="geometry">
     <rect>
      <x>520</x>
-     <y>150</y>
+     <y>130</y>
      <width>371</width>
-     <height>111</height>
+     <height>101</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -123,9 +123,9 @@ border: 1px solid #555;</string>
    <property name="geometry">
     <rect>
      <x>520</x>
-     <y>280</y>
+     <y>250</y>
      <width>371</width>
-     <height>111</height>
+     <height>101</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -143,9 +143,9 @@ border: 1px solid #555;</string>
    <property name="geometry">
     <rect>
      <x>520</x>
-     <y>410</y>
+     <y>370</y>
      <width>371</width>
-     <height>111</height>
+     <height>101</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -163,7 +163,7 @@ border: 1px solid #555;</string>
    <property name="geometry">
     <rect>
      <x>470</x>
-     <y>180</y>
+     <y>160</y>
      <width>41</width>
      <height>41</height>
     </rect>
@@ -186,7 +186,7 @@ border: 1px solid #555;</string>
    <property name="geometry">
     <rect>
      <x>470</x>
-     <y>310</y>
+     <y>280</y>
      <width>41</width>
      <height>41</height>
     </rect>
@@ -209,7 +209,7 @@ border: 1px solid #555;</string>
    <property name="geometry">
     <rect>
      <x>470</x>
-     <y>440</y>
+     <y>400</y>
      <width>41</width>
      <height>41</height>
     </rect>

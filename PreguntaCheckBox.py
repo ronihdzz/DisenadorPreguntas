@@ -158,6 +158,7 @@ class PreguntaCheckBox(QtWidgets.QWidget, Ui_Form):
                                    "QCheckBox::indicator:pressed{background-color:#0C868C;}"
                                    )
             textEdit = QTextEdit()
+            textEdit.setStyleSheet("border: 1px solid black;")
             botonCerrar = QPushButton()
             a="QPushButton{border-image:url("+self.IMAGEN_ELIMINAR+");}"
             b="QPushButton:hover{border-image:url("+self.IMAGEN_ELIMINAR_2+");}"

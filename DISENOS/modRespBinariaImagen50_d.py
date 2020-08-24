@@ -11,30 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(899, 525)
-        self.txtEdit_preg = QtWidgets.QTextEdit(Form)
-        self.txtEdit_preg.setGeometry(QtCore.QRect(20, 10, 441, 121))
-        self.txtEdit_preg.setStyleSheet("  background-color: #19232D;\n"
-"  border: 0px solid #32414B;\n"
-"  padding: 0px;\n"
-"  color: #F0F0F0;\n"
-"  selection-background-color: #1464A0;\n"
-"  selection-color: #F0F0F0;\n"
-"\n"
-"    border-radius: 10;")
-        self.txtEdit_preg.setObjectName("txtEdit_preg")
-        self.bel_pregImage = QtWidgets.QLabel(Form)
-        self.bel_pregImage.setGeometry(QtCore.QRect(20, 140, 441, 371))
-        self.bel_pregImage.setStyleSheet("  background-color: #19232D;\n"
-"  border: 0px solid #32414B;\n"
-"  padding: 0px;\n"
-"  color: #F0F0F0;\n"
-"  selection-background-color: #1464A0;\n"
-"  selection-color: #F0F0F0;\n"
-"\n"
-"    border-radius: 10;")
-        self.bel_pregImage.setText("")
-        self.bel_pregImage.setObjectName("bel_pregImage")
+        Form.resize(899, 488)
         self.btn_respA = QtWidgets.QPushButton(Form)
         self.btn_respA.setGeometry(QtCore.QRect(470, 140, 41, 41))
         font = QtGui.QFont()
@@ -75,6 +52,29 @@ class Ui_Form(object):
 "\n"
 "    border-radius: 10;")
         self.txtEdit_respB.setObjectName("txtEdit_respB")
+        self.bel_pregImage = QtWidgets.QLabel(Form)
+        self.bel_pregImage.setGeometry(QtCore.QRect(10, 140, 441, 341))
+        self.bel_pregImage.setStyleSheet("  background-color: #19232D;\n"
+"  border: 0px solid #32414B;\n"
+"  padding: 0px;\n"
+"  color: #F0F0F0;\n"
+"  selection-background-color: #1464A0;\n"
+"  selection-color: #F0F0F0;\n"
+"\n"
+"    border-radius: 10;")
+        self.bel_pregImage.setText("")
+        self.bel_pregImage.setObjectName("bel_pregImage")
+        self.txtEdit_preg = QtWidgets.QTextEdit(Form)
+        self.txtEdit_preg.setGeometry(QtCore.QRect(10, 10, 441, 121))
+        self.txtEdit_preg.setStyleSheet("  background-color: #19232D;\n"
+"  border: 0px solid #32414B;\n"
+"  padding: 0px;\n"
+"  color: #F0F0F0;\n"
+"  selection-background-color: #1464A0;\n"
+"  selection-color: #F0F0F0;\n"
+"\n"
+"    border-radius: 10;")
+        self.txtEdit_preg.setObjectName("txtEdit_preg")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)

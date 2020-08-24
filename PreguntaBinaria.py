@@ -22,7 +22,7 @@ from PyQt5.QtWidgets import  QMessageBox
 import numpy as np
 
 #https://www.youtube.com/watch?v=P-SZn5eSDp8&list=PL7Euic11sPg_OYLhPN3QUh3BZINlhFApE
-class PreguntasMultiples(QtWidgets.QWidget, Ui_Form):
+class PreguntaBinaria(QtWidgets.QWidget, Ui_Form):
     def __init__(self):
         Ui_Form.__init__(self)
         QtWidgets.QWidget.__init__(self)
@@ -203,7 +203,7 @@ class PreguntasMultiples(QtWidgets.QWidget, Ui_Form):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
-    application = PreguntasMultiples()
+    application = PreguntaBinaria()
     application.show()
     app.exec()
     #sys.exit(app.exec())

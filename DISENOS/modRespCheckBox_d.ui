@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>915</width>
-    <height>623</height>
+    <width>913</width>
+    <height>558</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,9 +17,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>80</y>
+     <y>60</y>
      <width>331</width>
-     <height>531</height>
+     <height>491</height>
     </rect>
    </property>
    <property name="toolTipDuration">
@@ -42,7 +42,7 @@
    <property name="geometry">
     <rect>
      <x>520</x>
-     <y>40</y>
+     <y>20</y>
      <width>69</width>
      <height>26</height>
     </rect>
@@ -52,7 +52,7 @@
    <property name="geometry">
     <rect>
      <x>490</x>
-     <y>40</y>
+     <y>20</y>
      <width>21</width>
      <height>21</height>
     </rect>
@@ -71,7 +71,7 @@
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>40</y>
+     <y>20</y>
      <width>21</width>
      <height>21</height>
     </rect>
@@ -90,7 +90,7 @@
    <property name="geometry">
     <rect>
      <x>430</x>
-     <y>40</y>
+     <y>20</y>
      <width>21</width>
      <height>21</height>
     </rect>
@@ -108,15 +108,15 @@
   <widget class="QTimeEdit" name="timeEdit">
    <property name="geometry">
     <rect>
-     <x>790</x>
-     <y>40</y>
+     <x>800</x>
+     <y>20</y>
      <width>101</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>20</pointsize>
+     <pointsize>14</pointsize>
     </font>
    </property>
    <property name="alignment">
@@ -132,37 +132,11 @@
     <number>0</number>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>620</x>
-     <y>0</y>
-     <width>141</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Posicion respuestas</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>450</x>
-     <y>0</y>
-     <width>141</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Posicion pregunta</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="btn_respCen">
    <property name="geometry">
     <rect>
      <x>640</x>
-     <y>40</y>
+     <y>20</y>
      <width>21</width>
      <height>21</height>
     </rect>
@@ -178,7 +152,7 @@
    <property name="geometry">
     <rect>
      <x>605</x>
-     <y>40</y>
+     <y>20</y>
      <width>21</width>
      <height>21</height>
     </rect>
@@ -194,7 +168,7 @@
    <property name="geometry">
     <rect>
      <x>700</x>
-     <y>40</y>
+     <y>20</y>
      <width>69</width>
      <height>26</height>
     </rect>
@@ -204,7 +178,7 @@
    <property name="geometry">
     <rect>
      <x>670</x>
-     <y>40</y>
+     <y>20</y>
      <width>21</width>
      <height>21</height>
     </rect>
@@ -219,11 +193,16 @@
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>70</x>
+     <x>80</x>
      <y>0</y>
-     <width>141</width>
-     <height>21</height>
+     <width>81</width>
+     <height>16</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
    </property>
    <property name="text">
     <string>Incluir imagenes</string>
@@ -232,10 +211,10 @@
   <widget class="QPushButton" name="btn_pregImag0">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>80</x>
      <y>20</y>
-     <width>51</width>
-     <height>51</height>
+     <width>31</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -250,8 +229,8 @@
     <rect>
      <x>140</x>
      <y>20</y>
-     <width>51</width>
-     <height>51</height>
+     <width>31</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -261,27 +240,19 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_7">
-   <property name="geometry">
-    <rect>
-     <x>780</x>
-     <y>0</y>
-     <width>121</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Tiempo pregunta</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
      <x>260</x>
      <y>0</y>
-     <width>121</width>
-     <height>21</height>
+     <width>81</width>
+     <height>16</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
    </property>
    <property name="text">
     <string>Add CheckBox</string>
@@ -292,8 +263,8 @@
     <rect>
      <x>280</x>
      <y>20</y>
-     <width>51</width>
-     <height>51</height>
+     <width>31</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -307,10 +278,13 @@
    <property name="geometry">
     <rect>
      <x>350</x>
-     <y>80</y>
+     <y>60</y>
      <width>551</width>
-     <height>531</height>
+     <height>491</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"> border: none;</string>
    </property>
    <property name="verticalScrollBarPolicy">
     <enum>Qt::ScrollBarAlwaysOn</enum>
@@ -326,11 +300,78 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>535</width>
-      <height>529</height>
+      <width>537</width>
+      <height>491</height>
      </rect>
     </property>
    </widget>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>50</y>
+     <width>841</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>0</y>
+     <width>91</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Posicion pregunta</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>0</y>
+     <width>101</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Posicion respuesta</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_10">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>0</y>
+     <width>101</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Tiempo de pregunta</string>
+   </property>
   </widget>
  </widget>
  <resources>
