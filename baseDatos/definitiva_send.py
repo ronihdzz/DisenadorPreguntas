@@ -1,44 +1,69 @@
 import sqlite3
 
-"""
-miCursor.execute('''
-        CREATE TABLE PREGUNTAS(
-        ID_PREGUNTA INTEGER,
-        MUTACION INTEGER,
-        PREG_TEXT VARCHAR(50),
-        PREG_IMAG VARCHAR(50),
-        RESPA_TEXT VARCHAR(50),
-        RESPA_IMAG VARCHAR(50),
-        RESPB_TEXT VARCHAR(50),
-        RESPB_IMAG VARCHAR(50),
-        RESPC_TEXT VARCHAR(50),
-        RESPC_IMAG VARCHAR(50),
-        RESPD_TEXT VARCHAR(50),
-        RESPD_IMAG VARCHAR(50) )
-       '''
-)
-"""
+def getNameBaseAlmaPreg(tipoRespuesta):
+    tuplaNombresBases=( ("RESP_trueFalse",5),
+                        ("RESP_multiples",9),
+                        ("RESP_items",3),
+                        ("RESP_abiertas",2)
+                     )
+    numeroBases = len(tuplaNombresBases)
+    if 0<=tipoRespuesta<numeroBases:
+        return tuplaNombresBases[tipoRespuesta]
 
-miConexion=sqlite3.connect("Multiples")
-miCursor=miConexion.cursor()
+def saveDataRespPreg(basePrincipal,nombreBaseRespuestas,datos):
+    miConexion = sqlite3.connect(basePrincipal)
+    miCursor = miConexion.cursor()
+    sqlOrden = "INSERT INTO "+nombreBaseRespuestas+" VALUES "+datos
+    print(sqlOrden)
+    miCursor.execute(sqlOrden)
+    miConexion.commit()
+    miConexion.close()
 
-productos=[
-    (10, 2, "hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola"),
-    (10, 2, "hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola"),
-    (10, 2, "hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola"),
-    (10, 2, "hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola"),
-    (10, 2, "hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola", "hola")
-]
 
-#como podemos ver en la seccion de clave, pusimos un NULL ya que de esa
-#manera le indicamos a python que no ponemos dato ahi,porque es el que
-#el generara como ID
-#Dentro de la funcion va la instruccion SQLITE
-miCursor.executemany("INSERT INTO PREGUNTAS VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",productos)
+def addNewQuestion(basePrincipal,nombreBasePreguntas,datos,tipoRespuesta):
+    miConexion=sqlite3.connect(basePrincipal)
+    miCursor=miConexion.cursor()
+    sqlOrden = "INSERT INTO " + nombreBasePreguntas + " VALUES " + datos
+    miCursor.execute(sqlOrden)
+    idAsignado=miCursor.lastrowid #obteniendo el link asignado...
+    print(idAsignado)
+    miConexion.commit()
+    miConexion.close()
+    baseResp=getNameBaseAlmaPreg(tipoRespuesta)
+    datosNull="("+str(idAsignado)+","
+    #Almenos debe valer 2, ya que todos tienen
+    #por default el ID, y aparte tan siquiera
+    #deben tener un dato que es el que almacenan
+    for i in range(baseResp[1]-2):
+        datosNull+="NULL,"
+    datosNull+="NULL)"
+    print(datosNull)
+    saveDataRespPreg(basePrincipal,baseResp[0],datosNull)
 
-#Confirmamos los cambios...
-miConexion.commit()
-miConexion.close()
+def getQuestion(basePrincipal,nombreBasePreguntas,idPregunta):
+    miConexion=sqlite3.connect(basePrincipal)
+    miCursor=miConexion.cursor()
+    sqlOrden = "SELECT * FROM " + nombreBasePreguntas + " WHERE ID="+str(idPregunta)
+    miCursor.execute(sqlOrden)
+    datosPregunta = miCursor.fetchall()  # devuelve una lista con
+    # todos los registros que devuelve
+    # la instruccion sql
 
-#¿QUE PASO SI INGRESO UN DATO CON UNA CLAVE QUE YA EXISTE?
-#Marcara error porque esa clave ya existe..
+    #Obteniendo el dato de las preguntas....
+    baseResp = getNameBaseAlmaPreg(datosPregunta[0][1]) #ahi esta el tipo de pregunta....
+    sqlOrden = "SELECT * FROM " + baseResp[0] + " WHERE ID=" + str(idPregunta)
+    miCursor.execute(sqlOrden)
+    datosRespuesta = miCursor.fetchall()  # devuelve una lista con
+    miConexion.commit()
+    miConexion.close()
+    return datosPregunta,datosRespuesta
+
+
+
+#(gradoImagenes,tiempoSegundos,textoPregunta,imagenPregunta,tamPregunta,posicionPregunta,tipoRespuesta
+# tamanoRespuesta,posicionRespuesta,formaEvaluar,respuestas)
+#DATOS="(NULL,2,0,120,'¿Cual es tu item?','pene.png',10,0,15,0,0,'00011')"
+#addNewQuestion("CreadorPreguntas","TABLA_PREGUNTAS",DATOS,2)
+
+print(getQuestion("CreadorPreguntas","TABLA_PREGUNTAS",5))
+
