@@ -197,6 +197,12 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form):
 
             self.listWidget_panelVersion.setCurrentIndex(idBtnFuePresionado)
             self.control.marcarDesmarcarRespuesta_automatico(idBtnFuePresionado,False)
+
+    def getDatos(self):
+
+
+        pass
+
 ################################################################################################################
 
 

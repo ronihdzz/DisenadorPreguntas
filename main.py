@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets,QtGui,Qt,QtCore
-from PyQt5.QtWidgets import QWidget,QVBoxLayout,QLabel,QPushButton,QHBoxLayout
+from PyQt5.QtWidgets import QWidget,QVBoxLayout,QLabel,QPushButton,QHBoxLayout,QGridLayout
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QTableWidgetItem #para las tablas...
 
@@ -15,17 +15,44 @@ from PreguntaMultiple import PreguntaMultiple
 from PreguntaBinaria import PreguntaBinaria
 from PreguntaCheckBox import PreguntaCheckBox
 from PreguntaAbierta import PreguntaAbierta
+from DataBaseCreadorPreguntas import DataBaseCreadorPreguntas
+from PyQt5.QtCore import Qt, pyqtSignal, QFile,QObject
+from PyQt5.QtWidgets import  QMessageBox
 
+class BotonPregunta(QObject):
+    suHoraMorir= pyqtSignal(int)#indicara quien es el objeto que quiere morir...
+    clickBotonPregunta=pyqtSignal(int)#indicara el id del boton
+    def __init__(self,id,botonPregunta,botonMuerte):
+        QObject.__init__(self)
+        self.id=id
+        self.botonPregunta=botonPregunta
+        self.botonMuerte=botonMuerte
+        self.botonPregunta.setText(str(self.id+1))
 
+        self.botonMuerte.clicked.connect(self.mandarSenalMuerto)
+        self.botonPregunta.clicked.connect(self.darIdBotonPregunta)
 
-class BotonChismoso(QPushButton):
-    click = pyqtSignal(int)
-    def __init__(self,idBoton):
-        self.idBoton=idBoton
-        QtWidgets.QLabel.__init__(self)
+        self.COLOR_NORMAL = "#EAE5E5"
+        self.COLOR_SELECCION = "#58C3D0"
+        self.BORDER_RADIUS = "7"
+        self.botonSeleccionado(False)
 
-    def mousePressEvent(self, event):
-        self.click.emit(self.idBoton)
+    def botonSeleccionado(self,botonPresionado):
+        if botonPresionado:
+            self.botonPregunta.setStyleSheet(f"background-color:{self.COLOR_SELECCION};"
+                                                            f"border-radius:{self.BORDER_RADIUS}px;"
+                                                            "border: 0.5px solid #555;")
+        else:
+            self.botonPregunta.setStyleSheet(f"background-color:{self.COLOR_NORMAL};"
+                                                            f"border-radius:{self.BORDER_RADIUS}px;"
+                                                            "border: 0.5px solid #555;")
+
+    def mandarSenalMuerto(self):
+        self.suHoraMorir.emit(self.id)
+
+    def darIdBotonPregunta(self):
+        self.clickBotonPregunta.emit(self.id)
+
 
 
 class ImagenClick(QLabel):
@@ -45,6 +72,20 @@ class CreadorPreguntas(QtWidgets.QMainWindow, Ui_MainWindow):
         QtWidgets.QMainWindow.__init__(self)
         self.setupUi(self)
 
+        self.nombreCuestionario = "MiCora"
+        self.controlABSOLUTO_baseDatos = DataBaseCreadorPreguntas(self.nombreCuestionario)
+        self.controlABSOLUTO_baseDatos.crearBaseDatos()
+        self.listBotonesPreguntas=[]
+        self.listIdPreguntas=[]
+        self.punteroPregunta=-1 #numero que no puede ser ningun puntero al incio
+
+        #Acciones del menu...
+        self.actionGuardar.setShortcut("Ctrl+g")
+        self.actionCrear_nueva_pregunta.setShortcut("Ctrl+n")
+        self.actionGuardar.triggered.connect(self.guardarCambios)
+        self.actionCrear_nueva_pregunta.triggered.connect(self.crearOtraPregunta)
+
+
 
 
 
@@ -59,10 +100,8 @@ class CreadorPreguntas(QtWidgets.QMainWindow, Ui_MainWindow):
         self.scroll_barra.setWidget(self.widget)
         self.btn_mas.clicked.connect(self.crearOtraPregunta)
 
-
         #creando multiples ventanas...
         self.ventanas=[]
-
         self.ventanas.append( PreguntaBinaria()  )#pregunta binaria
         self.ventanas.append( PreguntaMultiple()  ) #pregunta multiple
         self.ventanas.append( PreguntaCheckBox()  ) #pregunta checbox
@@ -79,27 +118,76 @@ class CreadorPreguntas(QtWidgets.QMainWindow, Ui_MainWindow):
         self.listBotonesPreguntas=[]
         self.contadorPreguntas=0
 
+        self.IMAGEN_ELIMINAR="ICONOS/icon_tache.png"
+        self.IMAGEN_ELIMINAR_2="ICONOS/icon_tache2.png"
+
+    def guardarCambios(self):
+        print("GUARADAR...")
+        #mostrando mensaje por 1 segundo
+        self.statusbar.showMessage('Guardando cambios...',1000)
 
     def cambioPregunta(self,pregunta):
         print(pregunta)
 
     def crearOtraPregunta(self):
+        #mostrando mensaje por 1 segundo
+        self.statusbar.showMessage('Creando nueva pregunta...',1000)
         self.ventanaMenuPregunta=menuTipoPreguntas()
         self.ventanaMenuPregunta.usuarioEscogioPregunta.connect(self.escogioPregunta)
         self.ventanaMenuPregunta.show()
 
     def escogioPregunta(self,idPregunta):
-            self.listWidget_panelPreguntas.setCurrentIndex(idPregunta)
-            self.agregarPregunta()
+            idNewPregunta=self.controlABSOLUTO_baseDatos.addNewQuestion(idPregunta)
+            if idNewPregunta==False:#Si hay un error al crear la pregunta...
+                pass
+            else:
+                self.listWidget_panelPreguntas.setCurrentIndex(idPregunta)
+                self.agregarPregunta()
+
+    def verContenidoPregunta(self,idBoton):
+        if self.punteroPregunta!=idBoton:
+            self.listBotonesPreguntas[self.punteroPregunta].botonSeleccionado(False)
+            self.punteroPregunta=idBoton
+            self.listBotonesPreguntas[self.punteroPregunta].botonSeleccionado(True)
+
+            print("Ver pregunta...",idBoton)
+
+    def eliminarPregunta(self,posItemMatar):
+        self.verContenidoPregunta(posItemMatar)
+        resultado = QMessageBox.question(self, "DelphiPreguntas",
+                                         "¿Esta seguro que quieres\n"
+                                         f"eliminar la pregunta numero: {posItemMatar+1}?",
+                                         QMessageBox.Yes | QMessageBox.No)
+        if resultado == QMessageBox.Yes:
+            pass
 
     def agregarPregunta(self):
-        object = BotonChismoso(self.contadorPreguntas)
-        object.setText(str(self.contadorPreguntas+1))
-        object.setStyleSheet("margin: 1px;")
-        object.setMinimumSize(50, 50)
-        object.setMaximumSize(50, 50)
-        object.click.connect(self.cambioPregunta)
-        self.vbox.addWidget(object)
+        widget = QWidget()
+        widget.setMinimumSize(60,75)
+        widget.setMaximumSize(60,75)
+        gridLayout = QGridLayout(widget)  # Set the checkbox in the layer
+        botonCerrar = QPushButton()
+        a = "QPushButton{border-image:url(" + self.IMAGEN_ELIMINAR + ");}"
+        b = "QPushButton:hover{border-image:url(" + self.IMAGEN_ELIMINAR_2 + ");}"
+        c = "QPushButton:pressed{border-image:url(" + self.IMAGEN_ELIMINAR + ");}"
+        botonCerrar.setStyleSheet(a + b + c)
+        botonCerrar.setMaximumSize(15,15)
+        botonCerrar.setMinimumSize(15,15)
+        botonPregunta=QPushButton()
+        botonPregunta.setMaximumSize(50,50)
+        botonPregunta.setMinimumSize(50,50)
+        nuevoBotonPregunta=BotonPregunta(self.contadorPreguntas,botonPregunta,botonCerrar)
+        self.listBotonesPreguntas.append(nuevoBotonPregunta)
+        nuevoBotonPregunta.clickBotonPregunta.connect(self.verContenidoPregunta)
+        nuevoBotonPregunta.suHoraMorir.connect(self.eliminarPregunta)
+        nuevoBotonPregunta.darIdBotonPregunta()  # hacer como que lo selecciona...
+
+
+        # addWidget (self, QWidget, row, column, rowSpan, columnSpan, Qt.Alignment alignment = 0)
+        gridLayout.addWidget(botonCerrar, 0, 0, 1, -1, alignment=QtCore.Qt.AlignRight)
+        gridLayout.addWidget(botonPregunta,1, 0, -1, -1,alignment=QtCore.Qt.AlignHCenter)
+        gridLayout.setContentsMargins(0, 0, 0, 0)  # Set the zero padding
+        self.vbox.addWidget(widget,alignment=QtCore.Qt.AlignHCenter)
         self.contadorPreguntas += 1
 
 
