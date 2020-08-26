@@ -31,7 +31,7 @@ class comportAutoguardado_textEdit(QObject):
         self.matrizTextEdit =matrizTextEdit
         self.vectorRenglon_noCambios = np.zeros([1, matrizTextEdit.shape[1]], dtype=int)
         self.GUARDAR_CADA = 10
-        self.posTextEdit_estanEditando=[0,0]
+        self.posTextEdit_estanEditando=[-1,-1]
 
         for c in range(self.matrizTextEdit.shape[1]): #columnas
             for r in range(self.matrizTextEdit.shape[0]): #renglones
@@ -40,12 +40,15 @@ class comportAutoguardado_textEdit(QObject):
 
     def registrarRespuestas(self,ordenAutomatica):
         renglon,columna=self.posTextEdit_estanEditando
-        if self.vectorRenglon_noCambios[0][columna] > self.GUARDAR_CADA or not(ordenAutomatica):
-            self.vectorRenglon_noCambios[0][columna] = 0
-            self.horaGuardarCambios.emit( [ columna,
-                                            self.matrizTextEdit[renglon][columna].toPlainText()
-                                            ])
-        self.vectorRenglon_noCambios[0][columna] += 1
+        if renglon==-1  or columna==-1:
+            pass #no ha habido ningun cambio..
+        else:
+            if self.vectorRenglon_noCambios[0][columna] > self.GUARDAR_CADA or not(ordenAutomatica):
+                self.vectorRenglon_noCambios[0][columna] = 0
+                self.horaGuardarCambios.emit( [ columna,
+                                                self.matrizTextEdit[renglon][columna].toPlainText()
+                                                ])
+            self.vectorRenglon_noCambios[0][columna] += 1
 
     def cambioTextEdit(self,renglonNew,columnaNew):
         if [renglonNew,columnaNew] != self.posTextEdit_estanEditando:

@@ -34,7 +34,7 @@ class comporSelecBtnsResp():
         # todas inicialmente son consideradas
         # incorrectas...
         for _ in range(self.matrizBotones.shape[1]):
-            self.listRespCorrectas.append(False)
+            self.listRespCorrectas.append(0)#0=False,1=True
 
         for c in range(self.matrizBotones.shape[1]): #columnas
             for r in range(self.matrizBotones.shape[0]): #renglones
@@ -45,18 +45,33 @@ class comporSelecBtnsResp():
 ####################################################################################################
     def marcarDesmarcarRespuesta(self,idBtnRespuesta):
         print("boton:",idBtnRespuesta)
-        if self.listRespCorrectas[idBtnRespuesta]==True:
-            self.listRespCorrectas[idBtnRespuesta]=False
+        if self.listRespCorrectas[idBtnRespuesta]==True:#0=False,1=True
+            self.listRespCorrectas[idBtnRespuesta]=0#0=False,1=True
             for r in range(self.matrizBotones.shape[0]):  # renglones
                 self.matrizBotones[r][idBtnRespuesta].setStyleSheet(f"background-color:{self.COLOR_NORMAL};"
                                                                     f"border-radius:{self.BORDER_RADIUS}px;"
                                                                    "border: 1px solid #555;")
         else:
-            self.listRespCorrectas[idBtnRespuesta]=True
+            self.listRespCorrectas[idBtnRespuesta]=1#0=False,1=True
             for r in range(self.matrizBotones.shape[0]):  # renglones
                 self.matrizBotones[r][idBtnRespuesta].setStyleSheet(f"background-color:{self.COLOR_SELECCION};"
                                                                     f"border-radius:{self.BORDER_RADIUS}px;"
                                                                     "border: 1px solid #555;")
+    def setAllRespuestas(self,newValue):
+        self.listRespCorrectas=newValue
+        for idBtnRespuesta in range(len(self.listRespCorrectas)):
+            if self.listRespCorrectas[idBtnRespuesta]==True:
+                for r in range(self.matrizBotones.shape[0]):  # renglones
+                    self.matrizBotones[r][idBtnRespuesta].setStyleSheet(f"background-color:{self.COLOR_SELECCION};"
+                                                                        f"border-radius:{self.BORDER_RADIUS}px;"
+                                                                       "border: 1px solid #555;")
+            else:
+                for r in range(self.matrizBotones.shape[0]):  # renglones
+                    self.matrizBotones[r][idBtnRespuesta].setStyleSheet(f"background-color:{self.COLOR_NORMAL};"
+                                                                        f"border-radius:{self.BORDER_RADIUS}px;"
+                                                                        "border: 1px solid #555;")
+
+
     def setColor(self, newColor):
         self.COLOR_SELECCION=newColor #actualizando el color...
         for columna in range(self.matrizBotones.shape[1]):  # columnas...

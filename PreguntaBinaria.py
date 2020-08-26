@@ -53,20 +53,21 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
 ####################################################################################################################################
         self.DIREC_IMAGENES="HOLA/"
         self.PROPIEDADES_RESPUESTA={
-            "TEXTO_RESPA":"NULL",
-            "TEXTO_RESPB":"NULL",
+            "TEXTO_RESPA":"CIERTO",
+            "TEXTO_RESPB":"FALSO",
         }
-        self.textoRespuestas=["",""]
+        self.textoRespuestas=["Cierto","Falso"]
 
 ####################################################################################################################################
 #      I M A G E N E S :
 ####################################################################################################################################
-
         self.ventanas[1].alguienEligioImagen.connect(self.eligioImagen)  #contiene la widget de imagenes 50%
+
 ####################################################################################################################################
 #       C O N T R O L    D E     B O T O N E S :
 ####################################################################################################################################
-
+#En este apartado le daremo un comportamiento a las respuestas botones,de tal manera
+#que cuando hagan click en ellos,nos avisen y aparte registre dichas respuestas...
         #CREANDO UNA MATRIZ DE PUROS BOTONES...
         renglonBotones= np.array( [[self.ventanas[0].btn_respA,self.ventanas[0].btn_respB]] )
         self.matrizBotonesRespuesta=renglonBotones
@@ -75,7 +76,7 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
             renglonBotones = np.array( [[self.ventanas[i].btn_respA, self.ventanas[i].btn_respB]] )
             self.matrizBotonesRespuesta = np.append(self.matrizBotonesRespuesta, renglonBotones, axis=0)
         self.controlABSOLUTO_botones=comporSelecBtnsResp(self.matrizBotonesRespuesta,BORDER_RADIUS="5")
-        print(self.matrizBotonesRespuesta.shape)
+
 ####################################################################################################################################
 #       C O N T R O L    D E     POSICIONES DE RESPUESTAS :
 ####################################################################################################################################
@@ -112,9 +113,7 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
                                                                       self.dSpin_pregTam,
                                                                       self.matrizEditTextPreguntas)
 
-        self.dSpin_respTam.setMinimum(30)
-        self.dSpin_respTam.setMaximum(85)
-        self.dSpin_respTam.setValue(80)
+
 ####################################################################################################################################
 #       C O N T R O L    D E     BOTONES DE PREGUNTAS HIBRIDAS :
 ####################################################################################################################################
@@ -128,9 +127,6 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
         self.control.COLOR_SELECCION="#D79DDB" #cambiando el color de seleccion
                                                #a uno de color rosa
         self.control.botonFuePresionado.connect(self.cambioHibridoPregunta)
-        self.mutacionPregunta=0
-        self.control.btnElegido=-1
-        self.control.marcarDesmarcarRespuesta_automatico(self.mutacionPregunta,False)
 
 ####################################################################################################################################
 #       C O N T R O L    D E     AUTOGUARDADO....
@@ -154,12 +150,41 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
         # self.control_2.COLOR_SELECCION="#13B470" #cambiando el color de seleccion
         # a uno de color rosa
         self.control_2.botonFuePresionado.connect(self.cambio_pregANDpregOR)
-        self.pregAND_pregOR = 1  # PREGUNTA DEFAULT PREG OR
-        self.control_2.btnElegido = -1
-        self.control_2.marcarDesmarcarRespuesta_automatico(self.pregAND_pregOR, False)
         self.COLOR_OR = "#5DD1D6"
         self.COLOR_AND = "#F51E8C"
 
+#Estableciendo los limites del tamano letra...
+        self.dSpin_respTam.setMinimum(30)
+        self.dSpin_respTam.setMaximum(85)
+        self.dSpin_pregTam.setMinimum(10)
+        self.dSpin_pregTam.setMaximum(45)
+
+        self.PROPIEDADES_RESPUESTA={
+            "TEXTO_RESPA":"CIERTO",
+            "TEXTO_RESPB":"FALSO",
+        }
+
+        datosPregunta={
+            "GRADO_IMAGENES": 1,  # 0=sin imagen 1=con imagen en pregunta....
+            "TIEMPO_SEGUNDOS": 120,
+            "TEXTO_PREGUNTA": "¿Eres gay?",
+            "IMAGEN_PREGUNTA": "roni.png",
+            "TAMANO_PREGUNTA": 40,
+            "POSICION_PREGUNTA": 1,  # 0=left 1=center  2=rigth
+            "TAMANO_RESPUESTA": 50,
+            "POSICION_RESPUESTA":0,  # 0=left 1=center  2=rigth
+            "FORMA_EVALUAR":0,  # 0=todas 1=cualquiera
+            "RESPUESTAS": "1,0"
+        }
+
+        datosRespuesta={
+            "TEXTO_RESPA":"SI",
+            "TEXTO_RESPB":"NO",
+        }
+
+        datosPregunta,datosRespuesta=self.datosDefault()
+        self.abrirPregunta(datosPregunta,datosRespuesta)
+        #self.abrirPregunta(datosPregunta,datosRespuesta)
 
 ###########################################################################################################################
 #
@@ -169,6 +194,84 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
 #
 ##############################################################################################################################
 
+    def datosDefault(self):
+        datosPregunta={
+            "GRADO_IMAGENES": 0,  # 0=sin imagen 1=con imagen en pregunta....
+            "TIEMPO_SEGUNDOS": 60,
+            "TEXTO_PREGUNTA": "",
+            "IMAGEN_PREGUNTA": None,
+            "TAMANO_PREGUNTA": 15,
+            "POSICION_PREGUNTA": 1,  # 0=left 1=center  2=rigth
+            "TAMANO_RESPUESTA": 70,
+            "POSICION_RESPUESTA":1,  # 0=left 1=center  2=rigth
+            "FORMA_EVALUAR":1,  # 0=todas 1=cualquiera
+            "RESPUESTAS": "0,0"
+        }
+
+        datosRespuesta={
+            "TEXTO_RESPA":"CIERTO",
+            "TEXTO_RESPB":"FALSO",
+        }
+
+        return datosPregunta,datosRespuesta
+
+
+
+
+
+    def abrirPregunta(self, datosPregunta, datosRespuesta):
+        self.PROPIEDADES_PREGUNTA = datosPregunta
+        self.PROPIEDADES_RESPUESTA = datosRespuesta
+        # P R E G U N T A   :
+        # GRADO_IMAGENES...
+        self.NUEVA_PREGUNTA = True
+
+        gradoImagenes=self.PROPIEDADES_PREGUNTA["GRADO_IMAGENES"]
+        self.control.botonPresionado(gradoImagenes)  # 0=0%imagen  1=50%imagen
+        # TIEMPO_SEGUNDOS...
+        tiempo = self.PROPIEDADES_PREGUNTA["TIEMPO_SEGUNDOS"]
+        self.timeEdit.setTime(QtCore.QTime(0, int(tiempo / 60), tiempo % 60, 0))  # 1 minuto
+        # TEXTO_PREGUNTA...
+        # Poniendo el texto por default....
+
+        texto = self.PROPIEDADES_PREGUNTA["TEXTO_PREGUNTA"]
+        print("¿QUE PEDO?",texto)
+        for i in range(len(self.ventanas)):
+            self.ventanas[i].txtEdit_preg.setText(texto)
+        # IMAGEN_PREGUNTA...
+        imagenPregunta = self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
+        self.ventanas[1].controlABSOLUTO_pregImagen.escogioImagen(0, False, imagenPregunta)
+
+        # TAMANO_PREGUNTA...
+        self.dSpin_pregTam.setValue(self.PROPIEDADES_PREGUNTA["TAMANO_PREGUNTA"])
+        # POSICION_PREGUNTA...
+        # 0=izquierda 1=centro 2=derecha
+        self.controlABSOLUTO_editTextPreguntas.editPosEditsText(self.PROPIEDADES_PREGUNTA["POSICION_PREGUNTA"])
+        # TAMANO_RESPUESTA...
+        # 0=izquierda 1=centro 2=derecha
+        self.dSpin_respTam.setValue(self.PROPIEDADES_PREGUNTA["TAMANO_RESPUESTA"])
+        # POSICION_RESPUESTA...
+        # 0=izquierda 1=centro 2=derecha
+        self.controlABSOLUTO_editTextRespuestas.editPosEditsText(self.PROPIEDADES_PREGUNTA["POSICION_RESPUESTA"])
+        # FORMA_EVALUAR...
+        # 0=eligeTodas 1=eligeCualquiera
+        self.cambio_pregANDpregOR(self.PROPIEDADES_PREGUNTA["FORMA_EVALUAR"])
+        # RESPUESTAS...
+        listRespuestas = self.PROPIEDADES_PREGUNTA["RESPUESTAS"]
+        a = [int(x) for x in listRespuestas.split(",")]
+        self.controlABSOLUTO_botones.setAllRespuestas(a)
+
+        # R E S P U E S T A S :
+        # Poniendo el texto por default....
+        respA = self.PROPIEDADES_RESPUESTA["TEXTO_RESPA"]
+        respB = self.PROPIEDADES_RESPUESTA["TEXTO_RESPB"]
+        for i in range(len(self.ventanas)):
+            self.ventanas[i].txtEdit_respA.setText(respA)
+            self.ventanas[i].txtEdit_respB.setText(respB)
+
+        self.textoRespuestas = [respA, respB]
+        self.NUEVA_PREGUNTA = False
+
     def eligioImagen(self,listaInformacion):
         #0=imagenPregunta, 1=imagenRespuesta_A, 2=imagenRespuesta_B....
         idLabelEligioImagen=listaInformacion[0]
@@ -176,7 +279,7 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
         if idLabelEligioImagen==0: #es una imagen pregunta...
             print(direcGuardoImagen)
             imagenAntiguaAlmacenada=self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
-            if imagenAntiguaAlmacenada!="NULL" and imagenAntiguaAlmacenada!=None:
+            if imagenAntiguaAlmacenada!="NULL" and imagenAntiguaAlmacenada!=None and self.NUEVA_PREGUNTA==False:
                 #Debemos eliminar la imagen...
                 os.remove(self.DIREC_IMAGENES+imagenAntiguaAlmacenada)
             self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]=direcGuardoImagen
@@ -203,10 +306,12 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
             self.controlABSOLUTO_botones.setColor(self.COLOR_OR)
 
     def cambioHibridoPregunta(self,idBtnFuePresionado):
-        resultado = QMessageBox.question(self, "DelphiPreguntas",
-                                         "¿Esta seguro que quiere cambiar al formato \n"
-                                         f"de pregunta: '{self.listNombres_preguntasHibridas[idBtnFuePresionado]}' ?\n",
-                                         QMessageBox.Yes | QMessageBox.No)
+        resultado=QMessageBox.Yes
+        if self.NUEVA_PREGUNTA==False:
+            resultado = QMessageBox.question(self, "DelphiPreguntas",
+                                             "¿Esta seguro que quiere cambiar al formato \n"
+                                             f"de pregunta: '{self.listNombres_preguntasHibridas[idBtnFuePresionado]}' ?\n",
+                                             QMessageBox.Yes | QMessageBox.No)
         if resultado == QMessageBox.Yes:
             self.PROPIEDADES_PREGUNTA["GRADO_IMAGENES"] = idBtnFuePresionado  # 0=sin imagen 1=con imagen en pregunta....
             #actulizando contenido de respuestas
@@ -232,20 +337,15 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
         #obteniendo el tiempo destinado a la pregunta...
         segundos=self.timeEdit.time().second()+self.timeEdit.time().minute()*60
         self.PROPIEDADES_PREGUNTA["TIEMPO_SEGUNDOS"]=segundos
+        self.PROPIEDADES_PREGUNTA["POSICION_PREGUNTA"]=self.controlABSOLUTO_editTextPreguntas.punteroPOS
+        self.PROPIEDADES_PREGUNTA["POSICION_RESPUESTA"]=self.controlABSOLUTO_editTextRespuestas.punteroPOS
 
         self.PROPIEDADES_PREGUNTA["TAMANO_PREGUNTA"]=self.dSpin_pregTam.value()
 
-        #Eligiendo respuestas...
-        respuestasPosibles=["A","B"]
+
         respuestasElegidas=self.controlABSOLUTO_botones.listRespCorrectas
-        respuesta=""
-        for x in range(2):
-            if respuestasElegidas[x]==True:
-                respuesta+=respuestasPosibles[x]
-        if respuesta=="":
-            respuesta="NULL"
-        self.PROPIEDADES_PREGUNTA["RESPUESTAS"]=respuesta
-        self.PROPIEDADES_PREGUNTA["TAMANO_PREGUNTA"]=self.dSpin_respTam.value()
+        self.PROPIEDADES_PREGUNTA["RESPUESTAS"]=str(respuestasElegidas)[1:-1]#para quitar los corchetes
+        self.PROPIEDADES_PREGUNTA["TAMANO_RESPUESTA"]=self.dSpin_respTam.value()
 
         for a,b in self.PROPIEDADES_PREGUNTA.items():
             print(a,"-",b)
