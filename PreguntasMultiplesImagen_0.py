@@ -24,6 +24,7 @@ class PreguntasMultiplesImagen_0(QtWidgets.QWidget, Ui_Form):
         Ui_Form.__init__(self)
         QtWidgets.QWidget.__init__(self)
         self.setupUi(self)
+        self.NO_RESPUESTAS_IMAGEN = 0
 
 
 

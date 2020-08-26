@@ -19,6 +19,7 @@ from comportEditTextEdit import comportEditTextEdit
 from comportAutoguardado_textEdit import comportAutoguardado_textEdit
 from PyQt5.QtWidgets import  QMessageBox
 import numpy as np
+import os
 
 #https://www.youtube.com/watch?v=P-SZn5eSDp8&list=PL7Euic11sPg_OYLhPN3QUh3BZINlhFApE
 class PreguntaMultiple(QtWidgets.QWidget, Ui_Form):
@@ -53,7 +54,7 @@ class PreguntaMultiple(QtWidgets.QWidget, Ui_Form):
                                        self.ventanas[i].btn_respC, self.ventanas[i].btn_respD]])
             self.matrizBotonesRespuesta = np.append(self.matrizBotonesRespuesta, renglonBotones, axis=0)
         self.controlABSOLUTO_botones=comporSelecBtnsResp(self.matrizBotonesRespuesta,BORDER_RADIUS="5")
-        print(self.matrizBotonesRespuesta.shape)
+
 ####################################################################################################################################
 #       C O N T R O L    D E     POSICIONES DE RESPUESTAS :
 ####################################################################################################################################
@@ -90,7 +91,6 @@ class PreguntaMultiple(QtWidgets.QWidget, Ui_Form):
         self.controlABSOLUTO_editTextPreguntas = comportEditTextEdit(self.vectorRenglon_btnAlignPreguntas,
                                                                       self.dSpin_pregTam,
                                                                       self.matrizEditTextPreguntas)
-        print("QUE PEDO..",self.matrizEditTextPreguntas.shape)
 ####################################################################################################################################
 #       C O N T R O L    D E     BOTONES DE PREGUNTAS HIBRIDAS :
 ####################################################################################################################################
@@ -109,9 +109,7 @@ class PreguntaMultiple(QtWidgets.QWidget, Ui_Form):
         self.control.COLOR_SELECCION="#D79DDB" #cambiando el color de seleccion
                                                #a uno de color rosa
         self.control.botonFuePresionado.connect(self.cambioHibridoPregunta)
-        self.mutacionPregunta=0
-        self.control.btnElegido=-1
-        self.control.marcarDesmarcarRespuesta_automatico(self.mutacionPregunta,False)
+
 
 ####################################################################################################################################
 #       C O N T R O L    D E   PREGUNTAS ESPECIFICAS U ABIERTAS :
@@ -126,26 +124,41 @@ class PreguntaMultiple(QtWidgets.QWidget, Ui_Form):
         #self.control_2.COLOR_SELECCION="#13B470" #cambiando el color de seleccion
                                                #a uno de color rosa
         self.control_2.botonFuePresionado.connect(self.cambio_pregANDpregOR)
-        self.pregAND_pregOR=1 #PREGUNTA DEFAULT PREG OR
-        self.control_2.btnElegido=-1
-        self.control_2.marcarDesmarcarRespuesta_automatico(self.pregAND_pregOR,False)
         self.COLOR_OR="#5DD1D6"
         self.COLOR_AND="#F51E8C"
 
 ####################################################################################################################################
 #       C O N T R O L    D E     AUTOGUARDADO....
 ####################################################################################################################################
-
         self.matrizTodos_textEdit=self.matrizEditTextPreguntas
         print(self.matrizTodos_textEdit.shape)
         self.matrizTodos_textEdit=np.append(self.matrizTodos_textEdit,self.matrizEditTextRespuestas,axis=1)
         self.controlABSOULUTO_autoguardado=comportAutoguardado_textEdit(self.matrizTodos_textEdit)
         self.controlABSOULUTO_autoguardado.horaGuardarCambios.connect(self.guardarCambios)
-        self.textoPregunta=""
-        self.textoRespuestas=["","","",""]
 
-        print(self.matrizTodos_textEdit.shape)
+####################################################################################################################################
+#      I M A G E N E S :
+####################################################################################################################################
+        #Conectando las imagenes....
+        #apartir de la widget 2,todas tienen esa senal...
+        for i in range(1,len(self.ventanas)):
+            self.ventanas[i].alguienEligioImagen.connect(self.eligioImagen)
 
+####################################################################################################################################
+#      PROPEIDADES TIPO DE RESPUESTA...
+####################################################################################################################################
+        self.DIREC_IMAGENES = "HOLA/"
+        self.textoRespuestas = ["", "", "", ""]
+
+        # Estableciendo los limites del tamano letra...
+        self.dSpin_respTam.setMinimum(30)
+        self.dSpin_respTam.setMaximum(85)
+        self.dSpin_pregTam.setMinimum(10)
+        self.dSpin_pregTam.setMaximum(45)
+
+        datosPregunta,datosRepuesta=self.datosDefault()
+
+        self.abrirPregunta(datosPregunta,datosRepuesta)
 
 ###########################################################################################################################
 #
@@ -159,46 +172,182 @@ class PreguntaMultiple(QtWidgets.QWidget, Ui_Form):
     def guardarCambios(self,listaDatos):
         idTxtRespueta=listaDatos[0]
         texto=listaDatos[1]
+        posiblesRespuestas=["A","B","C","D"]
         if idTxtRespueta==0: #significa que es de la pregunta...
-            self.textoPregunta=texto
+            self.PROPIEDADES_PREGUNTA["TEXTO_PREGUNTA"]=texto
         else: #significara que son los edit text de las respuestas..
+            respuestaGuardar="TEXTO_RESP"+posiblesRespuestas[idTxtRespueta-1]
+            self.PROPIEDADES_RESPUESTA[respuestaGuardar]=texto
             self.textoRespuestas[idTxtRespueta-1]=texto
-        print(texto)
-
 
     def cambio_pregANDpregOR(self,idBtnFuePresionado):
         self.control_2.marcarDesmarcarRespuesta_automatico(idBtnFuePresionado,False)
-        self.pregAND_pregOR=idBtnFuePresionado
-        print("BOTON...",self.pregAND_pregOR)
-        if idBtnFuePresionado==0:
+        self.PROPIEDADES_PREGUNTA["FORMA_EVALUAR"]=idBtnFuePresionado #0=cualquiera  1=todas
+        if idBtnFuePresionado==0:#FUE ESCOGIDA LA MODALIDAD ABIERTA...
             self.controlABSOLUTO_botones.setColor(self.COLOR_AND)
-        else:
+        else:#FUE ESCOGIDA LA MODALIDAD DE ELIGE TODAS...
             self.controlABSOLUTO_botones.setColor(self.COLOR_OR)
 
-    def cambioHibridoPregunta(self,idBtnFuePresionado):
-        resultado = QMessageBox.question(self, "DelphiPreguntas",
-                                         "¿Esta seguro que quiere cambiar al formato \n"
-                                         f"de pregunta: '{self.listNombres_preguntasHibridas[idBtnFuePresionado]}' ?\n",
-                                         QMessageBox.Yes | QMessageBox.No)
-        if resultado == QMessageBox.Yes:
-            #actulizando contenido de respuestas
-            self.controlABSOULUTO_autoguardado.registrarRespuestas(False) #actualizamos los datos
-                                                     #del ultimo edit text que se estaba editando
 
-            #cargando el texto del edit text del widget al que nos pasaremos...
-            self.matrizEditTextPreguntas[idBtnFuePresionado][0].setText(self.textoPregunta)
-            #cargando el texto en lo edit text de las respuesta del widget donde nos pasaremos
+
+    def cambioHibridoPregunta(self,idBtnFuePresionado):
+        resultado = QMessageBox.Yes
+        if self.NUEVA_PREGUNTA == False:
+            resultado = QMessageBox.question(self, "DelphiPreguntas",
+                                             "¿Esta seguro que quiere cambiar al formato \n"
+                                             f"de pregunta: '{self.listNombres_preguntasHibridas[idBtnFuePresionado]}' ?\n",
+                                             QMessageBox.Yes | QMessageBox.No)
+        if resultado == QMessageBox.Yes:
+            self.PROPIEDADES_PREGUNTA["GRADO_IMAGENES"] = idBtnFuePresionado  # 0=sin imagen 1=con imagen en pregunta....
+            # actulizando contenido de respuestas
+            self.controlABSOULUTO_autoguardado.registrarRespuestas(False)  # actualizamos los datos
+            # del ultimo edit text que se estaba editando
+
+            # cargando el texto del edit text del widget al que nos pasaremos...
+            textoPregunta = self.PROPIEDADES_PREGUNTA["TEXTO_PREGUNTA"]
+            self.matrizEditTextPreguntas[idBtnFuePresionado][0].setText(textoPregunta)
+            # cargando el texto en lo edit text de las respuesta del widget donde nos pasaremos
             for respuesta in range(len(self.textoRespuestas)):
                 self.matrizEditTextRespuestas[idBtnFuePresionado][respuesta].setText(self.textoRespuestas[respuesta])
 
-            #Refrescando las posiciones ya que por alguna extraña razon, cuando lo poner un nuevo
-            #texto su posicion de ve alterada
+            # Refrescando las posiciones ya que por alguna extraña razon, cuando lo poner un nuevo
+            # texto su posicion de ve alterada
             self.controlABSOLUTO_editTextPreguntas.refrescarPosEditText(idBtnFuePresionado)
             self.controlABSOLUTO_editTextRespuestas.refrescarPosEditText(idBtnFuePresionado)
 
             self.listWidget_panelVersion.setCurrentIndex(idBtnFuePresionado)
-            self.control.marcarDesmarcarRespuesta_automatico(idBtnFuePresionado,False)
-################################################################################################################
+            self.control.marcarDesmarcarRespuesta_automatico(idBtnFuePresionado, False)
+
+            #Cargando las imagenes....
+            # IMAGEN_PREGUNTA...
+            if idBtnFuePresionado>0: #Significa que es una pregunta con respuestas imagenes...
+                if idBtnFuePresionado==1 or idBtnFuePresionado==3: #preguntaImagen 50% or preguntaImagen 100%
+                    # IMAGEN_PREGUNTA...
+                    imagenPregunta=self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
+                    #Cagaremos la imagen pero no la respuesta...
+                    if imagenPregunta != None:
+                        imagenPregunta = self.DIREC_IMAGENES + imagenPregunta
+                    self.ventanas[idBtnFuePresionado].controlABSOLUTO_labelImagen.escogioImagen(0, False, imagenPregunta)
+                if idBtnFuePresionado>1:#preguntaImagen 50% or preguntaImagen 75%
+                    respuestas = ["A", "B", "C", "D"]
+                    listaRespuestaImagen = [self.PROPIEDADES_RESPUESTA["IMAGEN_RESP" + letra] for letra in respuestas ]
+                    listaRespuestaImagen=[ self.DIREC_IMAGENES+x if x!=None else x for x in listaRespuestaImagen]
+                    contador=0
+                    if idBtnFuePresionado==3: #si la widget que fue presionada fue la de...
+                                              #100% preguntas...
+                        contador=1
+                    print(listaRespuestaImagen)
+                    for i in range(len(respuestas)):
+                        self.ventanas[idBtnFuePresionado].controlABSOLUTO_labelImagen.escogioImagen(contador+i, False,listaRespuestaImagen[i])
+
+    def datosDefault(self):
+        datosPregunta={
+            "GRADO_IMAGENES": 1,  # 0=sin imagen 1=con imagen en pregunta....
+            "TIEMPO_SEGUNDOS": 60,
+            "TEXTO_PREGUNTA": None,
+            "IMAGEN_PREGUNTA": None,
+            "TAMANO_PREGUNTA": 15,
+            "POSICION_PREGUNTA": 1,  # 0=left 1=center  2=rigth
+            "TAMANO_RESPUESTA": 70,
+            "POSICION_RESPUESTA":1,  # 0=left 1=center  2=rigth
+            "FORMA_EVALUAR":1,  # 0=todas 1=cualquiera
+            "RESPUESTAS": "0,0,0,0"
+        }
+
+        datosRespuesta={
+            "TEXTO_RESPA": None,
+            "IMAGEN_RESPA":None,
+            "TEXTO_RESPB": None,
+            "IMAGEN_RESPB": None,
+            "TEXTO_RESPC": None,
+            "IMAGEN_RESPC": None,
+            "TEXTO_RESPD": None,
+            "IMAGEN_RESPD": None
+        }
+
+        return datosPregunta,datosRespuesta
+
+
+    def abrirPregunta(self, datosPregunta, datosRespuesta):
+        self.PROPIEDADES_PREGUNTA = datosPregunta
+        self.PROPIEDADES_RESPUESTA = datosRespuesta
+        # P R E G U N T A   :
+        # GRADO_IMAGENES...
+        self.NUEVA_PREGUNTA = True
+
+        gradoImagenes=self.PROPIEDADES_PREGUNTA["GRADO_IMAGENES"]
+        self.control.botonPresionado(gradoImagenes)  # 0=0%imagen  1=50%imagen
+        # TIEMPO_SEGUNDOS...
+        tiempo = self.PROPIEDADES_PREGUNTA["TIEMPO_SEGUNDOS"]
+        self.timeEdit.setTime(QtCore.QTime(0, int(tiempo / 60), tiempo % 60, 0))  # 1 minuto
+        # TEXTO_PREGUNTA...
+        # Poniendo el texto por default....
+
+        texto = self.PROPIEDADES_PREGUNTA["TEXTO_PREGUNTA"]
+        for i in range(len(self.ventanas)):
+            self.ventanas[i].txtEdit_preg.setText(texto)
+        # IMAGEN_PREGUNTA...
+        #imagenPregunta = self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
+        #self.ventanas[1].controlABSOLUTO_pregImagen.escogioImagen(0, False, imagenPregunta)
+
+        # TAMANO_PREGUNTA...
+        self.dSpin_pregTam.setValue(self.PROPIEDADES_PREGUNTA["TAMANO_PREGUNTA"])
+        # POSICION_PREGUNTA...
+        # 0=izquierda 1=centro 2=derecha
+        self.controlABSOLUTO_editTextPreguntas.editPosEditsText(self.PROPIEDADES_PREGUNTA["POSICION_PREGUNTA"])
+        # TAMANO_RESPUESTA...
+        # 0=izquierda 1=centro 2=derecha
+        self.dSpin_respTam.setValue(self.PROPIEDADES_PREGUNTA["TAMANO_RESPUESTA"])
+        # POSICION_RESPUESTA...
+        # 0=izquierda 1=centro 2=derecha
+        self.controlABSOLUTO_editTextRespuestas.editPosEditsText(self.PROPIEDADES_PREGUNTA["POSICION_RESPUESTA"])
+        # FORMA_EVALUAR...
+        # 0=eligeTodas 1=eligeCualquiera
+        self.cambio_pregANDpregOR(self.PROPIEDADES_PREGUNTA["FORMA_EVALUAR"])
+        # RESPUESTAS...
+        listRespuestas = self.PROPIEDADES_PREGUNTA["RESPUESTAS"]
+        a = [int(x) for x in listRespuestas.split(",")]
+        self.controlABSOLUTO_botones.setAllRespuestas(a)
+
+        # R E S P U E S T A S :
+        # Poniendo el texto por default....
+        respuestas=["A","B","C","D"]
+        listaRespuestaText=[self.PROPIEDADES_RESPUESTA["TEXTO_RESP"+letra] for letra in respuestas]
+        for i in range(len(self.ventanas)):
+            self.ventanas[i].txtEdit_respA.setText(listaRespuestaText[0])
+            self.ventanas[i].txtEdit_respB.setText(listaRespuestaText[1])
+            self.ventanas[i].txtEdit_respC.setText(listaRespuestaText[2])
+            self.ventanas[i].txtEdit_respD.setText(listaRespuestaText[3])
+        self.textoRespuestas = listaRespuestaText
+        self.NUEVA_PREGUNTA = False
+        # POSICION_RESPUESTA...
+        # 0=izquierda 1=centro 2=derecha
+        self.controlABSOLUTO_editTextRespuestas.editPosEditsText(self.PROPIEDADES_PREGUNTA["POSICION_RESPUESTA"])
+
+    def eligioImagen(self,listaInformacion):
+        #0=imagenPregunta, 1=imagenRespuesta_A, 2=imagenRespuesta_B....
+        idLabelEligioImagen=listaInformacion[0]
+        direcGuardoImagen=listaInformacion[1]
+        noLabelsImagen=listaInformacion[2]
+        respuestas = ["A", "B", "C", "D"]
+
+        if (idLabelEligioImagen == 0 and noLabelsImagen==1) or (idLabelEligioImagen == 0 and noLabelsImagen==5):  # es una imagen pregunta...
+            imagenAntiguaAlmacenada = self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
+            self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]=direcGuardoImagen
+            if imagenAntiguaAlmacenada != "NULL" and imagenAntiguaAlmacenada != None and self.NUEVA_PREGUNTA == False:
+                # Debemos eliminar la imagen...
+                os.remove(self.DIREC_IMAGENES + imagenAntiguaAlmacenada)
+        else:# es una imagen respuesta...
+            if noLabelsImagen==5: #significa si es una pregunta imagen 100% entonces...
+                idLabelEligioImagen-=1
+            respuestaX = "IMAGEN_RESP" + respuestas[idLabelEligioImagen]
+            imagenAntiguaAlmacenada = self.PROPIEDADES_RESPUESTA[respuestaX]
+            if imagenAntiguaAlmacenada != "NULL" and imagenAntiguaAlmacenada != None and self.NUEVA_PREGUNTA == False:
+                # Debemos eliminar la imagen...
+                os.remove(self.DIREC_IMAGENES + imagenAntiguaAlmacenada)
+            self.PROPIEDADES_RESPUESTA[respuestaX]=direcGuardoImagen
+
+
 
 
 

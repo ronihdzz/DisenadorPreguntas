@@ -20,7 +20,8 @@ from comportSelectImagen_label import comportSelectImagen_label
 
 #https://www.youtube.com/watch?v=P-SZn5eSDp8&list=PL7Euic11sPg_OYLhPN3QUh3BZINlhFApE
 class PreguntasMultiplesImagen75(QtWidgets.QWidget, Ui_Form):
-    alguienEligioImagen = pyqtSignal(list)  # idLabelEscogioImagen/direcImagenGuardada
+    alguienEligioImagen = pyqtSignal(list)  # idLabelEscogioImagen/direcImagenGuardada/no_labels_imagen
+
     def __init__(self):
         Ui_Form.__init__(self)
         QtWidgets.QWidget.__init__(self)
@@ -29,7 +30,7 @@ class PreguntasMultiplesImagen75(QtWidgets.QWidget, Ui_Form):
         self.vectorRenglon_labelsImagen=np.array([[self.bel_imageRespA,self.bel_imageRespB,
                                                    self.bel_imageRespC,self.bel_imageRespD]]).reshape(1,4)
 
-
+        self.NO_LABELS_IMAGEN = 4
         self.controlABSOLUTO_labelImagen=comportSelectImagen_label(self,
                                                                    self.vectorRenglon_labelsImagen,
                                                                    "Roni",
@@ -39,6 +40,7 @@ class PreguntasMultiplesImagen75(QtWidgets.QWidget, Ui_Form):
         self.controlABSOLUTO_labelImagen.alguienEligioImagen.connect(self.notificarMain)
 
     def notificarMain(self,listaInformacion):
+        listaInformacion.append(self.NO_LABELS_IMAGEN)
         self.alguienEligioImagen.emit(listaInformacion)
         idLabelEligioImagen=listaInformacion[0]
         direcGuardoImagen=listaInformacion[1]

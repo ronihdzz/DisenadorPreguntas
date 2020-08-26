@@ -32,6 +32,7 @@ class PreguntaCheckBoxImagen_50(QtWidgets.QWidget, Ui_Form):
         Ui_Form.__init__(self)
         QtWidgets.QWidget.__init__(self)
         self.setupUi(self)
+        self.NO_RESPUESTAS_IMAGEN = 1
 
 
         self.vectorRenglon_labelsImagen=np.array([[self.bel_pregImage]]).reshape(1,1)

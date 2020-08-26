@@ -30,7 +30,7 @@ from comportSelectImagen_label import comportSelectImagen_label
 
 #https://www.youtube.com/watch?v=P-SZn5eSDp8&list=PL7Euic11sPg_OYLhPN3QUh3BZINlhFApE
 class PreguntaBinariaImagen_50(QtWidgets.QWidget, Ui_Form):
-    alguienEligioImagen = pyqtSignal(list)  # idLabelEscogioImagen/direcImagenGuardada
+    alguienEligioImagen = pyqtSignal(list)  # idLabelEscogioImagen/direcImagenGuardada/NO_LABELS_IMAGEN
 
     def __init__(self):
         Ui_Form.__init__(self)
@@ -38,17 +38,18 @@ class PreguntaBinariaImagen_50(QtWidgets.QWidget, Ui_Form):
         self.setupUi(self)
 
         self.vectorRenglon_labelsImagen=np.array([[self.bel_pregImage]]).reshape(1,1)
+        self.NO_LABELS_IMAGEN = 1
 
-
-        self.controlABSOLUTO_pregImagen=comportSelectImagen_label(self,
+        self.controlABSOLUTO_labelImagen=comportSelectImagen_label(self,
                                                                  self.vectorRenglon_labelsImagen,
                                                                  "Roni",
                                                                  "HOLA",
                                                                 "ICONOS/icon_escogerImagen.png")
 
-        self.controlABSOLUTO_pregImagen.alguienEligioImagen.connect(self.notificarMain)
+        self.controlABSOLUTO_labelImagen.alguienEligioImagen.connect(self.notificarMain)
 
     def notificarMain(self,listaInformacion):
+        listaInformacion.append(self.NO_LABELS_IMAGEN)
         self.alguienEligioImagen.emit(listaInformacion)
         idLabelEligioImagen=listaInformacion[0]
         direcGuardoImagen=listaInformacion[1]

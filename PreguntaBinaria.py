@@ -159,32 +159,11 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
         self.dSpin_pregTam.setMinimum(10)
         self.dSpin_pregTam.setMaximum(45)
 
-        self.PROPIEDADES_RESPUESTA={
-            "TEXTO_RESPA":"CIERTO",
-            "TEXTO_RESPB":"FALSO",
-        }
-
-        datosPregunta={
-            "GRADO_IMAGENES": 1,  # 0=sin imagen 1=con imagen en pregunta....
-            "TIEMPO_SEGUNDOS": 120,
-            "TEXTO_PREGUNTA": "¿Eres gay?",
-            "IMAGEN_PREGUNTA": "roni.png",
-            "TAMANO_PREGUNTA": 40,
-            "POSICION_PREGUNTA": 1,  # 0=left 1=center  2=rigth
-            "TAMANO_RESPUESTA": 50,
-            "POSICION_RESPUESTA":0,  # 0=left 1=center  2=rigth
-            "FORMA_EVALUAR":0,  # 0=todas 1=cualquiera
-            "RESPUESTAS": "1,0"
-        }
-
-        datosRespuesta={
-            "TEXTO_RESPA":"SI",
-            "TEXTO_RESPB":"NO",
-        }
 
         datosPregunta,datosRespuesta=self.datosDefault()
         self.abrirPregunta(datosPregunta,datosRespuesta)
-        #self.abrirPregunta(datosPregunta,datosRespuesta)
+
+
 
 ###########################################################################################################################
 #
@@ -196,9 +175,9 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
 
     def datosDefault(self):
         datosPregunta={
-            "GRADO_IMAGENES": 0,  # 0=sin imagen 1=con imagen en pregunta....
+            "GRADO_IMAGENES": 1,  # 0=sin imagen 1=con imagen en pregunta....
             "TIEMPO_SEGUNDOS": 60,
-            "TEXTO_PREGUNTA": "",
+            "TEXTO_PREGUNTA": None,
             "IMAGEN_PREGUNTA": None,
             "TAMANO_PREGUNTA": 15,
             "POSICION_PREGUNTA": 1,  # 0=left 1=center  2=rigth
@@ -214,10 +193,6 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
         }
 
         return datosPregunta,datosRespuesta
-
-
-
-
 
     def abrirPregunta(self, datosPregunta, datosRespuesta):
         self.PROPIEDADES_PREGUNTA = datosPregunta
@@ -235,12 +210,11 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
         # Poniendo el texto por default....
 
         texto = self.PROPIEDADES_PREGUNTA["TEXTO_PREGUNTA"]
-        print("¿QUE PEDO?",texto)
         for i in range(len(self.ventanas)):
             self.ventanas[i].txtEdit_preg.setText(texto)
-        # IMAGEN_PREGUNTA...
-        imagenPregunta = self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
-        self.ventanas[1].controlABSOLUTO_pregImagen.escogioImagen(0, False, imagenPregunta)
+        # IMAGEN_PREGUNTA... ya lo hace la funcion anterior...
+        #imagenPregunta = self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
+        #self.ventanas[1].controlABSOLUTO_pregImagen.escogioImagen(0, False, imagenPregunta)
 
         # TAMANO_PREGUNTA...
         self.dSpin_pregTam.setValue(self.PROPIEDADES_PREGUNTA["TAMANO_PREGUNTA"])
@@ -263,27 +237,30 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
 
         # R E S P U E S T A S :
         # Poniendo el texto por default....
-        respA = self.PROPIEDADES_RESPUESTA["TEXTO_RESPA"]
-        respB = self.PROPIEDADES_RESPUESTA["TEXTO_RESPB"]
+        respuestas = ["A", "B"]
+        listaRespuestaText = [self.PROPIEDADES_RESPUESTA["TEXTO_RESP" + letra] for letra in respuestas]
         for i in range(len(self.ventanas)):
-            self.ventanas[i].txtEdit_respA.setText(respA)
-            self.ventanas[i].txtEdit_respB.setText(respB)
-
-        self.textoRespuestas = [respA, respB]
+            self.ventanas[i].txtEdit_respA.setText(listaRespuestaText[0])
+            self.ventanas[i].txtEdit_respB.setText(listaRespuestaText[1])
+        self.textoRespuestas = listaRespuestaText
         self.NUEVA_PREGUNTA = False
+
+        # POSICION_RESPUESTA...
+        # 0=izquierda 1=centro 2=derecha
+        self.controlABSOLUTO_editTextRespuestas.editPosEditsText(self.PROPIEDADES_PREGUNTA["POSICION_RESPUESTA"])
 
     def eligioImagen(self,listaInformacion):
         #0=imagenPregunta, 1=imagenRespuesta_A, 2=imagenRespuesta_B....
         idLabelEligioImagen=listaInformacion[0]
         direcGuardoImagen=listaInformacion[1]
-        if idLabelEligioImagen==0: #es una imagen pregunta...
-            print(direcGuardoImagen)
-            imagenAntiguaAlmacenada=self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
-            if imagenAntiguaAlmacenada!="NULL" and imagenAntiguaAlmacenada!=None and self.NUEVA_PREGUNTA==False:
-                #Debemos eliminar la imagen...
-                os.remove(self.DIREC_IMAGENES+imagenAntiguaAlmacenada)
-            self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]=direcGuardoImagen
+        noLabelsImagen=listaInformacion[2]
 
+        if (idLabelEligioImagen == 0 and noLabelsImagen==1):  # es una imagen pregunta...
+            imagenAntiguaAlmacenada = self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
+            self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]=direcGuardoImagen
+            if imagenAntiguaAlmacenada != "NULL" and imagenAntiguaAlmacenada != None and self.NUEVA_PREGUNTA == False:
+                # Debemos eliminar la imagen...
+                os.remove(self.DIREC_IMAGENES + imagenAntiguaAlmacenada)
 
     def guardarCambios(self,listaDatos):
         idTxtRespueta=listaDatos[0]
@@ -332,6 +309,18 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
 
             self.listWidget_panelVersion.setCurrentIndex(idBtnFuePresionado)
             self.control.marcarDesmarcarRespuesta_automatico(idBtnFuePresionado,False)
+
+            # Cargando las imagenes....
+            # IMAGEN_PREGUNTA...
+            if idBtnFuePresionado > 0:  # Significa que es una pregunta con respuestas imagenes...
+                if idBtnFuePresionado == 1 :  # preguntaImagen 50%....
+                    # IMAGEN_PREGUNTA...
+                    imagenPregunta = self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
+                    # Cagaremos la imagen pero no la respuesta...
+                    if imagenPregunta != None:
+                        imagenPregunta = self.DIREC_IMAGENES + imagenPregunta
+                    self.ventanas[idBtnFuePresionado].controlABSOLUTO_labelImagen.escogioImagen(0, False,
+                                                                                                imagenPregunta)
 
     def getDatos(self):
         #obteniendo el tiempo destinado a la pregunta...

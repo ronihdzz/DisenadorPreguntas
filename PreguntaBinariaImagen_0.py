@@ -19,6 +19,8 @@ class PreguntaBinariaImagen_0(QtWidgets.QWidget, Ui_Form):
         QtWidgets.QWidget.__init__(self)
         self.setupUi(self)
 
+        self.NO_LABELS_IMAGEN =0
+
 
 
 if __name__ == "__main__":
