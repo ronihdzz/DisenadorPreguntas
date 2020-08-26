@@ -319,8 +319,7 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
                     # Cagaremos la imagen pero no la respuesta...
                     if imagenPregunta != None:
                         imagenPregunta = self.DIREC_IMAGENES + imagenPregunta
-                    self.ventanas[idBtnFuePresionado].controlABSOLUTO_labelImagen.escogioImagen(0, False,
-                                                                                                imagenPregunta)
+                    self.ventanas[idBtnFuePresionado].controlABSOLUTO_labelImagen.escogioImagen(0, False,imagenPregunta)
 
     def getDatos(self):
         #obteniendo el tiempo destinado a la pregunta...

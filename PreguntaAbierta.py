@@ -14,7 +14,7 @@ from PreguntaAbiertaImagen_50 import PreguntaAbiertaImagen_50
 #DISENOS DE LOS MULTIPLES TIPOS DE PREGUNTAS
 from PyQt5.QtCore import QRegExp
 from PyQt5.QtGui import QIntValidator,QDoubleValidator,QRegExpValidator
-
+from PyQt5 import QtCore
 #https://www.youtube.com/watch?v=P-SZn5eSDp8&list=PL7Euic11sPg_OYLhPN3QUh3BZINlhFApE
 class PreguntaAbierta(QtWidgets.QWidget, Ui_Form):
     quierePreguntaImagen = pyqtSignal()
@@ -35,8 +35,6 @@ class PreguntaAbierta(QtWidgets.QWidget, Ui_Form):
         self.listWidget_panelVersion.setCurrentIndex(0)
         self.listWidget_panelVersion.showFullScreen()
 
-        self.textPregunta=""
-        self.punteroWidget=0
 
 ####################################################################################################################################
 #       C O N T R O L    D E     POSICIONES DE PREGUNTAS :
@@ -56,11 +54,6 @@ class PreguntaAbierta(QtWidgets.QWidget, Ui_Form):
                                                                       self.dSpin_pregTam,
                                                                       self.matrizEditTextPreguntas)
 
-        self.dSpin_pregTam.setMinimum(10)
-        self.dSpin_pregTam.setMaximum(15)
-        self.dSpin_pregTam.setValue(50)
-
-
 ####################################################################################################################################
 #       C O N T R O L    D E   RESPUESTAS STRING O RESPUESTAS NUMERO...
 ####################################################################################################################################
@@ -77,17 +70,11 @@ class PreguntaAbierta(QtWidgets.QWidget, Ui_Form):
         # self.control_2.COLOR_SELECCION="#13B470" #cambiando el color de seleccion
         # a uno de color rosa
         self.control_2.botonFuePresionado.connect(self.cambio_pregANDpregOR)
-        self.pregStr_Double = 0  # RESPUESTA DEFAULT STRING...
-        self.control_2.btnElegido = -1
         self.LIMITE_CARACTERES=30
-
+        self.lineEdit_respuesta.setMaxLength(self.LIMITE_CARACTERES)
         self.bel_maxChars.setText(str(self.LIMITE_CARACTERES))
         self.lineEdit_respuesta.textChanged.connect(lambda x: self.bel_noChars.setText( str(len(self.lineEdit_respuesta.text()))) )
 
-        validator = QRegExpValidator(QRegExp("[^\n  ]{1,"+str(self.LIMITE_CARACTERES)+"}"))
-        self.lineEdit_respuesta.setValidator(validator)
-        self.lineEdit_respuesta.setMaxLength(self.LIMITE_CARACTERES)
-        self.control_2.marcarDesmarcarRespuesta_automatico(self.pregStr_Double, False)
 ####################################################################################################################################
 #       C O N T R O L    D E     BOTONES DE PREGUNTAS HIBRIDAS :
 ####################################################################################################################################
@@ -101,23 +88,124 @@ class PreguntaAbierta(QtWidgets.QWidget, Ui_Form):
         self.control.COLOR_SELECCION="#D79DDB" #cambiando el color de seleccion
                                                #a uno de color rosa
         self.control.botonFuePresionado.connect(self.cambioHibridoPregunta)
-        self.mutacionPregunta=0
-        self.control.btnElegido=-1
-        self.control.marcarDesmarcarRespuesta_automatico(self.mutacionPregunta,False)
+####################################################################################################################################
+#      I M A G E N E S :
+####################################################################################################################################
+        self.ventanas[1].alguienEligioImagen.connect(self.eligioImagen)  # contiene la widget de imagenes 50%
 
+        #Constantes de tamano maximo perimitido de letra...
+        self.dSpin_pregTam.setMinimum(10)
+        self.dSpin_pregTam.setMaximum(35)
+        self.dSpin_pregTam.setValue(15)
+        self.DIREC_IMAGENES="HOLA/"
+
+
+
+        datosPregunta,datosRespuesta=self.datosDefault()
+        self.abrirPregunta(datosPregunta,datosRespuesta)
+
+
+    def datosDefault(self):
+        datosPregunta = {
+            "GRADO_IMAGENES": 1,  # 0=sin imagen 1=con imagen en pregunta....
+            "TIEMPO_SEGUNDOS": 120,
+            "TEXTO_PREGUNTA": "¿Cuanto es 5+5+?",
+            "IMAGEN_PREGUNTA": "roni.png",
+            "TAMANO_PREGUNTA": 15,
+            "POSICION_PREGUNTA": 1,  # 0=left 1=center  2=rigth
+            "TAMANO_RESPUESTA": 70,
+            "POSICION_RESPUESTA": 1,  # 0=left 1=center  2=rigth
+            "FORMA_EVALUAR": 1,  # 0=preguntasString  1=preguntasNumero
+            "RESPUESTAS": "numpy.array()"
+        }
+        datosRespuesta = None
+        return datosPregunta, datosRespuesta
+
+    def abrirPregunta(self, datosPregunta, datosRespuesta):
+        self.PROPIEDADES_PREGUNTA = datosPregunta
+        self.PROPIEDADES_RESPUESTA = datosRespuesta
+        # P R E G U N T A   :
+        # GRADO_IMAGENES...
+
+        self.NUEVA_PREGUNTA = True
+        gradoImagenes = self.PROPIEDADES_PREGUNTA["GRADO_IMAGENES"]
+        self.control.botonPresionado(gradoImagenes)  # 0=0%imagen  1=50%imagen
+        # TIEMPO_SEGUNDOS...
+        tiempo = self.PROPIEDADES_PREGUNTA["TIEMPO_SEGUNDOS"]
+        self.timeEdit.setTime(QtCore.QTime(0, int(tiempo / 60), tiempo % 60, 0))  # 1 minuto
+        # TEXTO_PREGUNTA...
+        # Poniendo el texto por default....
+
+        texto = self.PROPIEDADES_PREGUNTA["TEXTO_PREGUNTA"]
+        for i in range(len(self.ventanas)):
+            self.ventanas[i].txtEdit_preg.setText(texto)
+        # IMAGEN_PREGUNTA... ya lo hace la funcion anterior...
+        # imagenPregunta = self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
+        # self.ventanas[1].controlABSOLUTO_pregImagen.escogioImagen(0, False, imagenPregunta)
+
+        # TAMANO_PREGUNTA...
+        self.dSpin_pregTam.setValue(self.PROPIEDADES_PREGUNTA["TAMANO_PREGUNTA"])
+        # POSICION_PREGUNTA...
+        # 0=izquierda 1=centro 2=derecha
+        self.controlABSOLUTO_editTextPreguntas.editPosEditsText(self.PROPIEDADES_PREGUNTA["POSICION_PREGUNTA"])
+        # TAMANO_RESPUESTA...
+        # POSICION_RESPUESTA...
+       # FORMA_EVALUAR...
+        # 0=eligeTodas 1=eligeCualquiera
+        self.cambio_pregANDpregOR(self.PROPIEDADES_PREGUNTA["FORMA_EVALUAR"])
+        # RESPUESTAS...
+        respuesta = self.PROPIEDADES_PREGUNTA["RESPUESTAS"]
+        self.lineEdit_respuesta.setText(str(respuesta))
+
+        self.NUEVA_PREGUNTA=False
+
+
+    def eligioImagen(self, listaInformacion):
+        # 0=imagenPregunta, 1=imagenRespuesta_A, 2=imagenRespuesta_B....
+        idLabelEligioImagen = listaInformacion[0]
+        direcGuardoImagen = listaInformacion[1]
+        noLabelsImagen = listaInformacion[2]
+
+        if (idLabelEligioImagen == 0 and noLabelsImagen == 1):  # es una imagen pregunta...
+            imagenAntiguaAlmacenada = self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
+            self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"] = direcGuardoImagen
+            if imagenAntiguaAlmacenada != "NULL" and imagenAntiguaAlmacenada != None and self.NUEVA_PREGUNTA == False:
+                # Debemos eliminar la imagen...
+                os.remove(self.DIREC_IMAGENES + imagenAntiguaAlmacenada)
+
+
+
+
+
+    def datosDefault(self):
+        datosPregunta = {
+            "GRADO_IMAGENES": 1,  # 0=sin imagen 1=con imagen en pregunta....
+            "TIEMPO_SEGUNDOS": 60,
+            "TEXTO_PREGUNTA": "Sentencia de numpy",
+            "IMAGEN_PREGUNTA": "roni.png",
+            "TAMANO_PREGUNTA": 15,
+            "POSICION_PREGUNTA": 1,  # 0=left 1=center  2=rigth
+            "TAMANO_RESPUESTA": 70,
+            "POSICION_RESPUESTA": 1,  # 0=left 1=center  2=rigth
+            "FORMA_EVALUAR": 0,  # 0=preguntasString  1=preguntasNumero
+            "RESPUESTAS": "numpy.array()"
+        }
+        datosRespuesta = None
+        return datosPregunta, datosRespuesta
 
     def cambio_pregANDpregOR(self,idBtnFuePresionado):
-        resultado = QMessageBox.question(self, "DelphiPreguntas",
-                                         "¿Esta seguro que quieres cambiar a \n"
-                                         f"respuestas de tipo {self.nombreTipoRespuestas[idBtnFuePresionado]}?\n"
-                                         "de ser asi debes considerar que el\n"
-                                         "contenido de tu respuesta de ahorita\n"
-                                         "se borrara",
-                                         QMessageBox.Yes | QMessageBox.No)
-        if resultado == QMessageBox.Yes:
+        resultado=QMessageBox.Yes
+        if self.NUEVA_PREGUNTA == False:
+            resultado = QMessageBox.question(self, "DelphiPreguntas",
+                                             "¿Esta seguro que quieres cambiar a \n"
+                                             f"respuestas de tipo {self.nombreTipoRespuestas[idBtnFuePresionado]}?\n"
+                                             "de ser asi debes considerar que el\n"
+                                             "contenido de tu respuesta de ahorita\n"
+                                             "se borrara",
+                                             QMessageBox.Yes | QMessageBox.No)
+        if resultado==QMessageBox.Yes:
             self.control_2.marcarDesmarcarRespuesta_automatico(idBtnFuePresionado,False)
-            self.pregStr_Double=idBtnFuePresionado
-            print("BOTON...", self.pregStr_Double)
+            self.PROPIEDADES_PREGUNTA["FORMA_EVALUAR"] = idBtnFuePresionado  # 0=cualquiera  1=todas
             if idBtnFuePresionado==0:#respuesta string....
                 self.bel_noChars.setText("0")
                 self.lineEdit_respuesta.setText("")
@@ -128,23 +216,37 @@ class PreguntaAbierta(QtWidgets.QWidget, Ui_Form):
                 self.lineEdit_respuesta.setText("")
                 self.lineEdit_respuesta.setValidator(QDoubleValidator())
 
+
     def cambioHibridoPregunta(self,idBtnFuePresionado):
-        resultado = QMessageBox.question(self, "DelphiPreguntas",
-                                         "¿Esta seguro que quiere cambiar al formato \n"
-                                         f"de pregunta: '{self.listNombres_preguntasHibridas[idBtnFuePresionado]}' ?\n",
-                                         QMessageBox.Yes | QMessageBox.No)
+        resultado = QMessageBox.Yes
+        if self.NUEVA_PREGUNTA == False:
+            resultado = QMessageBox.question(self, "DelphiPreguntas",
+                                             "¿Esta seguro que quiere cambiar al formato \n"
+                                             f"de pregunta: '{self.listNombres_preguntasHibridas[idBtnFuePresionado]}' ?\n",
+                                             QMessageBox.Yes | QMessageBox.No)
         if resultado == QMessageBox.Yes:
             self.listWidget_panelVersion.setCurrentIndex(idBtnFuePresionado)
             self.control.marcarDesmarcarRespuesta_automatico(idBtnFuePresionado,False)
-
+            punteroWidget=self.PROPIEDADES_PREGUNTA["GRADO_IMAGENES"]
             #cargando el texto del edit text del widget al que nos pasaremos...
-            self.textPregunta= self.matrizEditTextPreguntas[self.punteroWidget][0].toPlainText()
-            self.punteroWidget=idBtnFuePresionado
-            self.matrizEditTextPreguntas[self.punteroWidget][0].setText(self.textPregunta)
+            self.textPregunta= self.matrizEditTextPreguntas[punteroWidget][0].toPlainText()
+            self.PROPIEDADES_PREGUNTA["GRADO_IMAGENES"] = idBtnFuePresionado  # 0=sin imagen 1=con imagen en pregunta....
+            punteroWidget=self.PROPIEDADES_PREGUNTA["GRADO_IMAGENES"]
+            self.matrizEditTextPreguntas[punteroWidget][0].setText(self.textPregunta)
             #Refrescando las posiciones ya que por alguna extraña razon, cuando lo poner un nuevo
             #texto su posicion de ve alterada
             self.controlABSOLUTO_editTextPreguntas.refrescarPosEditText(idBtnFuePresionado)
 
+            # Cargando las imagenes....
+            # IMAGEN_PREGUNTA...
+            if idBtnFuePresionado > 0:  # Significa que es una pregunta con respuestas imagenes...
+                if idBtnFuePresionado == 1:  # preguntaImagen 50%....
+                    # IMAGEN_PREGUNTA...
+                    imagenPregunta = self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
+                    # Cagaremos la imagen pero no la respuesta...
+                    if imagenPregunta != None:
+                        imagenPregunta = self.DIREC_IMAGENES + imagenPregunta
+                    self.ventanas[idBtnFuePresionado].controlABSOLUTO_labelImagen.escogioImagen(0, False,imagenPregunta)
 
 
 
@@ -155,21 +257,5 @@ if __name__ == "__main__":
     app.exec()
     #sys.exit(app.exec())
 
-'''
 
 
-
-        respuestaTexto=QLineEdit()
-        validator = QRegExpValidator(QRegExp("[^\n  ]{1,50}"))
-        respuestaTexto.setValidator(validator)QRegExp("[^\n  ]{1,50}")
-
-        respuestaTexto.setMinimumSize(500,200)
-        respuestaTexto.setMaximumSize(500,200)
-        self.layoutRespuesta.addWidget(respuestaTexto)
-
-setValidator()
-Sets the validation rules. Available validators are
-QIntValidator − Restricts input to integer
-QDoubleValidator − Fraction part of number limited to specified decimals
-QRegexpValidator − Checks input against a Regex expression
-'''
