@@ -88,10 +88,10 @@ class comportSelectImagen_label(QObject):
             # cabe aclarar que la variable foto en un objeto de pixmap
             # estamos guardando la imagen en la carpeta fotos con la extension .png
             # conservando toda su calidad...
-            nombreImagen = self.getIdImagen()
-            nameImagenGuardar =self.direcGuardado+"/"+nombreImagen + ".png"
+            nombreImagen = self.getIdImagen()+".png"
+            nameImagenGuardar =self.direcGuardado+"/"+nombreImagen
             imagen.save(nameImagenGuardar, quality=100)
-            return nameImagenGuardar
+            return nombreImagen
 
 
     def escogioImagen(self,idLabelEscogio):

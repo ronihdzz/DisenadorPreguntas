@@ -20,12 +20,15 @@ from comportEditTextEdit import comportEditTextEdit
 from comportAutoguardado_textEdit import comportAutoguardado_textEdit
 from PyQt5.QtWidgets import  QMessageBox
 import numpy as np
+from PropiedadesPregunta import PropiedadesPregunta
+import os
 
 #https://www.youtube.com/watch?v=P-SZn5eSDp8&list=PL7Euic11sPg_OYLhPN3QUh3BZINlhFApE
-class PreguntaBinaria(QtWidgets.QWidget, Ui_Form):
+class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
     def __init__(self):
         Ui_Form.__init__(self)
         QtWidgets.QWidget.__init__(self)
+        PropiedadesPregunta.__init__(self)
         self.setupUi(self)
         # creando multiples ventanas...
         self.ventanas = []
@@ -45,6 +48,21 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form):
             self.ventanas[i].txtEdit_respA.setText("Cierto")
             self.ventanas[i].txtEdit_respB.setText("Falso")
 
+####################################################################################################################################
+#      PROPEIDADES TIPO DE RESPUESTA...
+####################################################################################################################################
+        self.DIREC_IMAGENES="HOLA/"
+        self.PROPIEDADES_RESPUESTA={
+            "TEXTO_RESPA":"NULL",
+            "TEXTO_RESPB":"NULL",
+        }
+        self.textoRespuestas=["",""]
+
+####################################################################################################################################
+#      I M A G E N E S :
+####################################################################################################################################
+
+        self.ventanas[1].alguienEligioImagen.connect(self.eligioImagen)  #contiene la widget de imagenes 50%
 ####################################################################################################################################
 #       C O N T R O L    D E     B O T O N E S :
 ####################################################################################################################################
@@ -119,13 +137,9 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form):
 ####################################################################################################################################
 
         self.matrizTodos_textEdit=self.matrizEditTextPreguntas
-        print(self.matrizTodos_textEdit.shape)
         self.matrizTodos_textEdit=np.append(self.matrizTodos_textEdit,self.matrizEditTextRespuestas,axis=1)
         self.controlABSOULUTO_autoguardado=comportAutoguardado_textEdit(self.matrizTodos_textEdit)
         self.controlABSOULUTO_autoguardado.horaGuardarCambios.connect(self.guardarCambios)
-        self.textoPregunta=""
-        self.textoRespuestas=["Cierto","Falso"]
-        print(self.matrizTodos_textEdit.shape)
 
 ####################################################################################################################################
 #       C O N T R O L    D E   PREGUNTAS ESPECIFICAS U ABIERTAS :
@@ -146,6 +160,7 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form):
         self.COLOR_OR = "#5DD1D6"
         self.COLOR_AND = "#F51E8C"
 
+
 ###########################################################################################################################
 #
 #
@@ -154,24 +169,37 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form):
 #
 ##############################################################################################################################
 
+    def eligioImagen(self,listaInformacion):
+        #0=imagenPregunta, 1=imagenRespuesta_A, 2=imagenRespuesta_B....
+        idLabelEligioImagen=listaInformacion[0]
+        direcGuardoImagen=listaInformacion[1]
+        if idLabelEligioImagen==0: #es una imagen pregunta...
+            print(direcGuardoImagen)
+            imagenAntiguaAlmacenada=self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
+            if imagenAntiguaAlmacenada!="NULL" and imagenAntiguaAlmacenada!=None:
+                #Debemos eliminar la imagen...
+                os.remove(self.DIREC_IMAGENES+imagenAntiguaAlmacenada)
+            self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]=direcGuardoImagen
+
 
     def guardarCambios(self,listaDatos):
         idTxtRespueta=listaDatos[0]
         texto=listaDatos[1]
+        posiblesRespuestas=["A","B"]
         if idTxtRespueta==0: #significa que es de la pregunta...
-            self.textoPregunta=texto
+            self.PROPIEDADES_PREGUNTA["TEXTO_PREGUNTA"]=texto
         else: #significara que son los edit text de las respuestas..
+            respuestaGuardar="TEXTO_RESP"+posiblesRespuestas[idTxtRespueta-1]
+            self.PROPIEDADES_RESPUESTA[respuestaGuardar]=texto
             self.textoRespuestas[idTxtRespueta-1]=texto
-        print(texto)
 
 
     def cambio_pregANDpregOR(self,idBtnFuePresionado):
         self.control_2.marcarDesmarcarRespuesta_automatico(idBtnFuePresionado,False)
-        self.pregAND_pregOR=idBtnFuePresionado
-        print("BOTON...",self.pregAND_pregOR)
-        if idBtnFuePresionado==0:
+        self.PROPIEDADES_PREGUNTA["FORMA_EVALUAR"]=idBtnFuePresionado #0=cualquiera  1=todas
+        if idBtnFuePresionado==0:#FUE ESCOGIDA LA MODALIDAD ABIERTA...
             self.controlABSOLUTO_botones.setColor(self.COLOR_AND)
-        else:
+        else:#FUE ESCOGIDA LA MODALIDAD DE ELIGE TODAS...
             self.controlABSOLUTO_botones.setColor(self.COLOR_OR)
 
     def cambioHibridoPregunta(self,idBtnFuePresionado):
@@ -180,12 +208,14 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form):
                                          f"de pregunta: '{self.listNombres_preguntasHibridas[idBtnFuePresionado]}' ?\n",
                                          QMessageBox.Yes | QMessageBox.No)
         if resultado == QMessageBox.Yes:
+            self.PROPIEDADES_PREGUNTA["GRADO_IMAGENES"] = idBtnFuePresionado  # 0=sin imagen 1=con imagen en pregunta....
             #actulizando contenido de respuestas
             self.controlABSOULUTO_autoguardado.registrarRespuestas(False) #actualizamos los datos
                                                      #del ultimo edit text que se estaba editando
 
             #cargando el texto del edit text del widget al que nos pasaremos...
-            self.matrizEditTextPreguntas[idBtnFuePresionado][0].setText(self.textoPregunta)
+            textoPregunta=self.PROPIEDADES_PREGUNTA["TEXTO_PREGUNTA"]
+            self.matrizEditTextPreguntas[idBtnFuePresionado][0].setText(textoPregunta)
             #cargando el texto en lo edit text de las respuesta del widget donde nos pasaremos
             for respuesta in range(len(self.textoRespuestas)):
                 self.matrizEditTextRespuestas[idBtnFuePresionado][respuesta].setText(self.textoRespuestas[respuesta])
@@ -199,9 +229,48 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form):
             self.control.marcarDesmarcarRespuesta_automatico(idBtnFuePresionado,False)
 
     def getDatos(self):
+        #obteniendo el tiempo destinado a la pregunta...
+        segundos=self.timeEdit.time().second()+self.timeEdit.time().minute()*60
+        self.PROPIEDADES_PREGUNTA["TIEMPO_SEGUNDOS"]=segundos
+
+        self.PROPIEDADES_PREGUNTA["TAMANO_PREGUNTA"]=self.dSpin_pregTam.value()
+
+        #Eligiendo respuestas...
+        respuestasPosibles=["A","B"]
+        respuestasElegidas=self.controlABSOLUTO_botones.listRespCorrectas
+        respuesta=""
+        for x in range(2):
+            if respuestasElegidas[x]==True:
+                respuesta+=respuestasPosibles[x]
+        if respuesta=="":
+            respuesta="NULL"
+        self.PROPIEDADES_PREGUNTA["RESPUESTAS"]=respuesta
+        self.PROPIEDADES_PREGUNTA["TAMANO_PREGUNTA"]=self.dSpin_respTam.value()
+
+        for a,b in self.PROPIEDADES_PREGUNTA.items():
+            print(a,"-",b)
+
+        for a,b in self.PROPIEDADES_RESPUESTA.items():
+            print(a,"-",b)
 
 
-        pass
+    def closeEvent(self, event):
+        self.getDatos()
+        event.accept()
+
+
+        #self.timeEdit_prueba.setTime(QtCore.QTime(0,20,0,0)) #20 minuto...
+        #self.timeEdit_pregunta.setTime(QtCore.QTime(0,1,0,0))# 1 minuto
+        #sPregunta=(self.timeEdit_pregunta.time().second()+self.timeEdit_pregunta.time().minute()*60)
+
+        #self.controlABSOULUTO_autoguardado.registrarRespuestas(False)  # actualizamos los datos
+        # del ultimo edit text que se estaba editando
+
+        #self.textoRespuestas=["Cierto","Falso"]
+        #self.controlABSOLUTO_botones.listRespCorrectas  #A,B
+        #self.controlABSOLUTO_editTextPreguntas.punteroPOS #nos da la posicion
+        #self.textoPregunta = ""
+
 
 ################################################################################################################
 

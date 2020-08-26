@@ -52,7 +52,7 @@ class PreguntaBinariaImagen_50(QtWidgets.QWidget, Ui_Form):
         self.alguienEligioImagen.emit(listaInformacion)
         idLabelEligioImagen=listaInformacion[0]
         direcGuardoImagen=listaInformacion[1]
-        print("Label:",idLabelEligioImagen," Direc: ",direcGuardoImagen)
+
 
 
 if __name__ == "__main__":

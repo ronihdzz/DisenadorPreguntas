@@ -45,7 +45,7 @@ class comportEditTextEdit():
         self.matrizEditText = matrizEditText
 
         # Posicion del texto de  la pregunta...
-        self.posPregunta = 1  # 0=izquierda 1=centro 2=derecha
+        self.punteroPOS = 1  # 0=izquierda 1=centro 2=derecha
 
         #Conectando los botones que tendran el control de la alineacion del texto...
         for x in range(self.vectorRenglon_btnAlin.shape[1]):
@@ -72,7 +72,7 @@ class comportEditTextEdit():
                     self.matrizEditText[renglon][columna].setFont(font)
 
     def refrescarPosEditText(self,widgetNo):
-        posicion=self.posPregunta
+        posicion=self.punteroPOS
         if self.matrizEditText.shape[1]>0:
             if posicion == 0:
                 for columna in range(self.matrizEditText.shape[1]):
@@ -99,8 +99,8 @@ class comportEditTextEdit():
                     for columna in range(self.matrizEditText.shape[1]):
                         self.matrizEditText[renglon][columna].setAlignment(Qt.AlignRight)
 
-        self.vectorRenglon_btnAlin[0][self.posPregunta].setStyleSheet(f"background-color:{self.COLOR_NORMAL};"
-                                                         f"border-image: url({self.listImagBtnPos[self.posPregunta]});")
-        self.posPregunta = newPosicion
-        self.vectorRenglon_btnAlin[0][self.posPregunta].setStyleSheet(f"background-color:{self.COLOR_SELECCION};"
-                                                         f"border-image: url({self.listImagBtnPos[self.posPregunta]});")
+        self.vectorRenglon_btnAlin[0][self.punteroPOS].setStyleSheet(f"background-color:{self.COLOR_NORMAL};"
+                                                         f"border-image: url({self.listImagBtnPos[self.punteroPOS]});")
+        self.punteroPOS = newPosicion
+        self.vectorRenglon_btnAlin[0][self.punteroPOS].setStyleSheet(f"background-color:{self.COLOR_SELECCION};"
+                                                         f"border-image: url({self.listImagBtnPos[self.punteroPOS]});")
