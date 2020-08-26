@@ -263,15 +263,17 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
                 os.remove(self.DIREC_IMAGENES + imagenAntiguaAlmacenada)
 
     def guardarCambios(self,listaDatos):
+        print("GUARDANDO...",listaDatos)
         idTxtRespueta=listaDatos[0]
         texto=listaDatos[1]
         posiblesRespuestas=["A","B"]
-        if idTxtRespueta==0: #significa que es de la pregunta...
-            self.PROPIEDADES_PREGUNTA["TEXTO_PREGUNTA"]=texto
-        else: #significara que son los edit text de las respuestas..
-            respuestaGuardar="TEXTO_RESP"+posiblesRespuestas[idTxtRespueta-1]
-            self.PROPIEDADES_RESPUESTA[respuestaGuardar]=texto
-            self.textoRespuestas[idTxtRespueta-1]=texto
+        if idTxtRespueta>=0:
+            if idTxtRespueta==0: #significa que es de la pregunta...
+                self.PROPIEDADES_PREGUNTA["TEXTO_PREGUNTA"]=texto
+            else: #significara que son los edit text de las respuestas..
+                respuestaGuardar="TEXTO_RESP"+posiblesRespuestas[idTxtRespueta-1]
+                self.PROPIEDADES_RESPUESTA[respuestaGuardar]=texto
+                self.textoRespuestas[idTxtRespueta-1]=texto
 
 
     def cambio_pregANDpregOR(self,idBtnFuePresionado):
@@ -322,6 +324,10 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
                     self.ventanas[idBtnFuePresionado].controlABSOLUTO_labelImagen.escogioImagen(0, False,imagenPregunta)
 
     def getDatos(self):
+        # actulizando contenido de respuestas
+        self.controlABSOULUTO_autoguardado.registrarRespuestas(False)  # actualizamos los datos
+        # del ultimo edit text que se estaba editando
+
         #obteniendo el tiempo destinado a la pregunta...
         segundos=self.timeEdit.time().second()+self.timeEdit.time().minute()*60
         self.PROPIEDADES_PREGUNTA["TIEMPO_SEGUNDOS"]=segundos
@@ -341,9 +347,11 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
         for a,b in self.PROPIEDADES_RESPUESTA.items():
             print(a,"-",b)
 
+        return tuple(self.PROPIEDADES_PREGUNTA.values()),tuple(self.PROPIEDADES_RESPUESTA.values())
+
 
     def closeEvent(self, event):
-        self.getDatos()
+        print(self.getDatos())
         event.accept()
 
 

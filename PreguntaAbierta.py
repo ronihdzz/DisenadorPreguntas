@@ -105,6 +105,32 @@ class PreguntaAbierta(QtWidgets.QWidget, Ui_Form):
         self.abrirPregunta(datosPregunta,datosRespuesta)
 
 
+
+    def getDatos(self):
+
+        #obteniendo el tiempo destinado a la pregunta...
+        segundos=self.timeEdit.time().second()+self.timeEdit.time().minute()*60
+        self.PROPIEDADES_PREGUNTA["TIEMPO_SEGUNDOS"]=segundos
+        self.PROPIEDADES_PREGUNTA["POSICION_PREGUNTA"]=self.controlABSOLUTO_editTextPreguntas.punteroPOS
+
+        self.PROPIEDADES_PREGUNTA["TAMANO_PREGUNTA"]=self.dSpin_pregTam.value()
+
+        # Como no hay autoguardado es necesario hacer lo siguiente...
+        punteroWidgget=self.PROPIEDADES_PREGUNTA["GRADO_IMAGENES"]
+        self.PROPIEDADES_PREGUNTA["TEXTO"]=self.ventanas[punteroWidgget].txtEdit_preg.toPlainText()
+        self.PROPIEDADES_PREGUNTA["RESPUESTAS"]=self.lineEdit_respuesta.text()
+
+        for a,b in self.PROPIEDADES_PREGUNTA.items():
+            print(a,"-",b)
+
+        return tuple(self.PROPIEDADES_PREGUNTA.values()),self.PROPIEDADES_RESPUESTA
+
+
+    def closeEvent(self, event):
+        print(self.getDatos())
+        event.accept()
+
+
     def datosDefault(self):
         datosPregunta = {
             "GRADO_IMAGENES": 1,  # 0=sin imagen 1=con imagen en pregunta....

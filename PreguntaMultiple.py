@@ -167,18 +167,49 @@ class PreguntaMultiple(QtWidgets.QWidget, Ui_Form):
 #
 #
 ##############################################################################################################################
+    def getDatos(self):
+        # actulizando contenido de respuestas
+        self.controlABSOULUTO_autoguardado.registrarRespuestas(False)  # actualizamos los datos
+        # del ultimo edit text que se estaba editando
+
+        #obteniendo el tiempo destinado a la pregunta...
+        segundos=self.timeEdit.time().second()+self.timeEdit.time().minute()*60
+        self.PROPIEDADES_PREGUNTA["TIEMPO_SEGUNDOS"]=segundos
+        self.PROPIEDADES_PREGUNTA["POSICION_PREGUNTA"]=self.controlABSOLUTO_editTextPreguntas.punteroPOS
+        self.PROPIEDADES_PREGUNTA["POSICION_RESPUESTA"]=self.controlABSOLUTO_editTextRespuestas.punteroPOS
+
+        self.PROPIEDADES_PREGUNTA["TAMANO_PREGUNTA"]=self.dSpin_pregTam.value()
+
+        respuestasElegidas=self.controlABSOLUTO_botones.listRespCorrectas
+        self.PROPIEDADES_PREGUNTA["RESPUESTAS"]=str(respuestasElegidas)[1:-1]#para quitar los corchetes
+        self.PROPIEDADES_PREGUNTA["TAMANO_RESPUESTA"]=self.dSpin_respTam.value()
+
+        for a,b in self.PROPIEDADES_PREGUNTA.items():
+            print(a,"-",b)
+
+        for a,b in self.PROPIEDADES_RESPUESTA.items():
+            print(a,"-",b)
+
+        return tuple(self.PROPIEDADES_PREGUNTA.values()),tuple(self.PROPIEDADES_RESPUESTA.values())
+
+
+
+    def closeEvent(self, event):
+        print(self.getDatos())
+        event.accept()
 
 
     def guardarCambios(self,listaDatos):
         idTxtRespueta=listaDatos[0]
         texto=listaDatos[1]
         posiblesRespuestas=["A","B","C","D"]
-        if idTxtRespueta==0: #significa que es de la pregunta...
-            self.PROPIEDADES_PREGUNTA["TEXTO_PREGUNTA"]=texto
-        else: #significara que son los edit text de las respuestas..
-            respuestaGuardar="TEXTO_RESP"+posiblesRespuestas[idTxtRespueta-1]
-            self.PROPIEDADES_RESPUESTA[respuestaGuardar]=texto
-            self.textoRespuestas[idTxtRespueta-1]=texto
+        if idTxtRespueta >= 0:
+            if idTxtRespueta==0: #significa que es de la pregunta...
+                self.PROPIEDADES_PREGUNTA["TEXTO_PREGUNTA"]=texto
+            else: #significara que son los edit text de las respuestas..
+                respuestaGuardar="TEXTO_RESP"+posiblesRespuestas[idTxtRespueta-1]
+                self.PROPIEDADES_RESPUESTA[respuestaGuardar]=texto
+                self.textoRespuestas[idTxtRespueta-1]=texto
 
     def cambio_pregANDpregOR(self,idBtnFuePresionado):
         self.control_2.marcarDesmarcarRespuesta_automatico(idBtnFuePresionado,False)

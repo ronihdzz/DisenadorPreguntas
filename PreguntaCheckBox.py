@@ -152,18 +152,68 @@ class PreguntaCheckBox(QtWidgets.QWidget, Ui_Form):
 #
 ##############################################################################################################################
 
+    def getDatos(self):
+
+        #obteniendo el tiempo destinado a la pregunta...
+        segundos=self.timeEdit.time().second()+self.timeEdit.time().minute()*60
+        self.PROPIEDADES_PREGUNTA["TIEMPO_SEGUNDOS"]=segundos
+        self.PROPIEDADES_PREGUNTA["POSICION_PREGUNTA"]=self.controlABSOLUTO_editTextPreguntas.punteroPOS
+        self.PROPIEDADES_PREGUNTA["POSICION_RESPUESTA"]=self.controlABSOLUTO_editTextRespuestas.punteroPOS
+
+        self.PROPIEDADES_PREGUNTA["TAMANO_PREGUNTA"]=self.dSpin_pregTam.value()
+        self.PROPIEDADES_PREGUNTA["TAMANO_RESPUESTA"] = self.dSpin_respTam.value()
+
+        #Como no hay autoguardado es necesario hacer lo siguiente...
+        punteroWidgget=self.PROPIEDADES_PREGUNTA["GRADO_IMAGENES"]
+        self.PROPIEDADES_PREGUNTA["TEXTO"]=self.ventanas[punteroWidgget].txtEdit_preg.toPlainText()
+
+
+        #iterando sobre todos los items existentes....
+        respuestas=""
+        textoRespuestas=""
+        for item in self.listaItemsRonianos:
+            respuestas+=str(int(item.checkBox_estado.isChecked()))+","
+            textoRespuestas+=item.textEdit_texto.toPlainText()+","
+
+        self.PROPIEDADES_PREGUNTA["RESPUESTAS"]=str(respuestas)[:-1] #quitando la coma sobrante
+        self.PROPIEDADES_RESPUESTA["TEXTO_ITEMS"]=str(textoRespuestas)[:-1]  #quitando la coma sobrante
+
+
+        for a,b in self.PROPIEDADES_PREGUNTA.items():
+            print(a,"-",b)
+
+        for a,b in self.PROPIEDADES_RESPUESTA.items():
+            print(a,"-",b)
+
+        return tuple(self.PROPIEDADES_PREGUNTA.values()),tuple(self.PROPIEDADES_RESPUESTA.values())
+
+
+
+    def closeEvent(self, event):
+        print(self.getDatos())
+        event.accept()
+
+
+
+
+
+
+
+
+
+
 
     def datosDefault(self):
             datosPregunta={
                 "GRADO_IMAGENES": 1,  # 0=sin imagen 1=con imagen en pregunta....
                 "TIEMPO_SEGUNDOS": 60,
                 "TEXTO_PREGUNTA": "Caracteristicas de Roni",
-                "IMAGEN_PREGUNTA": "roni.png",
+                "IMAGEN_PREGUNTA": None,
                 "TAMANO_PREGUNTA": 30,
                 "POSICION_PREGUNTA": 0,  # 0=left 1=center  2=rigth
                 "TAMANO_RESPUESTA": 20,
                 "POSICION_RESPUESTA":0,  # 0=left 1=center  2=rigth
-                "FORMA_EVALUAR":1,  # 0=todas 1=cualquiera
+                "FORMA_EVALUAR":0,  # 0=todas 1=cualquiera  ya que deben elegirse todas las opcciones correctas
                 "RESPUESTAS": "1,1"
             }
 
