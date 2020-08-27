@@ -157,7 +157,7 @@ class PreguntaCheckBox(QtWidgets.QWidget, Ui_Form):
         return self.getDatos()
 
 
-    def getDatos(self):
+    def getDatos(self,tupleFormat=True):
 
         #obteniendo el tiempo destinado a la pregunta...
         segundos=self.timeEdit.time().second()+self.timeEdit.time().minute()*60
@@ -190,7 +190,10 @@ class PreguntaCheckBox(QtWidgets.QWidget, Ui_Form):
         for a,b in self.PROPIEDADES_RESPUESTA.items():
             print(a,"-",b)
 
-        return tuple(self.PROPIEDADES_PREGUNTA.values()),tuple(self.PROPIEDADES_RESPUESTA.values())
+        if tupleFormat:
+            return tuple(self.PROPIEDADES_PREGUNTA.values()),tuple(self.PROPIEDADES_RESPUESTA.values())
+        else:
+            return self.PROPIEDADES_PREGUNTA.copy(),self.PROPIEDADES_RESPUESTA.copy()
 
 
 

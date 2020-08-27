@@ -112,7 +112,7 @@ class PreguntaAbierta(QtWidgets.QWidget, Ui_Form):
         return self.getDatos()
 
 
-    def getDatos(self):
+    def getDatos(self,tupleFormat=True):
 
         #obteniendo el tiempo destinado a la pregunta...
         segundos=self.timeEdit.time().second()+self.timeEdit.time().minute()*60
@@ -129,8 +129,10 @@ class PreguntaAbierta(QtWidgets.QWidget, Ui_Form):
         for a,b in self.PROPIEDADES_PREGUNTA.items():
             print(a,"-",b)
 
-        return tuple(self.PROPIEDADES_PREGUNTA.values()),self.PROPIEDADES_RESPUESTA
-
+        if tupleFormat:
+            return tuple(self.PROPIEDADES_PREGUNTA.values()),None
+        else:
+            return self.PROPIEDADES_PREGUNTA.copy(),None
 
     def closeEvent(self, event):
         print(self.getDatos())

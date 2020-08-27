@@ -18,6 +18,7 @@ from PreguntaAbierta import PreguntaAbierta
 from DataBaseCreadorPreguntas import DataBaseCreadorPreguntas
 from PyQt5.QtCore import Qt, pyqtSignal, QFile,QObject
 from PyQt5.QtWidgets import  QMessageBox
+from Visualizador import VisualizadorPreguntas
 
 class BotonPregunta(QObject):
     suHoraMorir= pyqtSignal(int)#indicara quien es el objeto que quiere morir...
@@ -82,8 +83,10 @@ class CreadorPreguntas(QtWidgets.QMainWindow, Ui_MainWindow):
         #Acciones del menu...
         self.actionGuardar.setShortcut("Ctrl+g")
         self.actionCrear_nueva_pregunta.setShortcut("Ctrl+n")
+        self.actionVisualizar.setShortcut("F5")
         self.actionGuardar.triggered.connect(self.guardarCambios)
         self.actionCrear_nueva_pregunta.triggered.connect(self.crearOtraPregunta)
+        self.actionVisualizar.triggered.connect(self.compilarPregunta)
 
 
         self.widget = QWidget()  # Widget that contains the collection of Vertical Box
@@ -117,6 +120,20 @@ class CreadorPreguntas(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.IMAGEN_ELIMINAR="ICONOS/icon_tache.png"
         self.IMAGEN_ELIMINAR_2="ICONOS/icon_tache2.png"
+
+        self.controlABSOLUTO_visualizador=VisualizadorPreguntas()
+
+    def compilarPregunta(self):
+        self.statusbar.showMessage('Compilando pregunta...', 1000)
+
+        widgetPregunta = self.listWidget_panelPreguntas.currentIndex()  # nos dira en que pregunta nos econtramos...
+
+        #self.ventanas[widgetPregunta].listWidget_panelVersion.currentIndex() #nos dira el tipo de respuesta...
+
+        datosPregunta, datosRespueta = self.ventanas[widgetPregunta].getDatos(False)
+
+        self.controlABSOLUTO_visualizador.visualizarPregunta(widgetPregunta,datosPregunta,datosRespueta)
+        self.controlABSOLUTO_visualizador.show()
 
     def guardarCambios(self):
         print("GUARADAR...")

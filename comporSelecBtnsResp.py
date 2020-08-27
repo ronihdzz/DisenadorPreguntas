@@ -29,6 +29,9 @@ class comporSelecBtnsResp():
         # Metodologia empleada para elegir las RESPUESTAS CORRECTAS
         self.listBtnResp =listBtnResp
 
+
+        self.ultimoBotonPresionado=-1
+
         self.listRespCorrectas=[]
         # todas inicialmente son consideradas
         # incorrectas...
@@ -41,15 +44,26 @@ class comporSelecBtnsResp():
 ###################################################################################################
 #   S E C C I O N     BOTONES SELECCIONADOS
 ####################################################################################################
-    def marcarDesmarcarRespuesta(self,idBtnRespuesta):
-        print("boton:",idBtnRespuesta)
-        if self.listRespCorrectas[idBtnRespuesta]==True:
-            self.listRespCorrectas[idBtnRespuesta]=False
-            self.listBtnResp[idBtnRespuesta].setStyleSheet(f"background-color:{self.COLOR_NORMAL};"
-                                                                   "border-radius: 20px;"
-                                                                   "border: 1px solid #555;")
+    def marcarDesmarcarRespuesta(self,idBtnRespuesta,seleccionMasUnBoton=True):
+
+        if seleccionMasUnBoton:
+            if self.listRespCorrectas[idBtnRespuesta]==True:
+                self.listRespCorrectas[idBtnRespuesta]=False
+                self.listBtnResp[idBtnRespuesta].setStyleSheet(f"background-color:{self.COLOR_NORMAL};"
+                                                                       "border-radius: 20px;"
+                                                                       "border: 1px solid #555;")
+            else:
+                self.listRespCorrectas[idBtnRespuesta]=True
+                self.listBtnResp[idBtnRespuesta].setStyleSheet(f"background-color:{self.COLOR_SELECCION};"
+                                                                       f"border-radius: 20px;"
+                                                                       "border: 1px solid #555;")
         else:
-            self.listRespCorrectas[idBtnRespuesta]=True
-            self.listBtnResp[idBtnRespuesta].setStyleSheet(f"background-color:{self.COLOR_SELECCION};"
-                                                                   f"border-radius: 20px;"
-                                                                   "border: 1px solid #555;")
+            if idBtnRespuesta!=self.ultimoBotonPresionado:
+                self.listBtnResp[self.ultimoBotonPresionado].setStyleSheet(f"background-color:{self.COLOR_NORMAL};"
+                                                                       "border-radius: 20px;"
+                                                                       "border: 1px solid #555;")
+                self.ultimoBotonPresionado=idBtnRespuesta
+                self.listBtnResp[self.ultimoBotonPresionado].setStyleSheet(f"background-color:{self.COLOR_SELECCION};"
+                                                                       "border-radius: 20px;"
+                                                                       "border: 1px solid #555;")
+

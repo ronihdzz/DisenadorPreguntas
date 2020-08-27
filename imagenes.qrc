@@ -1,5 +1,9 @@
 <RCC>
   <qresource prefix="alinear">
+    <file>IMAGENES/imagen5_prevE.png</file>
+    <file>IMAGENES/imagen5_nextE.png</file>
+    <file>IMAGENES/imagen4_prevD .png</file>
+    <file>IMAGENES/imagen4_nextD.png</file>
     <file>ICONOS/icon_respNumber.png</file>
     <file>ICONOS/icon_respPalabra.png</file>
     <file>ICONOS/icon_dificultadFacil.png</file>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>892</width>
+    <height>514</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>892</width>
+    <height>514</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>892</width>
+    <height>514</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">padding:0px;</string>
+  </property>
+  <widget class="QStackedWidget" name="listWidget_eval">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>70</y>
+     <width>891</width>
+     <height>441</height>
+    </rect>
+   </property>
+   <property name="toolTipDuration">
+    <number>0</number>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">padding:0px;
+margin:0px;
+
+</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::NoFrame</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
+   </property>
+   <property name="currentIndex">
+    <number>-1</number>
+   </property>
+  </widget>
+  <widget class="QLCDNumber" name="lcdNumber">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>30</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_next">
+   <property name="geometry">
+    <rect>
+     <x>860</x>
+     <y>10</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+border-image: url(:/FLECHAS/IMAGENES/imagen5_nextE.png);
+}
+QPushButton:hover {
+border-image: url(:/FLECHAS/IMAGENES/imagen4_nextD.png);
+}
+
+QPushButton:pressed {
+border-image: url(:/FLECHAS/IMAGENES/imagen5_nextE.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_prev">
+   <property name="geometry">
+    <rect>
+     <x>820</x>
+     <y>10</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+border-image: url(:/FLECHAS/IMAGENES/imagen5_prevE.png);
+  }
+QPushButton:hover {
+border-image: url(:/FLECHAS/IMAGENES/imagen4_prevD .png);
+}
+
+QPushButton:pressed {
+border-image: url(:/FLECHAS/IMAGENES/imagen5_prevE.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>0</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/ICONOS/IMAGENES/imagen3_delphia.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QProgressBar" name="proBar_avance">
+   <property name="geometry">
+    <rect>
+     <x>727</x>
+     <y>42</y>
+     <width>141</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QProgressBar {
+    border: 2px solid grey;
+    border-radius: 5px;
+	padding:2px;
+}
+
+QProgressBar::chunk {
+    background-color: #05B8CC;
+    width: 20px;
+	padding:2px;
+
+}</string>
+   </property>
+   <property name="value">
+    <number>0</number>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>0</y>
+     <width>241</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Trebuchet MS</family>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Evaluacion Apuntes</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../../IMAGENES.qrc"/>
+ </resources>
+ <connections/>
+</ui>

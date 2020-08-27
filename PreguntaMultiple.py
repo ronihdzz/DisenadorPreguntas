@@ -174,7 +174,7 @@ class PreguntaMultiple(QtWidgets.QWidget, Ui_Form):
         self.abrirPregunta(datosPregunta,datosRespuesta)
         return self.getDatos()
 
-    def getDatos(self):
+    def getDatos(self,tupleFormat=True):
         # actulizando contenido de respuestas
         self.controlABSOULUTO_autoguardado.registrarRespuestas(False)  # actualizamos los datos
         # del ultimo edit text que se estaba editando
@@ -197,9 +197,10 @@ class PreguntaMultiple(QtWidgets.QWidget, Ui_Form):
         for a,b in self.PROPIEDADES_RESPUESTA.items():
             print(a,"-",b)
 
-        return tuple(self.PROPIEDADES_PREGUNTA.values()),tuple(self.PROPIEDADES_RESPUESTA.values())
-
-
+        if tupleFormat:
+            return tuple(self.PROPIEDADES_PREGUNTA.values()),tuple(self.PROPIEDADES_RESPUESTA.values())
+        else:
+            return self.PROPIEDADES_PREGUNTA.copy(),self.PROPIEDADES_RESPUESTA.copy()
 
     def closeEvent(self, event):
         print(self.getDatos())

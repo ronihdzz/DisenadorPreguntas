@@ -331,7 +331,7 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
                         imagenPregunta = self.DIREC_IMAGENES + imagenPregunta
                     self.ventanas[idBtnFuePresionado].controlABSOLUTO_labelImagen.escogioImagen(0, False,imagenPregunta)
 
-    def getDatos(self):
+    def getDatos(self,tupleFormat=True):
         # actulizando contenido de respuestas
         self.controlABSOULUTO_autoguardado.registrarRespuestas(False)  # actualizamos los datos
         # del ultimo edit text que se estaba editando
@@ -354,8 +354,11 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
 
         for a,b in self.PROPIEDADES_RESPUESTA.items():
             print(a,"-",b)
+        if tupleFormat:
+            return tuple(self.PROPIEDADES_PREGUNTA.values()),tuple(self.PROPIEDADES_RESPUESTA.values())
+        else:
+            return self.PROPIEDADES_PREGUNTA.copy(),self.PROPIEDADES_RESPUESTA.copy()
 
-        return tuple(self.PROPIEDADES_PREGUNTA.values()),tuple(self.PROPIEDADES_RESPUESTA.values())
 
 
     def closeEvent(self, event):

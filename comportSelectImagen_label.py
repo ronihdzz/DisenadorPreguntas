@@ -67,7 +67,7 @@ class comportSelectImagen_label(QObject):
             self.vectorRenglon_labels[0][n].clicked.connect(self.escogioImagen)
             self.ponerImagenDefault(n)
 
-
+        self.IMAGENES_BLOQUEDAS=False
 
 
     def getIdImagen(self):
@@ -95,26 +95,28 @@ class comportSelectImagen_label(QObject):
 
 
     def escogioImagen(self,idLabelEscogio,ordenaAutomatica=True,imagen=False):
-
-        if ordenaAutomatica:
-            imagen, extension = QFileDialog.getOpenFileName(self.context, "Seleccionar imagen", getcwd(),
-                                                            "Archivos de imagen (*.png *.jpg)",
-                                                            options=QFileDialog.Options())
-        if not(imagen==None or imagen==False or imagen=="" or imagen=="NULL"):
-            # Adaptar imagen
-            ancho,alto= self.vectorRenglon_sizes[0][idLabelEscogio]
-
-            # pixmapImagen = QPixmap(imagen).scaled(ancho*0.9,alto*0.9, Qt.KeepAspectRatio,
-            #                                     Qt.SmoothTransformation)
-
-            pixmapImagen = QPixmap(imagen).scaled(ancho * 0.95, alto * 0.95, Qt.IgnoreAspectRatio,
-                                                  Qt.SmoothTransformation)
-            # Mostrar imagen por medio de los punteros labels...
-            self.vectorRenglon_labels[0][idLabelEscogio].punteroQLabelGui.setAlignment(Qt.AlignCenter)
-            self.vectorRenglon_labels[0][idLabelEscogio].punteroQLabelGui.setPixmap(pixmapImagen)
+        if self.IMAGENES_BLOQUEDAS:
+            pass
+        else:
             if ordenaAutomatica:
-                direccionImagenGuardada=self.guardarImagen( QPixmap(imagen) )
-                self.alguienEligioImagen.emit([idLabelEscogio,direccionImagenGuardada])
+                imagen, extension = QFileDialog.getOpenFileName(self.context, "Seleccionar imagen", getcwd(),
+                                                                "Archivos de imagen (*.png *.jpg)",
+                                                                options=QFileDialog.Options())
+            if not(imagen==None or imagen==False or imagen=="" or imagen=="NULL"):
+                # Adaptar imagen
+                ancho,alto= self.vectorRenglon_sizes[0][idLabelEscogio]
+
+                # pixmapImagen = QPixmap(imagen).scaled(ancho*0.9,alto*0.9, Qt.KeepAspectRatio,
+                #                                     Qt.SmoothTransformation)
+
+                pixmapImagen = QPixmap(imagen).scaled(ancho * 0.95, alto * 0.95, Qt.IgnoreAspectRatio,
+                                                      Qt.SmoothTransformation)
+                # Mostrar imagen por medio de los punteros labels...
+                self.vectorRenglon_labels[0][idLabelEscogio].punteroQLabelGui.setAlignment(Qt.AlignCenter)
+                self.vectorRenglon_labels[0][idLabelEscogio].punteroQLabelGui.setPixmap(pixmapImagen)
+                if ordenaAutomatica:
+                    direccionImagenGuardada=self.guardarImagen( QPixmap(imagen) )
+                    self.alguienEligioImagen.emit([idLabelEscogio,direccionImagenGuardada])
 
 
     def ponerImagenDefault(self,idLabel):
@@ -133,6 +135,8 @@ class comportSelectImagen_label(QObject):
     def ponerEnDafultTodasLabel(self):
         for n in range(self.vectorRenglon_labels.shape[1]):
             self.ponerImagenDefault(n)
+
+
 
 
 
