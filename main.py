@@ -24,7 +24,7 @@ class BotonPregunta(QObject):
     clickBotonPregunta=pyqtSignal(int)#indicara el id del boton
     def __init__(self,id,botonPregunta,botonMuerte):
         QObject.__init__(self)
-        self.id=id
+        self.id=id #(numeroPregunta,boton)
         self.botonPregunta=botonPregunta
         self.botonMuerte=botonMuerte
         self.botonPregunta.setText(str(self.id+1))
@@ -86,9 +86,6 @@ class CreadorPreguntas(QtWidgets.QMainWindow, Ui_MainWindow):
         self.actionCrear_nueva_pregunta.triggered.connect(self.crearOtraPregunta)
 
 
-
-
-
         self.widget = QWidget()  # Widget that contains the collection of Vertical Box
         self.vbox = QVBoxLayout()  # The Vertical Box that contains the Horizontal Boxes of  labels and buttons
         self.widget.setLayout(self.vbox)
@@ -124,6 +121,11 @@ class CreadorPreguntas(QtWidgets.QMainWindow, Ui_MainWindow):
     def guardarCambios(self):
         print("GUARADAR...")
         #mostrando mensaje por 1 segundo
+        widgetPregunta=self.listWidget_panelPreguntas.currentIndex() #nos dira en que pregunta nos econtramos...
+        datosPregunta,datosRespueta=self.ventanas[widgetPregunta].getDatos()
+        print("Datos a guardar...",datosPregunta,datosRespueta)
+        idPregunta=self.listIdPreguntas[self.punteroPregunta]
+        self.controlABSOLUTO_baseDatos.actualizarDatosPregunta(idPregunta,datosPregunta,datosRespueta)
         self.statusbar.showMessage('Guardando cambios...',1000)
 
     def cambioPregunta(self,pregunta):
@@ -136,21 +138,39 @@ class CreadorPreguntas(QtWidgets.QMainWindow, Ui_MainWindow):
         self.ventanaMenuPregunta.usuarioEscogioPregunta.connect(self.escogioPregunta)
         self.ventanaMenuPregunta.show()
 
-    def escogioPregunta(self,idPregunta):
-            idNewPregunta=self.controlABSOLUTO_baseDatos.addNewQuestion(idPregunta)
+    def escogioPregunta(self,tipoRespuesta):
+            datosPregunta,datosRespuesta=self.ventanas[tipoRespuesta].preguntaBlanco()
+            idNewPregunta=self.controlABSOLUTO_baseDatos.addNewQuestion(tipoRespuesta,datosPregunta,datosRespuesta)
             if idNewPregunta==False:#Si hay un error al crear la pregunta...
                 pass
             else:
-                self.listWidget_panelPreguntas.setCurrentIndex(idPregunta)
+                self.listWidget_panelPreguntas.setCurrentIndex(tipoRespuesta)
+                self.listIdPreguntas.append(idNewPregunta)#agregando el id de la pregunta...
                 self.agregarPregunta()
 
     def verContenidoPregunta(self,idBoton):
+
         if self.punteroPregunta!=idBoton:
             self.listBotonesPreguntas[self.punteroPregunta].botonSeleccionado(False)
             self.punteroPregunta=idBoton
             self.listBotonesPreguntas[self.punteroPregunta].botonSeleccionado(True)
 
-            print("Ver pregunta...",idBoton)
+            idPregunta = self.listIdPreguntas[idBoton]
+            dataPregunta,dataRespuesta=self.controlABSOLUTO_baseDatos.getData(idPregunta)
+            print("ABRIENDO DATOS DE LA PREGUNTA....")
+            print(dataPregunta,dataRespuesta)
+
+            #widgetPregunta = self.listWidget_panelPreguntas.currentIndex()  # nos dira en que pregunta nos econtramos...
+            tipoRespuesta=dataPregunta["TIPO_RESPUESTA"] #AHI SE ENCUENTRA EL TIPO DE RESPUESTA...
+            self.listWidget_panelPreguntas.setCurrentIndex(tipoRespuesta)
+            self.ventanas[tipoRespuesta].preguntaBlanco()
+            #Eliminamos datos que no necesita...
+            del dataPregunta["TIPO_RESPUESTA"]
+            del dataPregunta["ID"]
+            if tipoRespuesta!=3: #pues las preguntas imagenes no tienen dataRespuesta
+                del dataRespuesta["ID"]
+            self.ventanas[tipoRespuesta].abrirPregunta(dataPregunta,dataRespuesta)
+            #print("Ver pregunta...",idBoton[0])
 
     def eliminarPregunta(self,posItemMatar):
         self.verContenidoPregunta(posItemMatar)

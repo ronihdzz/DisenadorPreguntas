@@ -8,13 +8,38 @@ class DataBaseCreadorPreguntas():
         self.BASE_CREADA = False
 
     def crearConstantesDataBase(self):
-        self.NAMES_DATABASE_RESPUESTAS=(("RESP_trueFalse", 5),
+        self.NAMES_DATABASE_RESPUESTAS=(("RESP_trueFalse", 3),
                                         ("RESP_multiples", 9),
-                                        ("RESP_items", 3),
+                                        ("RESP_items", 2),
                                         ("RESP_abiertas", 2)
                                         )
         self.NAMES_DATABASE_PREGUNTAS = ("TABLA_PREGUNTAS", 12)
 
+
+        self.SECCIONES_TUPLAS_RESPUESTAS=(
+                     ("ID","TEXTO_RESPA","TEXTO_RESPB"),
+
+                     ("ID","TEXTO_RESPA","IMAGEN_RESPA",
+                      "TEXTO_RESPB","IMAGEN_RESPB",
+                      "TEXTO_RESPC","IMAGEN_RESPC",
+                      "TEXTO_RESPD","IMAGEN_RESPD"),
+
+                     ("ID","TEXTO_ITEMS")
+        )
+
+        self.SECCIONES_TUPLAS_PREGUNTAS=(
+        "ID",
+        "TIPO_RESPUESTA",
+        "GRADO_IMAGENES",
+        "TIEMPO_SEGUNDOS",
+        "TEXTO_PREGUNTA",
+        "IMAGEN_PREGUNTA",
+        "TAMANO_PREGUNTA",
+        "POSICION_PREGUNTA",
+        "TAMANO_RESPUESTA",
+        "POSICION_RESPUESTA",
+        "FORMA_EVALUAR",
+        "RESPUESTAS")
 
         self.SECCIONES_DATABASE_PREGUNTAS= """
                 GRADO_IMAGENES=?,
@@ -32,9 +57,7 @@ class DataBaseCreadorPreguntas():
         self.SECCIONES_DATABASE_RESPUESTAS=(
             """
                     TEXTO_RESPA=?,
-                    IMAGEN_RESPA=?,
-                    TEXTO_RESPB=?,
-                    IMAGEN_RESPB=?
+                    TEXTO_RESPB=?
             """,
             """
                     TEXTO_RESPA=?,
@@ -47,7 +70,6 @@ class DataBaseCreadorPreguntas():
                     IMAGEN_RESPD=?
             """,
             """
-                    NO_ITEMS=?,
                     TEXTO_ITEMS=?
             """
         )
@@ -74,9 +96,9 @@ class DataBaseCreadorPreguntas():
                             TIEMPO_SEGUNDOS INTEGER,
                             TEXTO_PREGUNTA VARCHAR(300),
                             IMAGEN_PREGUNTA VARCHAR(150),
-                            TAMANO_PREGUNTA INTEGER,
+                            TAMANO_PREGUNTA REAL,
                             POSICION_PREGUNTA INTEGER,
-                            TAMANO_RESPUESTA INTEGER,
+                            TAMANO_RESPUESTA REAL,
                             POSICION_RESPUESTA INTEGER,
                             FORMA_EVALUAR INTEGER,
                             RESPUESTAS VARCHAR(60)         
@@ -87,9 +109,7 @@ class DataBaseCreadorPreguntas():
                             CREATE TABLE RESP_trueFalse(
                             ID INTEGER PRIMARY KEY,
                             TEXTO_RESPA   VARCHAR(20),
-                            IMAGEN_RESPA  VARCHAR(150),
-                            TEXTO_RESPB   VARCHAR(20),
-                            IMAGEN_RESPB  VARCHAR(150)
+                            TEXTO_RESPB   VARCHAR(20)
                         )''')
 
                     cursor.execute('''
@@ -108,7 +128,6 @@ class DataBaseCreadorPreguntas():
                     cursor.execute('''
                             CREATE TABLE RESP_items(
                             ID INTEGER PRIMARY KEY,
-                            NO_ITEMS INTEGER,
                             TEXTO_ITEMS   VARCHAR(900)
                         )''')
                     conexion.commit()
@@ -122,39 +141,47 @@ class DataBaseCreadorPreguntas():
             return False
 
 
-    def addNewQuestion(self,tipoRespuesta):
+    def addNewQuestion(self,tipoRespuesta,datosPregunta,datosRespuesta):
         conexion=self.iniciarConexion_sql()
         if conexion==None:
             print("Error a la hora de crear la pregunta, vuelva a intentarlo....")
             return False
         else:
             cursor = conexion.cursor()
-
             datosDataBase_respuestas=self.NAMES_DATABASE_RESPUESTAS[tipoRespuesta]
             datosDataBase_preguntas=self.NAMES_DATABASE_PREGUNTAS
-
             #Almenos debe valer 2, ya que todos tienen
             #por default el ID, y aparte tan siquiera
             #deben tener un dato que es el que almacenan
             #datosNull_pregunta = "( NULL,"
-            datosNull_pregunta = "( NULL," + str(tipoRespuesta) + ","
-            for i in range(datosDataBase_preguntas[1]-3):
-                datosNull_pregunta+="NULL,"
-            datosNull_pregunta+="NULL)"
+            #datosNull_pregunta = "( NULL," + str(tipoRespuesta) + ","
+            #for i in range(datosDataBase_preguntas[1]-3):
+            #    datosNull_pregunta+="NULL,"
+            #datosNull_pregunta+="NULL)"
 
+            datosPregunta="( NULL," + str(tipoRespuesta) + ","+str(datosPregunta)[1:-1]+")"
+            print(datosPregunta)
             #A continuacion registramos la creacion de una pregunta en la base de datos...
-            sqlOrden = "INSERT INTO "+datosDataBase_preguntas[0]+ " VALUES " + datosNull_pregunta
+            #sqlOrden = "INSERT INTO "+datosDataBase_preguntas[0]+ " VALUES " + datosNull_pregunta
+            sqlOrden = "INSERT INTO " + datosDataBase_preguntas[0] + " VALUES " + datosPregunta
             cursor.execute(sqlOrden)
             idAsignado=cursor.lastrowid #obteniendo el link asignado...
 
             if tipoRespuesta!=3: #las respuestas abiertas no tienen
                 #A continuacion registramos las respuestas en su respectiva tabla....
-                datosNull_respuestas = "(" + str(idAsignado) + ","
-                for i in range(datosDataBase_respuestas[1] - 2):
-                    datosNull_respuestas += "NULL,"
-                datosNull_respuestas += "NULL)"
-                sqlOrden = "INSERT INTO " + datosDataBase_respuestas[0] + " VALUES " + datosNull_respuestas
-                cursor.execute(sqlOrden)
+                #datosNull_respuestas = "(" + str(idAsignado) + ","
+                #for i in range(datosDataBase_respuestas[1] - 2):
+                #    datosNull_respuestas += "NULL,"
+                #datosNull_respuestas += "NULL)"
+                #sqlOrden = "INSERT INTO " + datosDataBase_respuestas[0] + " VALUES " + datosNull_respuestas
+                #datosRespuesta = "("+str(idAsignado) + "," + str(datosRespuesta)[1:-1] + ")"
+                datosRespuesta=(idAsignado,)+datosRespuesta
+                print(datosRespuesta)
+                sqlOrden = "INSERT INTO " + datosDataBase_respuestas[0] + " VALUES "+ str(datosRespuesta)
+                try:
+                    cursor.execute(sqlOrden)
+                except  Exception as e:
+                    print(e)
 
             conexion.commit()
             conexion.close()
@@ -184,13 +211,14 @@ class DataBaseCreadorPreguntas():
             sqlOrden+=" ID="+str(idPregunta)
             cursor.execute(sqlOrden)
             infoPregunta= cursor.fetchall()  # devuelve una lista con
+            print("PUTO...",infoPregunta)
             tipoRespuesta = infoPregunta[0][1]  # ahi se encuentra almacenada el tipo de respuesta
             print(tipoRespuesta)
             if tipoRespuesta != 3:  # las respuestas abiertas no tienen
                 newDataRespuesta = newValueRespuesta + (idPregunta,)
                 print(newDataPregunta)
                 elemetosEditar = self.SECCIONES_DATABASE_RESPUESTAS[tipoRespuesta]
-                elemetosEditar += " WHERE ID=?"
+                elemetosEditar += " WHERE ID=? "
                 sqlOrden = "UPDATE " + self.NAMES_DATABASE_RESPUESTAS[tipoRespuesta][0]+" SET "
                 sqlOrden += elemetosEditar
                 print(sqlOrden)
@@ -231,8 +259,6 @@ class DataBaseCreadorPreguntas():
             conexion.commit()
             conexion.close()
 
-
-
     def getData(self,idPregunta):
         conexion=self.iniciarConexion_sql()
         if conexion==None:
@@ -246,6 +272,7 @@ class DataBaseCreadorPreguntas():
             listInformacion=[None,None]
             informacionPregunta= cursor.fetchall()  # devuelve una lista de tuplas....
             listInformacion[0]=informacionPregunta[0]
+            listInformacion[0] = dict(zip(self.SECCIONES_TUPLAS_PREGUNTAS, listInformacion[0]))
 
 
             #necesitamos obtener el tipo de respuesta de la pregunta...
@@ -262,6 +289,7 @@ class DataBaseCreadorPreguntas():
                 cursor.execute(sqlOrden)
                 informacionRespuesta=cursor.fetchall()  # devuelve una lista de tuplas....
                 listInformacion[1] = informacionRespuesta[0]
+                listInformacion[1]=dict(zip(self.SECCIONES_TUPLAS_RESPUESTAS[tipoRespuesta],listInformacion[1]))
             conexion.commit()
             conexion.close()
             return  listInformacion

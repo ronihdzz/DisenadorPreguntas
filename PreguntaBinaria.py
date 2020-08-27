@@ -158,10 +158,9 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
         self.dSpin_respTam.setMaximum(85)
         self.dSpin_pregTam.setMinimum(10)
         self.dSpin_pregTam.setMaximum(45)
+        self.preguntaBlanco()
 
 
-        datosPregunta,datosRespuesta=self.datosDefault()
-        self.abrirPregunta(datosPregunta,datosRespuesta)
 
 
 
@@ -173,12 +172,20 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
 #
 ##############################################################################################################################
 
+
+
+    def preguntaBlanco(self):
+        self.ventanas[1].controlABSOLUTO_labelImagen.ponerEnDafultTodasLabel()
+        datosPregunta,datosRespuesta=self.datosDefault()
+        self.abrirPregunta(datosPregunta,datosRespuesta)
+        return self.getDatos()
+
     def datosDefault(self):
         datosPregunta={
-            "GRADO_IMAGENES": 1,  # 0=sin imagen 1=con imagen en pregunta....
+            "GRADO_IMAGENES": 0,  # 0=sin imagen 1=con imagen en pregunta....
             "TIEMPO_SEGUNDOS": 60,
-            "TEXTO_PREGUNTA": None,
-            "IMAGEN_PREGUNTA": None,
+            "TEXTO_PREGUNTA": "",
+            "IMAGEN_PREGUNTA": "",
             "TAMANO_PREGUNTA": 15,
             "POSICION_PREGUNTA": 1,  # 0=left 1=center  2=rigth
             "TAMANO_RESPUESTA": 70,
@@ -258,7 +265,7 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
         if (idLabelEligioImagen == 0 and noLabelsImagen==1):  # es una imagen pregunta...
             imagenAntiguaAlmacenada = self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
             self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]=direcGuardoImagen
-            if imagenAntiguaAlmacenada != "NULL" and imagenAntiguaAlmacenada != None and self.NUEVA_PREGUNTA == False:
+            if imagenAntiguaAlmacenada != "" and imagenAntiguaAlmacenada!= None and self.NUEVA_PREGUNTA == False:
                 # Debemos eliminar la imagen...
                 os.remove(self.DIREC_IMAGENES + imagenAntiguaAlmacenada)
 
@@ -318,8 +325,9 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
                 if idBtnFuePresionado == 1 :  # preguntaImagen 50%....
                     # IMAGEN_PREGUNTA...
                     imagenPregunta = self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
+                    i=imagenPregunta
                     # Cagaremos la imagen pero no la respuesta...
-                    if imagenPregunta != None:
+                    if not(i==None or i==False or i=="" or i=="NULL"):
                         imagenPregunta = self.DIREC_IMAGENES + imagenPregunta
                     self.ventanas[idBtnFuePresionado].controlABSOLUTO_labelImagen.escogioImagen(0, False,imagenPregunta)
 

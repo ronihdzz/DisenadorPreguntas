@@ -13,3 +13,12 @@ class PropiedadesPregunta():
             "FORMA_EVALUAR":0, #0=cualquiera  1=todas
             "RESPUESTAS": "NULL"
         }
+
+
+'''
+Es importante recordar que debemos poner en estado default
+de preguntas, al gradosImagenes=0 ya que para que la imagen
+guardada se pueda ver se tiene que cambiar aunque sea una
+vez de widget, y si quieres ver una imagen ¿tendras que
+cambiarla a una widget con imagen?claro que si
+'''

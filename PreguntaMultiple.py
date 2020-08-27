@@ -151,14 +151,12 @@ class PreguntaMultiple(QtWidgets.QWidget, Ui_Form):
         self.textoRespuestas = ["", "", "", ""]
 
         # Estableciendo los limites del tamano letra...
-        self.dSpin_respTam.setMinimum(30)
-        self.dSpin_respTam.setMaximum(85)
-        self.dSpin_pregTam.setMinimum(10)
-        self.dSpin_pregTam.setMaximum(45)
+        self.dSpin_respTam.setMinimum(15)
+        self.dSpin_respTam.setMaximum(45)
+        self.dSpin_pregTam.setMinimum(15)
+        self.dSpin_pregTam.setMaximum(55)
+        self.preguntaBlanco()
 
-        datosPregunta,datosRepuesta=self.datosDefault()
-
-        self.abrirPregunta(datosPregunta,datosRepuesta)
 
 ###########################################################################################################################
 #
@@ -167,6 +165,15 @@ class PreguntaMultiple(QtWidgets.QWidget, Ui_Form):
 #
 #
 ##############################################################################################################################
+    def preguntaBlanco(self):
+        #Conectando las imagenes....
+        #apartir de la widget 2,debemos resetear todas las imagenes....
+        for i in range(1,len(self.ventanas)):
+            self.ventanas[i].controlABSOLUTO_labelImagen.ponerEnDafultTodasLabel()
+        datosPregunta,datosRespuesta=self.datosDefault()
+        self.abrirPregunta(datosPregunta,datosRespuesta)
+        return self.getDatos()
+
     def getDatos(self):
         # actulizando contenido de respuestas
         self.controlABSOULUTO_autoguardado.registrarRespuestas(False)  # actualizamos los datos
@@ -256,13 +263,14 @@ class PreguntaMultiple(QtWidgets.QWidget, Ui_Form):
                     # IMAGEN_PREGUNTA...
                     imagenPregunta=self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
                     #Cagaremos la imagen pero no la respuesta...
-                    if imagenPregunta != None:
+                    i=imagenPregunta
+                    if not(i==None or i==False or i=="" or i=="NULL"):
                         imagenPregunta = self.DIREC_IMAGENES + imagenPregunta
                     self.ventanas[idBtnFuePresionado].controlABSOLUTO_labelImagen.escogioImagen(0, False, imagenPregunta)
                 if idBtnFuePresionado>1:#preguntaImagen 50% or preguntaImagen 75%
                     respuestas = ["A", "B", "C", "D"]
                     listaRespuestaImagen = [self.PROPIEDADES_RESPUESTA["IMAGEN_RESP" + letra] for letra in respuestas ]
-                    listaRespuestaImagen=[ self.DIREC_IMAGENES+x if x!=None else x for x in listaRespuestaImagen]
+                    listaRespuestaImagen=[ self.DIREC_IMAGENES+x if not(x==None or x==False or x=="" or x=="NULL") else x for x in listaRespuestaImagen]
                     contador=0
                     if idBtnFuePresionado==3: #si la widget que fue presionada fue la de...
                                               #100% preguntas...
@@ -273,27 +281,27 @@ class PreguntaMultiple(QtWidgets.QWidget, Ui_Form):
 
     def datosDefault(self):
         datosPregunta={
-            "GRADO_IMAGENES": 1,  # 0=sin imagen 1=con imagen en pregunta....
+            "GRADO_IMAGENES": 0,  # 0=sin imagen 1=con imagen en pregunta....
             "TIEMPO_SEGUNDOS": 60,
-            "TEXTO_PREGUNTA": None,
-            "IMAGEN_PREGUNTA": None,
+            "TEXTO_PREGUNTA": "",
+            "IMAGEN_PREGUNTA": "",
             "TAMANO_PREGUNTA": 15,
             "POSICION_PREGUNTA": 1,  # 0=left 1=center  2=rigth
-            "TAMANO_RESPUESTA": 70,
+            "TAMANO_RESPUESTA": 15,
             "POSICION_RESPUESTA":1,  # 0=left 1=center  2=rigth
             "FORMA_EVALUAR":1,  # 0=todas 1=cualquiera
             "RESPUESTAS": "0,0,0,0"
         }
 
         datosRespuesta={
-            "TEXTO_RESPA": None,
-            "IMAGEN_RESPA":None,
-            "TEXTO_RESPB": None,
-            "IMAGEN_RESPB": None,
-            "TEXTO_RESPC": None,
-            "IMAGEN_RESPC": None,
-            "TEXTO_RESPD": None,
-            "IMAGEN_RESPD": None
+            "TEXTO_RESPA": "",
+            "IMAGEN_RESPA":"",
+            "TEXTO_RESPB": "",
+            "IMAGEN_RESPB": "",
+            "TEXTO_RESPC": "",
+            "IMAGEN_RESPC": "",
+            "TEXTO_RESPD": "",
+            "IMAGEN_RESPD": ""
         }
 
         return datosPregunta,datosRespuesta
@@ -365,7 +373,7 @@ class PreguntaMultiple(QtWidgets.QWidget, Ui_Form):
         if (idLabelEligioImagen == 0 and noLabelsImagen==1) or (idLabelEligioImagen == 0 and noLabelsImagen==5):  # es una imagen pregunta...
             imagenAntiguaAlmacenada = self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
             self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]=direcGuardoImagen
-            if imagenAntiguaAlmacenada != "NULL" and imagenAntiguaAlmacenada != None and self.NUEVA_PREGUNTA == False:
+            if imagenAntiguaAlmacenada != "" and imagenAntiguaAlmacenada != None and self.NUEVA_PREGUNTA == False:
                 # Debemos eliminar la imagen...
                 os.remove(self.DIREC_IMAGENES + imagenAntiguaAlmacenada)
         else:# es una imagen respuesta...
@@ -373,7 +381,7 @@ class PreguntaMultiple(QtWidgets.QWidget, Ui_Form):
                 idLabelEligioImagen-=1
             respuestaX = "IMAGEN_RESP" + respuestas[idLabelEligioImagen]
             imagenAntiguaAlmacenada = self.PROPIEDADES_RESPUESTA[respuestaX]
-            if imagenAntiguaAlmacenada != "NULL" and imagenAntiguaAlmacenada != None and self.NUEVA_PREGUNTA == False:
+            if imagenAntiguaAlmacenada != "" and imagenAntiguaAlmacenada != None and self.NUEVA_PREGUNTA == False:
                 # Debemos eliminar la imagen...
                 os.remove(self.DIREC_IMAGENES + imagenAntiguaAlmacenada)
             self.PROPIEDADES_RESPUESTA[respuestaX]=direcGuardoImagen

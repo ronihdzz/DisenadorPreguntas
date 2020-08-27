@@ -36,6 +36,8 @@ class PreguntaAbierta(QtWidgets.QWidget, Ui_Form):
         self.listWidget_panelVersion.showFullScreen()
 
 
+
+
 ####################################################################################################################################
 #       C O N T R O L    D E     POSICIONES DE PREGUNTAS :
 ####################################################################################################################################
@@ -99,11 +101,15 @@ class PreguntaAbierta(QtWidgets.QWidget, Ui_Form):
         self.dSpin_pregTam.setValue(15)
         self.DIREC_IMAGENES="HOLA/"
 
+        self.preguntaBlanco()
 
 
+
+    def preguntaBlanco(self):
+        self.ventanas[1].controlABSOLUTO_labelImagen.ponerEnDafultTodasLabel()
         datosPregunta,datosRespuesta=self.datosDefault()
         self.abrirPregunta(datosPregunta,datosRespuesta)
-
+        return self.getDatos()
 
 
     def getDatos(self):
@@ -117,7 +123,7 @@ class PreguntaAbierta(QtWidgets.QWidget, Ui_Form):
 
         # Como no hay autoguardado es necesario hacer lo siguiente...
         punteroWidgget=self.PROPIEDADES_PREGUNTA["GRADO_IMAGENES"]
-        self.PROPIEDADES_PREGUNTA["TEXTO"]=self.ventanas[punteroWidgget].txtEdit_preg.toPlainText()
+        self.PROPIEDADES_PREGUNTA["TEXTO_PREGUNTA"]=self.ventanas[punteroWidgget].txtEdit_preg.toPlainText()
         self.PROPIEDADES_PREGUNTA["RESPUESTAS"]=self.lineEdit_respuesta.text()
 
         for a,b in self.PROPIEDADES_PREGUNTA.items():
@@ -133,16 +139,16 @@ class PreguntaAbierta(QtWidgets.QWidget, Ui_Form):
 
     def datosDefault(self):
         datosPregunta = {
-            "GRADO_IMAGENES": 1,  # 0=sin imagen 1=con imagen en pregunta....
-            "TIEMPO_SEGUNDOS": 120,
-            "TEXTO_PREGUNTA": "¿Cuanto es 5+5+?",
-            "IMAGEN_PREGUNTA": "roni.png",
+            "GRADO_IMAGENES": 0,  # 0=sin imagen 1=con imagen en pregunta....
+            "TIEMPO_SEGUNDOS": 60,
+            "TEXTO_PREGUNTA": "",
+            "IMAGEN_PREGUNTA": "r",
             "TAMANO_PREGUNTA": 15,
             "POSICION_PREGUNTA": 1,  # 0=left 1=center  2=rigth
-            "TAMANO_RESPUESTA": 70,
+            "TAMANO_RESPUESTA": 0, #NO TIENE ESTA PROPIEDAD....
             "POSICION_RESPUESTA": 1,  # 0=left 1=center  2=rigth
-            "FORMA_EVALUAR": 1,  # 0=preguntasString  1=preguntasNumero
-            "RESPUESTAS": "numpy.array()"
+            "FORMA_EVALUAR": 0,  # 0=preguntasString  1=preguntasNumero
+            "RESPUESTAS": ""
         }
         datosRespuesta = None
         return datosPregunta, datosRespuesta
@@ -195,7 +201,7 @@ class PreguntaAbierta(QtWidgets.QWidget, Ui_Form):
         if (idLabelEligioImagen == 0 and noLabelsImagen == 1):  # es una imagen pregunta...
             imagenAntiguaAlmacenada = self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
             self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"] = direcGuardoImagen
-            if imagenAntiguaAlmacenada != "NULL" and imagenAntiguaAlmacenada != None and self.NUEVA_PREGUNTA == False:
+            if imagenAntiguaAlmacenada != "" and imagenAntiguaAlmacenada != None and self.NUEVA_PREGUNTA == False:
                 # Debemos eliminar la imagen...
                 os.remove(self.DIREC_IMAGENES + imagenAntiguaAlmacenada)
 
@@ -205,16 +211,16 @@ class PreguntaAbierta(QtWidgets.QWidget, Ui_Form):
 
     def datosDefault(self):
         datosPregunta = {
-            "GRADO_IMAGENES": 1,  # 0=sin imagen 1=con imagen en pregunta....
+            "GRADO_IMAGENES": 0,  # 0=sin imagen 1=con imagen en pregunta....
             "TIEMPO_SEGUNDOS": 60,
-            "TEXTO_PREGUNTA": "Sentencia de numpy",
-            "IMAGEN_PREGUNTA": "roni.png",
+            "TEXTO_PREGUNTA": "",
+            "IMAGEN_PREGUNTA": "",
             "TAMANO_PREGUNTA": 15,
             "POSICION_PREGUNTA": 1,  # 0=left 1=center  2=rigth
-            "TAMANO_RESPUESTA": 70,
+            "TAMANO_RESPUESTA": 0, #no esta definida...
             "POSICION_RESPUESTA": 1,  # 0=left 1=center  2=rigth
             "FORMA_EVALUAR": 0,  # 0=preguntasString  1=preguntasNumero
-            "RESPUESTAS": "numpy.array()"
+            "RESPUESTAS": ""
         }
         datosRespuesta = None
         return datosPregunta, datosRespuesta
@@ -270,7 +276,8 @@ class PreguntaAbierta(QtWidgets.QWidget, Ui_Form):
                     # IMAGEN_PREGUNTA...
                     imagenPregunta = self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
                     # Cagaremos la imagen pero no la respuesta...
-                    if imagenPregunta != None:
+                    i=imagenPregunta
+                    if not (i == None or i == False or i == "" or i == "NULL"):
                         imagenPregunta = self.DIREC_IMAGENES + imagenPregunta
                     self.ventanas[idBtnFuePresionado].controlABSOLUTO_labelImagen.escogioImagen(0, False,imagenPregunta)
 

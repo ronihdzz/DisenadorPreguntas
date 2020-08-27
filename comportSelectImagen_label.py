@@ -100,7 +100,7 @@ class comportSelectImagen_label(QObject):
             imagen, extension = QFileDialog.getOpenFileName(self.context, "Seleccionar imagen", getcwd(),
                                                             "Archivos de imagen (*.png *.jpg)",
                                                             options=QFileDialog.Options())
-        if imagen:
+        if not(imagen==None or imagen==False or imagen=="" or imagen=="NULL"):
             # Adaptar imagen
             ancho,alto= self.vectorRenglon_sizes[0][idLabelEscogio]
 
@@ -117,9 +117,6 @@ class comportSelectImagen_label(QObject):
                 self.alguienEligioImagen.emit([idLabelEscogio,direccionImagenGuardada])
 
 
-
-
-
     def ponerImagenDefault(self,idLabel):
         # Adaptar imagen
         ancho, alto = self.vectorRenglon_sizes[0][idLabel]
@@ -132,6 +129,14 @@ class comportSelectImagen_label(QObject):
         # Mostrar imagen por medio de los punteros labels...
         self.vectorRenglon_labels[0][idLabel].punteroQLabelGui.setAlignment(Qt.AlignCenter)
         self.vectorRenglon_labels[0][idLabel].punteroQLabelGui.setPixmap(pixmapImagen)
+
+    def ponerEnDafultTodasLabel(self):
+        for n in range(self.vectorRenglon_labels.shape[1]):
+            self.ponerImagenDefault(n)
+
+
+
+
 
 
 

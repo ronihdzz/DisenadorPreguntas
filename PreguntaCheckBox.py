@@ -133,15 +133,12 @@ class PreguntaCheckBox(QtWidgets.QWidget, Ui_Form):
         self.dSpin_respTam.setMinimum(8)
         self.dSpin_respTam.setMaximum(25)
         self.dSpin_respTam.setValue(15)
-        self.dSpin_pregTam.setMinimum(8)
+        self.dSpin_pregTam.setMinimum(10)
         self.dSpin_pregTam.setMaximum(40)
         self.dSpin_pregTam.setValue(15)
         self.punteroWidget = 0
 
-
-        datosPregunta,datosRespuesta=self.datosDefault()
-        self.abrirPregunta(datosPregunta,datosRespuesta)
-
+        self.preguntaBlanco()
 
 
 ###########################################################################################################################
@@ -151,6 +148,14 @@ class PreguntaCheckBox(QtWidgets.QWidget, Ui_Form):
 #
 #
 ##############################################################################################################################
+
+    def preguntaBlanco(self):
+        self.ventanas[1].controlABSOLUTO_labelImagen.ponerEnDafultTodasLabel()
+        self.borrarTodosItems()
+        datosPregunta,datosRespuesta=self.datosDefault()
+        self.abrirPregunta(datosPregunta,datosRespuesta)
+        return self.getDatos()
+
 
     def getDatos(self):
 
@@ -165,7 +170,7 @@ class PreguntaCheckBox(QtWidgets.QWidget, Ui_Form):
 
         #Como no hay autoguardado es necesario hacer lo siguiente...
         punteroWidgget=self.PROPIEDADES_PREGUNTA["GRADO_IMAGENES"]
-        self.PROPIEDADES_PREGUNTA["TEXTO"]=self.ventanas[punteroWidgget].txtEdit_preg.toPlainText()
+        self.PROPIEDADES_PREGUNTA["TEXTO_PREGUNTA"]=self.ventanas[punteroWidgget].txtEdit_preg.toPlainText()
 
 
         #iterando sobre todos los items existentes....
@@ -178,7 +183,7 @@ class PreguntaCheckBox(QtWidgets.QWidget, Ui_Form):
         self.PROPIEDADES_PREGUNTA["RESPUESTAS"]=str(respuestas)[:-1] #quitando la coma sobrante
         self.PROPIEDADES_RESPUESTA["TEXTO_ITEMS"]=str(textoRespuestas)[:-1]  #quitando la coma sobrante
 
-
+        print(self.PROPIEDADES_PREGUNTA.keys())
         for a,b in self.PROPIEDADES_PREGUNTA.items():
             print(a,"-",b)
 
@@ -193,38 +198,28 @@ class PreguntaCheckBox(QtWidgets.QWidget, Ui_Form):
         print(self.getDatos())
         event.accept()
 
-
-
-
-
-
-
-
-
-
-
     def datosDefault(self):
             datosPregunta={
-                "GRADO_IMAGENES": 1,  # 0=sin imagen 1=con imagen en pregunta....
+                "GRADO_IMAGENES": 0,  # 0=sin imagen 1=con imagen en pregunta....
                 "TIEMPO_SEGUNDOS": 60,
-                "TEXTO_PREGUNTA": "Caracteristicas de Roni",
-                "IMAGEN_PREGUNTA": None,
-                "TAMANO_PREGUNTA": 30,
-                "POSICION_PREGUNTA": 0,  # 0=left 1=center  2=rigth
-                "TAMANO_RESPUESTA": 20,
-                "POSICION_RESPUESTA":0,  # 0=left 1=center  2=rigth
+                "TEXTO_PREGUNTA": "",
+                "IMAGEN_PREGUNTA": "",
+                "TAMANO_PREGUNTA": 15,
+                "POSICION_PREGUNTA": 1,  # 0=left 1=center  2=rigth
+                "TAMANO_RESPUESTA": 15,
+                "POSICION_RESPUESTA":1,  # 0=left 1=center  2=rigth
                 "FORMA_EVALUAR":0,  # 0=todas 1=cualquiera  ya que deben elegirse todas las opcciones correctas
-                "RESPUESTAS": "1,1"
+                "RESPUESTAS": ""
             }
 
             datosRespuesta={
-                "NO_ITEMS":2,
-                "TEXTO_ITEMS":"Amor,Odio"
+                "TEXTO_ITEMS":""
             }
 
             return datosPregunta,datosRespuesta
 
     def abrirPregunta(self, datosPregunta, datosRespuesta):
+
         self.PROPIEDADES_PREGUNTA = datosPregunta
         self.PROPIEDADES_RESPUESTA = datosRespuesta
         # P R E G U N T A   :
@@ -262,7 +257,7 @@ class PreguntaCheckBox(QtWidgets.QWidget, Ui_Form):
         #self.cambio_pregANDpregOR(self.PROPIEDADES_PREGUNTA["FORMA_EVALUAR"])
         # RESPUESTAS...
         listRespuestas = self.PROPIEDADES_PREGUNTA["RESPUESTAS"]
-        if listRespuestas!=None:
+        if listRespuestas!=None and listRespuestas!="":
             listRespuestas = [int(x) for x in listRespuestas.split(",")]
             # R E S P U E S T A S :
             listItems=self.PROPIEDADES_RESPUESTA["TEXTO_ITEMS"]
@@ -290,7 +285,7 @@ class PreguntaCheckBox(QtWidgets.QWidget, Ui_Form):
         if (idLabelEligioImagen == 0 and noLabelsImagen==1):  # es una imagen pregunta...
             imagenAntiguaAlmacenada = self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
             self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]=direcGuardoImagen
-            if imagenAntiguaAlmacenada != "NULL" and imagenAntiguaAlmacenada != None and self.NUEVA_PREGUNTA == False:
+            if imagenAntiguaAlmacenada != "" and imagenAntiguaAlmacenada != None and self.NUEVA_PREGUNTA == False:
                 # Debemos eliminar la imagen...
                 os.remove(self.DIREC_IMAGENES + imagenAntiguaAlmacenada)
 
@@ -343,12 +338,30 @@ class PreguntaCheckBox(QtWidgets.QWidget, Ui_Form):
                                  "a dicho limite.",
                                  QMessageBox.Ok)
 
-    def borrarItem(self,idItemAMatar):
+    def borrarTodosItems(self):
+        print("BORRAREMOS ",self.punteroNoItems," items,,,")
+        print("lista de posiciones...",self.listIdsItemsVivos)
+
+        #Debemos hacer una copia a esa lista ya que cuando
+        #estemos eliminando elemento por elemento puede
+        #suceder un error...
+        copyList=self.listIdsItemsVivos.copy()
+        print("COPY...",copyList)
+
+        for x in copyList:
+            self.borrarItem(x,False)
+
+
+
+
+    def borrarItem(self,idItemAMatar,ordenAutomatica=True):
         posItemMatar=self.listIdsItemsVivos.index(idItemAMatar)
-        resultado = QMessageBox.question(self, "DelphiPreguntas",
-                                         "¿Esta seguro que quieres\n"
-                                         f"eliminar el item numero {posItemMatar+1}?",
-                                         QMessageBox.Yes | QMessageBox.No)
+        resultado=QMessageBox.Yes
+        if ordenAutomatica:
+            resultado = QMessageBox.question(self, "DelphiPreguntas",
+                                             "¿Esta seguro que quieres\n"
+                                             f"eliminar el item numero {posItemMatar+1}?",
+                                             QMessageBox.Yes | QMessageBox.No)
         if resultado == QMessageBox.Yes:
             layout=self.vbox
             noWidgetBorrar=posItemMatar
@@ -391,7 +404,8 @@ class PreguntaCheckBox(QtWidgets.QWidget, Ui_Form):
                 # IMAGEN_PREGUNTA...
                 imagenPregunta = self.PROPIEDADES_PREGUNTA["IMAGEN_PREGUNTA"]
                 # Cagaremos la imagen pero no la respuesta...
-                if imagenPregunta != None:
+                i=imagenPregunta
+                if not(i==None or i==False or i=="" or i=="NULL"):
                     imagenPregunta = self.DIREC_IMAGENES + imagenPregunta
                 self.ventanas[idBtnFuePresionado].controlABSOLUTO_labelImagen.escogioImagen(0, False,imagenPregunta)
 
