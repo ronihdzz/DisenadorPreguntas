@@ -2,7 +2,7 @@ from PyQt5 import QtWidgets,Qt,QtCore
 from PyQt5.QtWidgets import QWidget,QVBoxLayout,QLabel,QPushButton,QGridLayout
 from PyQt5.QtCore import Qt, pyqtSignal,QObject
 from PyQt5.QtWidgets import  QMessageBox
-
+from datetime import datetime
 ###############################################################
 #  IMPORTACION DEL DISEÑO...
 ##############################################################
@@ -13,6 +13,7 @@ from LOGICA.Creador_Pregunta_Multiple.PreguntaMultiple import PreguntaMultiple
 from LOGICA.Creador_Preguna_CheckBox.PreguntaCheckBox import PreguntaCheckBox
 from LOGICA.Creador_Pregunta_Abierta.PreguntaAbierta import PreguntaAbierta
 from LOGICA.Creador_Ejecutador.Visualizador import VisualizadorPreguntas
+from LOGICA.Creador_Main.EditorNombreArchivo import EditarNombre
 
 ###############################################################
 #  MIS LIBRERIAS...
@@ -34,6 +35,7 @@ class BotonPregunta(QObject):
 
         self.botonMuerte.clicked.connect(self.mandarSenalMuerto)
         self.botonPregunta.clicked.connect(self.darIdBotonPregunta)
+
 
         self.COLOR_NORMAL = "#EAE5E5"
         self.COLOR_SELECCION = "#58C3D0"
@@ -70,10 +72,13 @@ class ImagenClick(QLabel):
 
 
 class CreadorPreguntas(QtWidgets.QMainWindow, Ui_MainWindow):
-    def __init__(self):
+    def __init__(self,nombreCreador="ANONIMO"):
         Ui_MainWindow.__init__(self)
         QtWidgets.QMainWindow.__init__(self)
         self.setupUi(self)
+        self.extensionCuestionario=".delron"
+        nameDefault=nombreCreador+"_"+self.getNameDefault()+self.extensionCuestionario
+        self.setWindowTitle(nameDefault)
 
         self.nombreCuestionario = "MiCora"
         self.controlABSOLUTO_baseDatos = DataBaseCreadorPreguntas(self.nombreCuestionario)
@@ -86,9 +91,13 @@ class CreadorPreguntas(QtWidgets.QMainWindow, Ui_MainWindow):
         self.actionGuardar.setShortcut("Ctrl+g")
         self.actionCrear_nueva_pregunta.setShortcut("Ctrl+p")
         self.actionVisualizar.setShortcut("F5")
+        self.actionCambiar_nombre.setShortcut("Ctrl+n")
+
         self.actionGuardar.triggered.connect(self.guardarCambios)
         self.actionCrear_nueva_pregunta.triggered.connect(self.crearOtraPregunta)
         self.actionVisualizar.triggered.connect(self.compilarPregunta)
+
+        self.actionCambiar_nombre.triggered.connect(self.editarNombre)
 
 
         self.widget = QWidget()  # Widget that contains the collection of Vertical Box
@@ -124,6 +133,17 @@ class CreadorPreguntas(QtWidgets.QMainWindow, Ui_MainWindow):
         self.IMAGEN_ELIMINAR_2=RecursosCreadorCuestionarios.ICONO_TACHE_2
 
         self.controlABSOLUTO_visualizador=VisualizadorPreguntas()
+        self.controlABSOULUTO_editorNombre=EditarNombre()
+        self.controlABSOULUTO_editorNombre.senalNombreElegido.connect(self.usuarioCambioNombre)
+
+
+    def editarNombre(self):
+        self.controlABSOULUTO_editorNombre.show()
+
+    def usuarioCambioNombre(self,nuevoNombre):
+        nuevoNombre+=self.extensionCuestionario
+        self.setWindowTitle(nuevoNombre)
+
 
     def compilarPregunta(self):
         self.statusbar.showMessage('Compilando pregunta...', 1000)
@@ -229,6 +249,14 @@ class CreadorPreguntas(QtWidgets.QMainWindow, Ui_MainWindow):
         gridLayout.setContentsMargins(0, 0, 0, 0)  # Set the zero padding
         self.vbox.addWidget(widget,alignment=QtCore.Qt.AlignHCenter)
         self.contadorPreguntas += 1
+
+    def getNameDefault(self):
+        now = datetime.now()
+        # Tiempo apartir del 2020 cuando inicio el juego
+        secondYears_50 = 50 * 365 * 24 * 60 * 60
+        timeApartir2020 = now.timestamp() - secondYears_50
+        redondeo_4 = int(timeApartir2020 * 1000.0)
+        return str(redondeo_4)
 
 
 if __name__ == "__main__":
