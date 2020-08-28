@@ -103,6 +103,7 @@ class VisualizadorPregunta_Abierta(QtWidgets.QWidget, Ui_Form):
         # IMAGEN_PREGUNTA...
         if noWidgetAbrir>0: #Significa que es una pregunta con respuestas imagenes...
             self.ventanas[noWidgetAbrir].controlABSOLUTO_labelImagen.IMAGENES_BLOQUEDAS=False
+            self.ventanas[noWidgetAbrir].controlABSOLUTO_labelImagen.ponerEnDafultTodasLabel()
             if imagenPregunta!="" and imagenPregunta!=None and imagenPregunta!=False:
                 imagenPregunta = self.DIREC_IMAGENES + imagenPregunta
                 self.ventanas[noWidgetAbrir].controlABSOLUTO_labelImagen.escogioImagen(0,False,imagenPregunta)

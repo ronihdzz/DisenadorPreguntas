@@ -114,6 +114,11 @@ class VisualizadorPregunta_CheckBox(QtWidgets.QWidget, Ui_Form):
         self.PROPIEDADES_PREGUNTA = datosPregunta
         self.PROPIEDADES_RESPUESTA = datosRespuesta
         # P R E G U N T A   :
+        #Primero borramos todos los items antiguos...
+
+        self.borrarTodosItems()
+
+
         # GRADO_IMAGENES...
 
         noWidgetAbrir=self.PROPIEDADES_PREGUNTA["GRADO_IMAGENES"]
@@ -132,6 +137,7 @@ class VisualizadorPregunta_CheckBox(QtWidgets.QWidget, Ui_Form):
         # IMAGEN_PREGUNTA...
         if noWidgetAbrir>0: #Significa que es una pregunta con respuestas imagenes...
             self.ventanas[noWidgetAbrir].controlABSOLUTO_labelImagen.IMAGENES_BLOQUEDAS=False
+            self.ventanas[noWidgetAbrir].controlABSOLUTO_labelImagen.ponerEnDafultTodasLabel()
             if imagenPregunta!="" and imagenPregunta!=None and imagenPregunta!=False:
                 imagenPregunta = self.DIREC_IMAGENES + imagenPregunta
                 self.ventanas[noWidgetAbrir].controlABSOLUTO_labelImagen.escogioImagen(0,False,imagenPregunta)
@@ -264,10 +270,6 @@ class VisualizadorPregunta_CheckBox(QtWidgets.QWidget, Ui_Form):
 
             self.listaItemsRonianos.pop(posItemMatar)
             self.listIdsItemsVivos.pop(posItemMatar)
-            print("Matriz a abortaar",self.matrizEditTextRespuestas.shape)
-            self.matrizEditTextRespuestas=np.delete(self.matrizEditTextRespuestas,posItemMatar,1)
-            print("Matriz despues de abortar",self.matrizEditTextRespuestas.shape)
-            self.controlABSOLUTO_editTextRespuestas.matrizEditText = self.matrizEditTextRespuestas
             self.punteroNoItems -= 1
 
 ##############################################################################################################################

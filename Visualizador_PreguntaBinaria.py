@@ -62,18 +62,33 @@ class VisualizadorPreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta
         self.respuestaUsuario=[]
         self.DIREC_IMAGENES = "HOLA/"
 
+####################################################################################################################################
+#       C O N T R O L    D E     B O T O N E S :
+####################################################################################################################################
+        # En este apartado le daremo un comportamiento a las respuestas botones,de tal manera
+        # que cuando hagan click en ellos,nos avisen y aparte registre dichas respuestas...
+        # CREANDO UNA MATRIZ DE PUROS BOTONES...
+        renglonBotones = np.array([[self.ventanas[0].btn_respA, self.ventanas[0].btn_respB]])
+        self.matrizBotonesRespuesta = renglonBotones
+        for i in range(1, len(self.ventanas)):
+            # Metodologia empleada para elegir las RESPUESTAS CORRECTAS
+            renglonBotones = np.array([[self.ventanas[i].btn_respA, self.ventanas[i].btn_respB]])
+            self.matrizBotonesRespuesta = np.append(self.matrizBotonesRespuesta, renglonBotones, axis=0)
+        self.controlABSOLUTO_botones = comporSelecBtnsResp(self.matrizBotonesRespuesta, BORDER_RADIUS="5")
+
 
 
 
     def calificarRespuesta(self):
-        self.respuestaUsuario=self.controlABSOLUTO_botones.getRespuestas()
         estadoRespuesta=False
 
         if self.formaEvaluar==0: #osea debe elegir todas las correctas...
+            self.respuestaUsuario = self.controlABSOLUTO_botones.dameTodoLoQueRespondio()
             if self.respuestaUsuario==self.respuestasCorrectas:
                 estadoRespuesta=True
         else: #solo debe seleccionara una bien..
-            if self.respuestaUsuario>=0:#ya que el valor inciial es -1
+            self.respuestaUsuario = self.controlABSOLUTO_botones.dameLaRespuestaEscogio()
+            if self.respuestaUsuario> -1:#ya que el valor inciial es -1
                 if self.respuestasCorrectas[self.respuestaUsuario]==1:
                     estadoRespuesta=True
 
@@ -101,6 +116,7 @@ class VisualizadorPreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta
         # IMAGEN_PREGUNTA...
         if noWidgetAbrir>0: #Significa que es una pregunta con respuestas imagenes...
             self.ventanas[noWidgetAbrir].controlABSOLUTO_labelImagen.IMAGENES_BLOQUEDAS=False
+            self.ventanas[noWidgetAbrir].controlABSOLUTO_labelImagen.ponerEnDafultTodasLabel()
             if imagenPregunta!="" and imagenPregunta!=None and imagenPregunta!=False:
                 imagenPregunta = self.DIREC_IMAGENES + imagenPregunta
                 self.ventanas[noWidgetAbrir].controlABSOLUTO_labelImagen.escogioImagen(0,False,imagenPregunta)
@@ -119,22 +135,14 @@ class VisualizadorPreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta
         #FORMA DE EVALUAR...
         formaEvaluar=self.PROPIEDADES_PREGUNTA["FORMA_EVALUAR"]
 
-        # En este apartado le daremo un comportamiento a las respuestas botones,de tal manera
-        # que cuando hagan click en ellos,nos avisen y aparte registre dichas respuestas...
-        # CREANDO UNA MATRIZ DE PUROS BOTONES...
-        renglonBotones = np.array([[self.ventanas[noWidgetAbrir].btn_respA,
-                                    self.ventanas[noWidgetAbrir].btn_respB]])
-        matrizBotonesRespuesta = renglonBotones
-
-
+        self.controlABSOLUTO_botones.setAllRespuestas([0,0])#todas las respuestas desmarcadas
         if formaEvaluar==0: #seleccionar todos las respuestas correctas
-            self.controlABSOLUTO_botones=comporSelecBtnsResp(matrizBotonesRespuesta, BORDER_RADIUS="5",
-                                                             seleccionBotonesMultiple=True)
+            self.controlABSOLUTO_botones.seleccionMultiple=True
             self.controlABSOLUTO_botones.setColor(self.COLOR_AND)
         else:#solo debe seleccionar una respuesta correcta
-            self.controlABSOLUTO_botones=comporSelecBtnsResp(matrizBotonesRespuesta, BORDER_RADIUS="5",
-                                                             seleccionBotonesMultiple=False)
+            self.controlABSOLUTO_botones.seleccionMultiple=False
             self.controlABSOLUTO_botones.setColor(self.COLOR_OR)
+
 
         respuestasCorrectas=self.PROPIEDADES_PREGUNTA["RESPUESTAS"]
         respuestasCorrectas=[int(x) for x in respuestasCorrectas.split(",")]
@@ -162,7 +170,7 @@ class VisualizadorPreguntaBinaria(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta
 
     def limpiarWidget(self):
         #Limpiaremos los datos que quedaran resagados pregunta con pregunta....
-        self.controlABSOLUTO_botones.setAllRespuestas([0,0]) #ponemos todas desmarcadas...
+        #self.controlABSOLUTO_botones.setAllRespuestas([0,0]) #ponemos todas desmarcadas...
         if self.noWidgetAbrir>0: #1,2,3
             self.ventanas[self.noWidgetAbrir].controlABSOLUTO_labelImagen.ponerEnDafultTodasLabel()
 

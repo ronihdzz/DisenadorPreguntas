@@ -60,13 +60,13 @@ class VisualizadorPreguntas(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
         self.timer = QTimer()
         self.timer.timeout.connect(self.cuentaRegresivaPregunta)
         self.pausarTimePregunta=True
-        self.punteroWidgetTipoPregunta=0
+        self.punteroWidgetTipoPregunta=-1
 
         self.btn_next.clicked.connect(self.calificarRespuesta)
 
 
-        datosPregunta,datosRespuesta=self.getDataPruebaPregunta_abierta()
-        self.visualizarPregunta(3,datosPregunta,datosRespuesta)
+        datosPregunta,datosRespuesta=self.getDataPruebaPregunta_binaria()
+        self.visualizarPregunta(0,datosPregunta,datosRespuesta)
 
 
 
@@ -97,11 +97,8 @@ class VisualizadorPreguntas(QtWidgets.QWidget, Ui_Form,PropiedadesPregunta):
             self.bel_estadoRespuesta.setText("Respuesta incorrecta")
 
     def limpiarPregunta(self):
-        self.ventanas[self.punteroWidgetTipoPregunta].limpiarWidget()
-
-
-
-
+        if self.punteroWidgetTipoPregunta>=0:
+            self.ventanas[self.punteroWidgetTipoPregunta].limpiarWidget()
 
     def closeEvent(self, event):
         self.terminarCuentaRegresiva()

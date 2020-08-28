@@ -82,7 +82,7 @@ class CreadorPreguntas(QtWidgets.QMainWindow, Ui_MainWindow):
 
         #Acciones del menu...
         self.actionGuardar.setShortcut("Ctrl+g")
-        self.actionCrear_nueva_pregunta.setShortcut("Ctrl+n")
+        self.actionCrear_nueva_pregunta.setShortcut("Ctrl+p")
         self.actionVisualizar.setShortcut("F5")
         self.actionGuardar.triggered.connect(self.guardarCambios)
         self.actionCrear_nueva_pregunta.triggered.connect(self.crearOtraPregunta)
@@ -134,6 +134,7 @@ class CreadorPreguntas(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.controlABSOLUTO_visualizador.visualizarPregunta(widgetPregunta,datosPregunta,datosRespueta)
         self.controlABSOLUTO_visualizador.show()
+
 
     def guardarCambios(self):
         print("GUARADAR...")
