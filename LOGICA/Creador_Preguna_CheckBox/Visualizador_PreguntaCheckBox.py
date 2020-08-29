@@ -65,6 +65,7 @@ class VisualizadorPregunta_CheckBox(QtWidgets.QWidget, Ui_Form):
         self.contadorIdsVivosMuertos = 0
         self.IMAGEN_ELIMINAR=RecursosCreadorCuestionarios.ICONO_TACHE
         self.IMAGEN_ELIMINAR_2=RecursosCreadorCuestionarios.ICONO_TACHE_2
+        self.SEPARADOR_ITEMS="-*^~^*-"
 
 
         self.listaItemsRonianos=[]
@@ -179,7 +180,7 @@ class VisualizadorPregunta_CheckBox(QtWidgets.QWidget, Ui_Form):
             respuestasCorrectas = [int(x) for x in respuestasCorrectas.split(",")]
             # R E S P U E S T A S :
             listItems=self.PROPIEDADES_RESPUESTA["TEXTO_ITEMS"]
-            listItems=listItems.split(",")
+            listItems=listItems.split(self.SEPARADOR_ITEMS)
             #Creando los items que son...
             for noItem in range(len(listItems)):
                 self.agregarCheckBox(listItems[noItem])

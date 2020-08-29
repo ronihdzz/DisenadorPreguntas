@@ -65,6 +65,7 @@ class PreguntaCheckBox(QtWidgets.QWidget, Ui_Form):
                                         ]
         #self.DIREC_IMAGENES=direc_carpetaImagenes
         self.DIREC_IMAGENES = "HOLA/"
+        self.SEPARADOR_ITEMS = "-*^~^*-"
 
 
 ####################################################################################################################################
@@ -152,6 +153,7 @@ class PreguntaCheckBox(QtWidgets.QWidget, Ui_Form):
         self.preguntaBlanco()
 
 
+
 ###########################################################################################################################
 #
 #
@@ -189,10 +191,11 @@ class PreguntaCheckBox(QtWidgets.QWidget, Ui_Form):
         textoRespuestas=""
         for item in self.listaItemsRonianos:
             respuestas+=str(int(item.checkBox_estado.isChecked()))+","
-            textoRespuestas+=item.textEdit_texto.toPlainText()+","
+            textoRespuestas+=item.textEdit_texto.toPlainText()+self.SEPARADOR_ITEMS
 
         self.PROPIEDADES_PREGUNTA["RESPUESTAS"]=str(respuestas)[:-1] #quitando la coma sobrante
-        self.PROPIEDADES_RESPUESTA["TEXTO_ITEMS"]=str(textoRespuestas)[:-1]  #quitando la coma sobrante
+        caracteresSeparador= -1*len(self.SEPARADOR_ITEMS)
+        self.PROPIEDADES_RESPUESTA["TEXTO_ITEMS"]=str(textoRespuestas)[:caracteresSeparador]  #quitando la coma sobrante
 
         print(self.PROPIEDADES_PREGUNTA.keys())
         for a,b in self.PROPIEDADES_PREGUNTA.items():
@@ -275,7 +278,7 @@ class PreguntaCheckBox(QtWidgets.QWidget, Ui_Form):
             listRespuestas = [int(x) for x in listRespuestas.split(",")]
             # R E S P U E S T A S :
             listItems=self.PROPIEDADES_RESPUESTA["TEXTO_ITEMS"]
-            listItems=listItems.split(",")
+            listItems=listItems.split(self.SEPARADOR_ITEMS)
             #Creando los items que son...
             for noItem in range(len(listItems)):
                 self.agregarCheckBox(listItems[noItem],listRespuestas[noItem])

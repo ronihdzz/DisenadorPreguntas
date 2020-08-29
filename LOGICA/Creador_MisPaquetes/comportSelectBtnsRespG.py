@@ -85,6 +85,14 @@ class comporSelecBtnsResp():
                         f"background-color:{self.COLOR_SELECCION};"
                         f"border-radius:{self.BORDER_RADIUS}px;"
                         "border: 1px solid #555;")
+            elif self.ultimoBotonPresionado == idBtnRespuesta:
+                for r in range(self.matrizBotones.shape[0]):  # renglones
+                    self.matrizBotones[r][self.ultimoBotonPresionado].setStyleSheet(
+                            f"background-color:{self.COLOR_NORMAL};"
+                            f"border-radius:{self.BORDER_RADIUS}px;"
+                            "border: 1px solid #555;")
+                self.ultimoBotonPresionado=-1
+
 
     def setAllRespuestas(self,newValue):
         self.listRespCorrectas=newValue

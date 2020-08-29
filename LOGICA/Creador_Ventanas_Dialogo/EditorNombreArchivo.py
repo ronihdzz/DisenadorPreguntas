@@ -6,7 +6,7 @@ from PyQt5.QtCore import pyqtSignal   #mandas senales a la otra ventana
 ###############################################################
 #  IMPORTACION DEL DISEÑO...
 ##############################################################
-from DISENO.Creador_Main.EditorNombreArchivo_d import Ui_Dialog
+from DISENO.Creador_Ventanas_Dialogo.EditorNombreArchivo_d import Ui_Dialog
 
 ###############################################################
 #  MIS LIBRERIAS...

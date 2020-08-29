@@ -152,7 +152,7 @@ class VisualizadorPreguntaMultiple(QtWidgets.QWidget, Ui_Form):
         posRespuesta=self.PROPIEDADES_PREGUNTA["POSICION_RESPUESTA"]
         #FORMA DE EVALUAR...
         formaEvaluar=self.PROPIEDADES_PREGUNTA["FORMA_EVALUAR"]
-
+        self.controlABSOLUTO_botones.ultimoBotonPresionado=-1
         self.controlABSOLUTO_botones.setAllRespuestas([0, 0,0,0])#todas las respuestas desmarcadas
         if formaEvaluar==0: #seleccionar todos las respuestas correctas
             self.controlABSOLUTO_botones.seleccionMultiple=True

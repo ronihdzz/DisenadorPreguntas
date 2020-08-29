@@ -13,7 +13,7 @@ from LOGICA.Creador_Pregunta_Multiple.PreguntaMultiple import PreguntaMultiple
 from LOGICA.Creador_Preguna_CheckBox.PreguntaCheckBox import PreguntaCheckBox
 from LOGICA.Creador_Pregunta_Abierta.PreguntaAbierta import PreguntaAbierta
 from LOGICA.Creador_Ejecutador.Visualizador import VisualizadorPreguntas
-from LOGICA.Creador_Main.EditorNombreArchivo import EditarNombre
+from LOGICA.Creador_Ventanas_Dialogo.EditorNombreArchivo import EditarNombre
 
 ###############################################################
 #  MIS LIBRERIAS...
@@ -22,6 +22,8 @@ from LOGICA.Creador_Main.EditorNombreArchivo import EditarNombre
 from LOGICA.Creador_MisPaquetes.DataBaseCreadorPreguntas import DataBaseCreadorPreguntas
 from LOGICA.Creador_MisPaquetes.RecursosCuestionario import RecursosCreadorCuestionarios
 
+#Momentanea....
+from LOGICA.Creador_Main.CreadorCuestionarios import EjecutadorCuestionario
 
 class BotonPregunta(QObject):
     suHoraMorir= pyqtSignal(int)#indicara quien es el objeto que quiere morir...
@@ -92,10 +94,15 @@ class CreadorPreguntas(QtWidgets.QMainWindow, Ui_MainWindow):
         self.actionCrear_nueva_pregunta.setShortcut("Ctrl+p")
         self.actionVisualizar.setShortcut("F5")
         self.actionCambiar_nombre.setShortcut("Ctrl+n")
+        self.actionEjecutar_cuestionario.setShortcut("F9")
+
 
         self.actionGuardar.triggered.connect(self.guardarCambios)
         self.actionCrear_nueva_pregunta.triggered.connect(self.crearOtraPregunta)
+        self.actionEjecutar_cuestionario.triggered.connect(self.ejecutarCuestionario)
         self.actionVisualizar.triggered.connect(self.compilarPregunta)
+
+
 
         self.actionCambiar_nombre.triggered.connect(self.editarNombre)
 
@@ -137,12 +144,18 @@ class CreadorPreguntas(QtWidgets.QMainWindow, Ui_MainWindow):
         self.controlABSOULUTO_editorNombre.senalNombreElegido.connect(self.usuarioCambioNombre)
 
 
+
     def editarNombre(self):
         self.controlABSOULUTO_editorNombre.show()
 
     def usuarioCambioNombre(self,nuevoNombre):
         nuevoNombre+=self.extensionCuestionario
         self.setWindowTitle(nuevoNombre)
+
+    def ejecutarCuestionario(self):
+        self.ejecutadorCuestionario= EjecutadorCuestionario()
+        self.ejecutadorCuestionario.show()
+
 
 
     def compilarPregunta(self):

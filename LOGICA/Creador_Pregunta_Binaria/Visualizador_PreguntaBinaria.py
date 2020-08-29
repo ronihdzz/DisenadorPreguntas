@@ -142,6 +142,7 @@ class VisualizadorPreguntaBinaria(QtWidgets.QWidget, Ui_Form):
         formaEvaluar=self.PROPIEDADES_PREGUNTA["FORMA_EVALUAR"]
 
         self.controlABSOLUTO_botones.setAllRespuestas([0,0])#todas las respuestas desmarcadas
+        self.controlABSOLUTO_botones.ultimoBotonPresionado=-1
         if formaEvaluar==0: #seleccionar todos las respuestas correctas
             self.controlABSOLUTO_botones.seleccionMultiple=True
             self.controlABSOLUTO_botones.setColor(self.COLOR_AND)

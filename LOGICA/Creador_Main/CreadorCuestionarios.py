@@ -141,14 +141,6 @@ class EjecutadorCuestionario(QtWidgets.QWidget, Ui_Form):
         self.dejarDeOcultarElementosFinales(False)
         self.cuestionarioTerminado=False
 
-        #Constantes de imagenes...
-        self.pixmapImagen_respondioBIEN = QPixmap(RecursosCreadorCuestionarios.ICON_RESPONDIO_BIEN).scaled(65, 65, Qt.KeepAspectRatio,
-                                                          Qt.SmoothTransformation)
-
-        self.pixmapImagen_respondioMAL = QPixmap(RecursosCreadorCuestionarios.ICON_RESPONDIO_MAL).scaled(65, 65,
-                                                                                                      Qt.KeepAspectRatio,
-                                                                                                      Qt.SmoothTransformation)
-
 
     def cambioVerRespuesta(self,idBtnFuePresionado):
         self.controlABSLUTO_verRespuestas.marcarDesmarcarRespuesta_automatico(idBtnFuePresionado,False)
