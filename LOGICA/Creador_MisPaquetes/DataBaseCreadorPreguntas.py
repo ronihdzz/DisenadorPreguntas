@@ -342,6 +342,29 @@ class DataBaseCreadorPreguntas():
             conexion.commit()
             conexion.close()
 
+    def getAllIds_preguntas(self):
+        conexion = self.iniciarConexion_sql()
+        if conexion == None:
+            print("Error a la hora de dar los ids....")
+            return False
+        else:
+            cursor = conexion.cursor()
+            # necesitamos obtener el tipo de respuesta de la pregunta...
+            sqlOrden = "SELECT  ID  FROM  TABLA_PREGUNTAS"
+            cursor.execute(sqlOrden)
+            tuplaIds = cursor.fetchall()  # devuelve una lista con
+            listaIDs = []
+            # obteniendo todos los id de las preguntas...
+            for id in tuplaIds:
+                idConvertido = int(id[0])
+                listaIDs.append(idConvertido)
+
+            # ahora actualizamos la informacion de la base de respuesta..
+            conexion.commit()
+            conexion.close()
+
+            return tuple(listaIDs)
+
 #gradoImagenes,tiempo_segundos,texto_pregunta,imagen_pregunta,tam_pregunta,pos_pregunta,
 #tam_respuesta,pos_respuesta,forma_evaluar,respuestas
 

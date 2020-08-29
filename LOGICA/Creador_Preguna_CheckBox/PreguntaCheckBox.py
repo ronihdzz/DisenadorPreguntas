@@ -100,6 +100,12 @@ class PreguntaCheckBox(QtWidgets.QWidget, Ui_Form):
                                                                       self.dSpin_respTam,
                                                                       self.matrizEditTextRespuestas,
                                                                       self.listImagenBotonesPosiciones)
+
+####################################################################################################################################
+#      I M A G E N E S :
+####################################################################################################################################
+        self.ventanas[1].alguienEligioImagen.connect(self.eligioImagen)  # contiene la widget de imagenes 50%
+
 ####################################################################################################################################
 #       C O N T R O L    D E     BOTONES DE PREGUNTAS HIBRIDAS :
 ####################################################################################################################################
@@ -296,6 +302,7 @@ class PreguntaCheckBox(QtWidgets.QWidget, Ui_Form):
             if imagenAntiguaAlmacenada != "" and imagenAntiguaAlmacenada != None and self.NUEVA_PREGUNTA == False:
                 # Debemos eliminar la imagen...
                 os.remove(self.DIREC_IMAGENES + imagenAntiguaAlmacenada)
+
 
     def agregarCheckBox(self,texto="",estado=0):
         if self.punteroNoItems<self.MAX_ITEMS:

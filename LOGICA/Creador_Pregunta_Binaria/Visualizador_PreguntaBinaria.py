@@ -79,11 +79,22 @@ class VisualizadorPreguntaBinaria(QtWidgets.QWidget, Ui_Form):
 
         return estadoRespuesta
 
+    def getRespuesta(self):
+        if self.formaEvaluar==0: #osea debe elegir todas las correctas...
+            self.respuestaUsuario = self.controlABSOLUTO_botones.dameTodoLoQueRespondio()
+            return str(self.respuestaUsuario)[1:-1] # con esto quitamos corchetes...
+                                                    # [0,0,0,0]  0,0,0,0
+        else: #solo debe seleccionara una bien..
+            self.respuestaUsuario = self.controlABSOLUTO_botones.dameLaRespuestaEscogio()
+            respuesta=[0,0] #son dos porque es una pregunta binaria...
+            if self.respuestaUsuario> -1:#ya que el valor inciial es -1
+                respuesta[self.respuestaUsuario]=1
+            return str(respuesta)[1:-1]
 
 ##############################################################################################################################
 #  C U E N T A     R E G R E S I V A  :
 ##############################################################################################################################
-    def abrirPregunta(self,datosPregunta,datosRespuesta):
+    def abrirPregunta(self,datosPregunta,datosRespuesta,respuestaUsuario=None):
         self.PROPIEDADES_PREGUNTA=datosPregunta
         self.PROPIEDADES_RESPUESTA=datosRespuesta
 
@@ -132,7 +143,6 @@ class VisualizadorPreguntaBinaria(QtWidgets.QWidget, Ui_Form):
         respuestasCorrectas=self.PROPIEDADES_PREGUNTA["RESPUESTAS"]
         respuestasCorrectas=[int(x) for x in respuestasCorrectas.split(",")]
 
-
         #RESPUESTAS...
         respuestas = ["A", "B"]
         listaRespuestaText = [self.PROPIEDADES_RESPUESTA["TEXTO_RESP" + letra] for letra in respuestas]
@@ -152,6 +162,12 @@ class VisualizadorPreguntaBinaria(QtWidgets.QWidget, Ui_Form):
         self.noWidgetAbrir=noWidgetAbrir
         self.respuestasCorrectas=respuestasCorrectas
         self.formaEvaluar=formaEvaluar
+
+        if respuestaUsuario!=None:
+            respuestaUsuario=[int(x) for x in respuestaUsuario.split(",")]
+            self.controlABSOLUTO_botones.setAllRespuestas(respuestaUsuario)
+
+
 
     def limpiarWidget(self):
         #Limpiaremos los datos que quedaran resagados pregunta con pregunta....

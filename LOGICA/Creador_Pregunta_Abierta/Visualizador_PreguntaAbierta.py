@@ -60,13 +60,17 @@ class VisualizadorPregunta_Abierta(QtWidgets.QWidget, Ui_Form):
             estadoRespuesta=True
         return estadoRespuesta
 
+    def getRespuesta(self):
+        return self.lineEdit_respuesta.text()
+
+
 
     def limpiarWidget(self):
         if self.noWidgetAbrir>0: #1,2,3
             self.ventanas[self.noWidgetAbrir].controlABSOLUTO_labelImagen.ponerEnDafultTodasLabel()
 
 
-    def abrirPregunta(self, datosPregunta, datosRespuesta):
+    def abrirPregunta(self, datosPregunta, datosRespuesta,respuestaUsuario=None):
         self.PROPIEDADES_PREGUNTA = datosPregunta
         self.PROPIEDADES_RESPUESTA = datosRespuesta
         # P R E G U N T A   :
@@ -123,6 +127,9 @@ class VisualizadorPregunta_Abierta(QtWidgets.QWidget, Ui_Form):
         self.noWidgetAbrir=noWidgetAbrir
         self.respuestasCorrectas=respuestasCorrectas
         self.formaEvaluar=formaEvaluar
+
+        if respuestaUsuario!=None:
+            self.lineEdit_respuesta.setText(respuestaUsuario)
 
 
     def cambiarTam(self,editText,newValor):

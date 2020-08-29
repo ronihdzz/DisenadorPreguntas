@@ -79,8 +79,19 @@ class VisualizadorPreguntaMultiple(QtWidgets.QWidget, Ui_Form):
                     estadoRespuesta=True
         return estadoRespuesta
 
+    def getRespuesta(self):
+        if self.formaEvaluar == 0:  # osea debe elegir todas las correctas...
+            self.respuestaUsuario = self.controlABSOLUTO_botones.dameTodoLoQueRespondio()
+            return str(self.respuestaUsuario)[1:-1]  # con esto quitamos corchetes...
+            # [0,0,0,0]  0,0,0,0
+        else:  # solo debe seleccionara una bien..
+            self.respuestaUsuario = self.controlABSOLUTO_botones.dameLaRespuestaEscogio()
+            respuesta = [0,0,0,0]  # son dos porque es una pregunta binaria...
+            if self.respuestaUsuario > -1:  # ya que el valor inciial es -1
+                respuesta[self.respuestaUsuario] = 1
+            return str(respuesta)[1:-1]
 
-    def abrirPregunta(self,datosPregunta,datosRespuesta):
+    def abrirPregunta(self,datosPregunta,datosRespuesta,respuestaUsuario=None):
         self.PROPIEDADES_PREGUNTA=datosPregunta
         self.PROPIEDADES_RESPUESTA=datosRespuesta
 
@@ -164,6 +175,10 @@ class VisualizadorPreguntaMultiple(QtWidgets.QWidget, Ui_Form):
         self.noWidgetAbrir=noWidgetAbrir
         self.respuestasCorrectas=respuestasCorrectas
         self.formaEvaluar=formaEvaluar
+
+        if respuestaUsuario!=None:
+            respuestaUsuario=[int(x) for x in respuestaUsuario.split(",")]
+            self.controlABSOLUTO_botones.setAllRespuestas(respuestaUsuario)
 
 
     def limpiarWidget(self):

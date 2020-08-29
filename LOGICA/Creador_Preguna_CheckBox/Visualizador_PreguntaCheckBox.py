@@ -98,20 +98,32 @@ class VisualizadorPregunta_CheckBox(QtWidgets.QWidget, Ui_Form):
             estadoRespuesta=True
         return estadoRespuesta
 
+    def getRespuesta(self):
+        #iterando sobre todos los items existentes....
+        respuestas=[]
+
+        for item in self.listaItemsRonianos:
+            respuestas.append( int(item.checkBox_estado.isChecked()) )
+        if respuestas==[]:
+            return ""
+        else:
+            return str(respuestas)[1:-1]
+
+
+
     def limpiarWidget(self):
         self.borrarTodosItems()
         if self.noWidgetAbrir>0: #1,2,3
             self.ventanas[self.noWidgetAbrir].controlABSOLUTO_labelImagen.ponerEnDafultTodasLabel()
 
 
-    def abrirPregunta(self, datosPregunta, datosRespuesta):
+    def abrirPregunta(self, datosPregunta, datosRespuesta,respuestaUsuario=None):
         self.PROPIEDADES_PREGUNTA = datosPregunta
         self.PROPIEDADES_RESPUESTA = datosRespuesta
         # P R E G U N T A   :
         #Primero borramos todos los items antiguos...
 
         self.borrarTodosItems()
-
 
         # GRADO_IMAGENES...
 
@@ -173,7 +185,11 @@ class VisualizadorPregunta_CheckBox(QtWidgets.QWidget, Ui_Form):
         self.respuestasCorrectas=respuestasCorrectas
         self.formaEvaluar=formaEvaluar
 
-
+        if respuestaUsuario!=None and respuestaUsuario!="":
+            respuestaUsuario=[int(x) for x in respuestaUsuario.split(",")]
+            for noItem in range(len(self.listaItemsRonianos)):
+                itemRoniano=self.listaItemsRonianos[noItem]
+                itemRoniano.checkBox_estado.setChecked(respuestaUsuario[noItem])
 
     def cambiarTam(self,editText,newValor):
         # Cambiando el tamaño
