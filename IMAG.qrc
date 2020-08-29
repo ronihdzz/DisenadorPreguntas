@@ -1,5 +1,9 @@
 <RCC>
   <qresource prefix="CreadorPreguntas">
+    <file>IMAGENES/icon_respMala.png</file>
+    <file>IMAGENES/icon_respBuena.png</file>
+    <file>IMAGENES/icon_yoNoDije.png</file>
+    <file>IMAGENES/icon_yoDije.png</file>
     <file>IMAGENES/pregunta_ver.png</file>
     <file>IMAGENES/preguntas_mandar.png</file>
     <file>IMAGENES/pregunta_guardar.png</file>

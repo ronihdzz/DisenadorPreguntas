@@ -3,12 +3,14 @@ from LOGICA.Creador_MisPaquetes.DataBaseCreadorPreguntas import DataBaseCreadorP
 
 from PyQt5.QtCore import QTimer
 from PyQt5 import QtWidgets,Qt,QtCore
-from PyQt5.QtWidgets import QWidget,QVBoxLayout,QLabel,QPushButton,QGridLayout
+from PyQt5.QtWidgets import QWidget,QVBoxLayout,QLabel,QPushButton,QGridLayout,QHBoxLayout
 from PyQt5.QtCore import Qt, pyqtSignal,QObject
 from PyQt5.QtWidgets import  QMessageBox
 import datetime
-
-
+from PyQt5 import QtWidgets,QtGui,Qt
+import numpy as np
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import  QPixmap
 ###############################################################
 #  IMPORTACION DEL DISEÑO...
 ##############################################################
@@ -27,6 +29,11 @@ from LOGICA.Creador_Pregunta_Abierta.Visualizador_PreguntaAbierta import Visuali
 #  MIS LIBRERIAS...
 ##############################################################
 from LOGICA.Creador_MisPaquetes.DataBaseCreadorPreguntas import DataBaseCreadorPreguntas
+from LOGICA.Creador_Ventanas_Dialogo.ConfirmadorAccion import ConfirmadorAccion
+from LOGICA.Creador_MisPaquetes.comportSelect_btnsImagen import comporSelec_btnsImagen
+from LOGICA.Creador_MisPaquetes.RecursosCuestionario import RecursosCreadorCuestionarios
+
+
 
 class EjecutadorCuestionario(QtWidgets.QWidget, Ui_Form):
     def __init__(self,nombreCuestionario="",nombreCreador="ANONIMO"):
@@ -61,19 +68,36 @@ class EjecutadorCuestionario(QtWidgets.QWidget, Ui_Form):
         self.listIdPreguntas = []
         self.punteroPregunta = -1  # numero que no puede ser ningun puntero al incio
 
+        self.btn_terminar.setVisible(False)
+        self.btn_terminar.clicked.connect(self.preguntarSiQuiereTerminar)
+
+        textoTerminador="Al termino del cuestionario, tu calificacion final sera mostrada "
+        textoTerminador+="asi como las preguntas en las cuales erraste, de igual forma tu "
+        textoTerminador+="calificacion final quedara registrada: ¿En realidad deseas terminar "
+        textoTerminador+="el cuestionario?"
+        fraseTerminadora="Estoy seguro de terminarlo"
+
+        self.controlABSOLUTO_terminadorCuestionario=ConfirmadorAccion(textoTerminador,fraseTerminadora)
+        self.controlABSOLUTO_terminadorCuestionario.accionConfirmada.connect(self.terminarCuestionario)
+
 ##############################################################################################################################
 #  SCROLL DE PREGUNTAS...
 ##############################################################################################################################
 
-        self.widget = QWidget()  # Widget that contains the collection of Vertical Box
-        self.vbox = QVBoxLayout()  # The Vertical Box that contains the Horizontal Boxes of  labels and buttons
-        self.widget.setLayout(self.vbox)
 
-        # Scroll Area Properties
-        self.scroll_barra.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.scroll_barra.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.scroll_barra.setWidgetResizable(True)
-        self.scroll_barra.setWidget(self.widget)
+        # Scroll Are
+        # a Properties
+        self.widgetHorizontal = QWidget()  # Widget that contains the collection of Vertical Box
+        self.hbox = QHBoxLayout()  # The Vertical Box that contains the Horizontal Boxes of  labels and buttons
+        self.widgetHorizontal.setLayout(self.hbox)
+
+        self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollArea.setWidget(self.widgetHorizontal)
+
+
+
 
 ##############################################################################################################################
 #  LEYENDO LAS BASES DATOS...
@@ -89,9 +113,12 @@ class EjecutadorCuestionario(QtWidgets.QWidget, Ui_Form):
 
         self.bel_noPreguntas.setText(str(self.noPreguntas))
         self.bel_punteroPregunta.setText(str(self.punteroPregunta+1))
+
         self.listaRespuestas=[]
+        self.listaCalificaciones=[]
         for _ in range(self.noPreguntas):
             self.listaRespuestas.append(None)
+            self.listaCalificaciones.append(False)
 
         self.btn_next.clicked.connect(self.verNextPregunta)
         self.btn_prev.clicked.connect(self.verPrevPregunta)
@@ -101,30 +128,125 @@ class EjecutadorCuestionario(QtWidgets.QWidget, Ui_Form):
 
 
 
+        ## Comportamiento de las ediciones de un edit text...
+        self.listBtnPunteros_yoDijeElDijo = (self.btn_respondioYo,self.btn_respondioEl)
+        self.listImagen_yoDijeElDijo= (RecursosCreadorCuestionarios.ICON_RESPONDI_YO,
+                                       RecursosCreadorCuestionarios.ICON_RESPONDIO_EL,)
+        self.controlABSLUTO_verRespuestas = comporSelec_btnsImagen(self.listBtnPunteros_yoDijeElDijo,
+                                                self.listImagen_yoDijeElDijo)
+
+        self.controlABSLUTO_verRespuestas.botonFuePresionado.connect(self.cambioVerRespuesta)
+        self.controlABSLUTO_verRespuestas.botonPresionado(0)
+
+        self.dejarDeOcultarElementosFinales(False)
+        self.cuestionarioTerminado=False
+
+        #Constantes de imagenes...
+        self.pixmapImagen_respondioBIEN = QPixmap(RecursosCreadorCuestionarios.ICON_RESPONDIO_BIEN).scaled(65, 65, Qt.KeepAspectRatio,
+                                                          Qt.SmoothTransformation)
+
+        self.pixmapImagen_respondioMAL = QPixmap(RecursosCreadorCuestionarios.ICON_RESPONDIO_MAL).scaled(65, 65,
+                                                                                                      Qt.KeepAspectRatio,
+                                                                                                      Qt.SmoothTransformation)
+
+
+    def cambioVerRespuesta(self,idBtnFuePresionado):
+        self.controlABSLUTO_verRespuestas.marcarDesmarcarRespuesta_automatico(idBtnFuePresionado,False)
+        if idBtnFuePresionado==1: #quiere ver la respuesta correcta...
+            self.ventanas[self.punteroWidgetVisualizando].mostrarRespuestaCorrecta()
+        else: #quiere ver su respuesta...
+            self.ventanas[self.punteroWidgetVisualizando].mostrarRespuesta(self.listaRespuestas[self.punteroPregunta])
+
+
+
+
 ##############################################################################################################################
 #  VISUALIZADOR DE PREGUNTA
 ##############################################################################################################################
-    def crearBotonesPreguntas(self):
-        for x in range(self.noPreguntas):
-            self.agregarPregunta(x)
+    def dejarDeOcultarElementosFinales(self,estado):
+        self.btn_respondioEl.setVisible(estado)
+        self.bel_respondioEl.setVisible(estado)
 
-    def agregarPregunta(self,noBoton):
-        botonCerrar = QPushButton()
-        botonCerrar.setMaximumSize(15,15)
-        botonCerrar.setMinimumSize(15,15)
-        botonPregunta=QPushButton()
-        botonPregunta.setMaximumSize(50,50)
-        botonPregunta.setMinimumSize(50,50)
-        nuevoBotonPregunta=BotonPregunta(noBoton,botonPregunta)
-        self.listBotonesPreguntas.append(nuevoBotonPregunta)
-        nuevoBotonPregunta.clickBotonPregunta.connect(self.verContenidoPregunta)
-        self.vbox.addWidget(botonPregunta,alignment=QtCore.Qt.AlignHCenter)
+        self.btn_respondioYo.setVisible(estado)
+        self.bel_respondioYo.setVisible(estado)
+
+        self.btn_terminar.setVisible(estado)
+        self.bel_califFinal.setVisible(estado)
+        self.bel_estadoPregunta.setVisible(estado)
 
 
-    def verContenidoPregunta(self,noPregunta):
+    def desconectarBotones(self):
+        for boton in self.listBotonesPreguntas:
+            boton.clickBotonPregunta.disconnect()
+            boton.clickBotonPregunta.connect(self.verRespuestas)
+
+    def preguntarSiQuiereTerminar(self):
+        self.controlABSOLUTO_terminadorCuestionario.show()
+
+    def terminarCuestionario(self):
+        self.listWidget_panelPreguntas.setEnabled(False)
+        self.dejarDeOcultarElementosFinales(True)
+        self.desconectarBotones() #desconectamos todos de la funcion...
+        #Obteniendo calificaciones...
+        puntosObtenidos=0
+        puntosObtener=self.noPreguntas
+        for x in self.listaCalificaciones:
+            puntosObtenidos+=int(x)
+        calificacion=int((puntosObtenidos/puntosObtener)*1000)
+        calificacion=calificacion/10
+        print("CALIFICACION...."+str(calificacion))
+
+        calificacion=str(calificacion)+" %"
+        self.btn_terminar.setText(calificacion)
+        self.cambiarTam(self.btn_terminar, 20)
+        self.btn_terminar.setEnabled(False)
+
+        QMessageBox.question(self, 'Calificacion final',
+                             "Obtuviste una calificacion:\n"
+                             f"del {calificacion},respodiste bien \n"
+                             f"{puntosObtenidos}/{puntosObtener} preguntas",
+                            QMessageBox.Ok)
+
+        self.verRespuestas(0) #viendo las respuestas apartir de la pregunta cero...
+        self.cuestionarioTerminado=True
+
+
+    def verRespuestas(self,noPregunta):
+        self.controlABSLUTO_verRespuestas.botonPresionado(0) #siempre querra ver lo que el respondio...
         if self.punteroPregunta != noPregunta:
+            self.listBotonesPreguntas[self.punteroPregunta].botonSeleccionado(False)
+            self.punteroPregunta = noPregunta
+            self.bel_punteroPregunta.setText(str(self.punteroPregunta+1))
+            self.listBotonesPreguntas[self.punteroPregunta].botonSeleccionado(True)
+
+            dataPregunta,dataRespuesta=self.controlABSOLUTO_baseDatos.getData(self.listaID_preguntas[self.punteroPregunta])
+            # widgetPregunta = self.listWidget_panelPreguntas.currentIndex()  # nos dira en que pregunta nos econtramos...
+            tipoRespuesta = dataPregunta["TIPO_RESPUESTA"]  # AHI SE ENCUENTRA EL TIPO DE RESPUESTA...
+            # Eliminamos datos que no necesita...
+            del dataPregunta["TIPO_RESPUESTA"]
+            del dataPregunta["ID"]
+            if tipoRespuesta != 3:  # pues las preguntas imagenes no tienen dataRespuesta
+                del dataRespuesta["ID"]
+            self.punteroWidgetVisualizando=tipoRespuesta
+            self.listWidget_panelPreguntas.setCurrentIndex(tipoRespuesta)
+            self.ventanas[tipoRespuesta].abrirPregunta(dataPregunta,dataRespuesta,self.listaRespuestas[self.punteroPregunta])
+            self.scrollArea.ensureWidgetVisible(self.listBotonesPreguntas[self.punteroPregunta].botonPregunta)
+            if self.listaCalificaciones[self.punteroPregunta]==True: #respondio bien..
+                self.bel_estadoPregunta.setStyleSheet(f"border-image: url({RecursosCreadorCuestionarios.ICON_RESPONDIO_BIEN});")
+            else: #respondio mal...
+                self.bel_estadoPregunta.setStyleSheet(f"border-image: url({RecursosCreadorCuestionarios.ICON_RESPONDIO_MAL});")
+
+            self.controlABSLUTO_verRespuestas.botonPresionado(0) #diremos que quisieron presionar el boton de ver
+                                                                 #su respuesta...
+
+
+
+    def verContenidoPregunta(self,noPregunta,verloNuevamente=False):
+        self.controlABSLUTO_verRespuestas.botonPresionado(0) #siempre querra ver lo que el respondio...
+        if self.punteroPregunta != noPregunta or verloNuevamente:
             if self.punteroWidgetVisualizando>-1:
                 self.listaRespuestas[self.punteroPregunta]=self.ventanas[self.punteroWidgetVisualizando].getRespuesta()
+                self.listaCalificaciones[self.punteroPregunta]=self.ventanas[self.punteroWidgetVisualizando].calificarRespuesta()
 
             self.listBotonesPreguntas[self.punteroPregunta].botonSeleccionado(False)
             self.punteroPregunta = noPregunta
@@ -141,16 +263,52 @@ class EjecutadorCuestionario(QtWidgets.QWidget, Ui_Form):
             self.punteroWidgetVisualizando=tipoRespuesta
             self.listWidget_panelPreguntas.setCurrentIndex(tipoRespuesta)
             self.ventanas[tipoRespuesta].abrirPregunta(dataPregunta,dataRespuesta,self.listaRespuestas[self.punteroPregunta])
-            self.scroll_barra.ensureWidgetVisible(self.listBotonesPreguntas[self.punteroPregunta].botonPregunta)
+            self.scrollArea.ensureWidgetVisible(self.listBotonesPreguntas[self.punteroPregunta].botonPregunta)
+            if self.punteroPregunta==(self.noPreguntas-1) or self.cuestionarioTerminado: #si ya van en la ultima pregunta
+                self.btn_terminar.setVisible(True)
+            else:
+                self.btn_terminar.setVisible(False)
 
     def verNextPregunta(self):
-        if self.punteroPregunta< (self.noPreguntas-1):
-            self.verContenidoPregunta(self.punteroPregunta+1)
+        if self.punteroPregunta < (self.noPreguntas - 1):
+            if not(self.cuestionarioTerminado):
+                self.verContenidoPregunta(self.punteroPregunta+1)
+            else:
+                self.verRespuestas(self.punteroPregunta + 1)
+
 
     def verPrevPregunta(self):
         if self.punteroPregunta>=1:
-            self.verContenidoPregunta(self.punteroPregunta-1)
+            if not(self.cuestionarioTerminado):
+                self.verContenidoPregunta(self.punteroPregunta-1)
+            else:
+                self.verRespuestas(self.punteroPregunta-1)
 
+
+
+
+
+
+
+    def crearBotonesPreguntas(self):
+        for x in range(self.noPreguntas):
+            self.agregarPregunta(x)
+
+    def agregarPregunta(self,noBoton):
+        botonPregunta=QPushButton()
+        botonPregunta.setMaximumSize(40,40)
+        botonPregunta.setMinimumSize(40,40)
+        nuevoBotonPregunta=BotonPregunta(noBoton,botonPregunta)
+        self.listBotonesPreguntas.append(nuevoBotonPregunta)
+        nuevoBotonPregunta.clickBotonPregunta.connect(self.verContenidoPregunta)
+        self.hbox.addWidget(botonPregunta,alignment=QtCore.Qt.AlignVCenter)
+
+
+    def cambiarTam(self,editText,newValor):
+        # Cambiando el tamaño
+        font = QtGui.QFont()
+        font.setPointSize(int(newValor))
+        editText.setFont(font)
 
 
 
@@ -195,6 +353,11 @@ if __name__ == "__main__":
     application.show()
     app.exec()
     #sys.exit(app.exec())
+
+
+#FUENTE DE ICONOS:
+#https://p.yusukekamiyamane.com/
+#https://icons8.com/?utm_source=http%3A%2F%2Ficons8.com%2Fweb-app%2Fnew-icons%2Fall&utm_medium=link&utm_content=search-and-download&utm_campaign=yusuke
 
 
 

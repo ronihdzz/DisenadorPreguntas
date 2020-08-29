@@ -28,13 +28,12 @@ class RecursosCreadorCuestionarios():
     ICON_IMAGEN_PREG_CHECKBOX = direc_carpeta+"icon_pregItems.png"
     ICON_IMAGEN_PREG_ABIERTA = direc_carpeta+"icon_pregAbierta.png"
 
+    ICON_RESPONDI_YO=direc_carpeta+"icon_yoDije.png"
+    ICON_RESPONDIO_EL=direc_carpeta+"icon_yoNoDije.png"
+
+
+    ICON_RESPONDIO_BIEN=direc_carpeta+"icon_respBuena.png"
+    ICON_RESPONDIO_MAL=direc_carpeta+"icon_respMala.png"
+
     def __init__(self):
         pass
-
-
-
-
-
-
-
-

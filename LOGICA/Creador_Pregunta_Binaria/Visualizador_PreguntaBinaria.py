@@ -91,6 +91,16 @@ class VisualizadorPreguntaBinaria(QtWidgets.QWidget, Ui_Form):
                 respuesta[self.respuestaUsuario]=1
             return str(respuesta)[1:-1]
 
+    def mostrarRespuestaCorrecta(self):
+        respuestaCorrecta=self.PROPIEDADES_PREGUNTA["RESPUESTAS"]
+        self.mostrarRespuesta(respuestaCorrecta)
+
+    def mostrarRespuesta(self,respuesta):
+        self.controlABSOLUTO_botones.setAllRespuestas([0,0])  # primero limpiamos,luego mostramos
+        if respuesta!=None and respuesta!= "":
+            respuestaUsuario = [int(x) for x in respuesta.split(",")]
+            self.controlABSOLUTO_botones.setAllRespuestas(respuestaUsuario)
+
 ##############################################################################################################################
 #  C U E N T A     R E G R E S I V A  :
 ##############################################################################################################################

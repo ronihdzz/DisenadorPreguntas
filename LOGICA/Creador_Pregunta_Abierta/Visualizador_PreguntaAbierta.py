@@ -63,6 +63,13 @@ class VisualizadorPregunta_Abierta(QtWidgets.QWidget, Ui_Form):
     def getRespuesta(self):
         return self.lineEdit_respuesta.text()
 
+    def mostrarRespuestaCorrecta(self):
+        respuestaCorrecta=self.PROPIEDADES_PREGUNTA["RESPUESTAS"]
+        self.mostrarRespuesta(respuestaCorrecta)
+
+    def mostrarRespuesta(self, respuesta):
+        if respuesta!=None:
+            self.lineEdit_respuesta.setText(respuesta)
 
 
     def limpiarWidget(self):

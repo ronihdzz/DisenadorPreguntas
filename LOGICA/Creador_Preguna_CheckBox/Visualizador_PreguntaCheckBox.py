@@ -109,6 +109,17 @@ class VisualizadorPregunta_CheckBox(QtWidgets.QWidget, Ui_Form):
         else:
             return str(respuestas)[1:-1]
 
+    def mostrarRespuestaCorrecta(self):
+        respuestaCorrecta=self.PROPIEDADES_PREGUNTA["RESPUESTAS"]
+        self.mostrarRespuesta(respuestaCorrecta)
+
+    def mostrarRespuesta(self, respuesta):
+        if respuesta!=None and respuesta!= "":
+            respuesta=[int(x) for x in respuesta.split(",")]
+            for noItem in range(len(self.listaItemsRonianos)):
+                itemRoniano=self.listaItemsRonianos[noItem]
+                itemRoniano.checkBox_estado.setChecked(False) #ponemos todos en false...
+                itemRoniano.checkBox_estado.setChecked(respuesta[noItem])#despues ponemos la respuesta correcta
 
 
     def limpiarWidget(self):
