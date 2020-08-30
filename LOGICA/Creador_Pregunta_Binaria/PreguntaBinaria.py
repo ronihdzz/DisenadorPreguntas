@@ -138,14 +138,6 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form):
                                                #a uno de color rosa
         self.control.botonFuePresionado.connect(self.cambioHibridoPregunta)
 
-####################################################################################################################################
-#       C O N T R O L    D E     AUTOGUARDADO....
-####################################################################################################################################
-
-        self.matrizTodos_textEdit=self.matrizEditTextPreguntas
-        self.matrizTodos_textEdit=np.append(self.matrizTodos_textEdit,self.matrizEditTextRespuestas,axis=1)
-        self.controlABSOULUTO_autoguardado=comportAutoguardado_textEdit(self.matrizTodos_textEdit)
-        self.controlABSOULUTO_autoguardado.horaGuardarCambios.connect(self.guardarCambios)
 
 ####################################################################################################################################
 #       C O N T R O L    D E   PREGUNTAS ESPECIFICAS U ABIERTAS :
@@ -273,19 +265,6 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form):
                 # Debemos eliminar la imagen...
                 os.remove(self.DIREC_IMAGENES + imagenAntiguaAlmacenada)
 
-    def guardarCambios(self,listaDatos):
-        print("GUARDANDO...",listaDatos)
-        idTxtRespueta=listaDatos[0]
-        texto=listaDatos[1]
-        posiblesRespuestas=["A","B"]
-        if idTxtRespueta>=0:
-            if idTxtRespueta==0: #significa que es de la pregunta...
-                self.PROPIEDADES_PREGUNTA["TEXTO_PREGUNTA"]=texto
-            else: #significara que son los edit text de las respuestas..
-                respuestaGuardar="TEXTO_RESP"+posiblesRespuestas[idTxtRespueta-1]
-                self.PROPIEDADES_RESPUESTA[respuestaGuardar]=texto
-                self.textoRespuestas[idTxtRespueta-1]=texto
-
 
     def cambio_pregANDpregOR(self,idBtnFuePresionado):
         self.control_2.marcarDesmarcarRespuesta_automatico(idBtnFuePresionado,False)
@@ -305,15 +284,16 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form):
         if resultado == QMessageBox.Yes:
             self.PROPIEDADES_PREGUNTA["GRADO_IMAGENES"] = idBtnFuePresionado  # 0=sin imagen 1=con imagen en pregunta....
             #actulizando contenido de respuestas
-            self.controlABSOULUTO_autoguardado.registrarRespuestas(False) #actualizamos los datos
-                                                     #del ultimo edit text que se estaba editando
-
-            #cargando el texto del edit text del widget al que nos pasaremos...
-            textoPregunta=self.PROPIEDADES_PREGUNTA["TEXTO_PREGUNTA"]
+            noWidgetEstamos = self.listWidget_panelVersion.currentIndex()
+            textoPregunta = self.matrizEditTextPreguntas[noWidgetEstamos][0].toPlainText()
             self.matrizEditTextPreguntas[idBtnFuePresionado][0].setText(textoPregunta)
             #cargando el texto en lo edit text de las respuesta del widget donde nos pasaremos
             for respuesta in range(len(self.textoRespuestas)):
                 self.matrizEditTextRespuestas[idBtnFuePresionado][respuesta].setText(self.textoRespuestas[respuesta])
+            # cargando el texto en lo edit text de las respuesta del widget donde nos pasaremos
+            for respuesta in range(len(self.textoRespuestas)):
+                texto=self.matrizEditTextRespuestas[noWidgetEstamos][respuesta].toPlainText()
+                self.matrizEditTextRespuestas[idBtnFuePresionado][respuesta].setText(texto)
 
             #Refrescando las posiciones ya que por alguna extraña razon, cuando lo poner un nuevo
             #texto su posicion de ve alterada
@@ -336,9 +316,16 @@ class PreguntaBinaria(QtWidgets.QWidget, Ui_Form):
                     self.ventanas[idBtnFuePresionado].controlABSOLUTO_labelImagen.escogioImagen(0, False,imagenPregunta)
 
     def getDatos(self,tupleFormat=True):
-        # actulizando contenido de respuestas
-        self.controlABSOULUTO_autoguardado.registrarRespuestas(False)  # actualizamos los datos
-        # del ultimo edit text que se estaba editando
+
+        # Obteniendo las respuestas del edit text...
+        respuestas = ["A", "B"]
+        noWidgetEstamos = self.listWidget_panelVersion.currentIndex()
+        for c in range(len(respuestas)):
+            self.PROPIEDADES_RESPUESTA["TEXTO_RESP" + respuestas[c]] = self.matrizEditTextRespuestas[noWidgetEstamos][
+                c].toPlainText()
+
+        # Obteniedno el texto de la pregunta..
+        self.PROPIEDADES_PREGUNTA["TEXTO_PREGUNTA"] = self.matrizEditTextPreguntas[noWidgetEstamos][0].toPlainText()
 
         #obteniendo el tiempo destinado a la pregunta...
         segundos=self.timeEdit.time().second()+self.timeEdit.time().minute()*60
