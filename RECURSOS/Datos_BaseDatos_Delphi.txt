@@ -1,0 +1,10 @@
+{
+    "apiKey": "AIzaSyCdVBUZ73YjC04yONZLTiLcpvnSlbWuHs4",
+    "authDomain": "delphiadata.firebaseapp.com",
+    "databaseURL": "https://delphiadata.firebaseio.com",
+    "projectId": "delphiadata",
+    "serviceAccount":"firebase-sdk.json",
+    "storageBucket": "delphiadata.appspot.com",
+    "messagingSenderId": "319244349329",
+    "appId": "1:319244349329:web:4aa5e609d50c8054d1f430",
+    "measurementId": "G-W0FZZKMMS6"}
