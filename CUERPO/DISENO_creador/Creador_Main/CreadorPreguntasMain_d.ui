@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1043</width>
+    <height>610</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="sizeConstraint">
+       <enum>QLayout::SetFixedSize</enum>
+      </property>
+      <item alignment="Qt::AlignHCenter">
+       <widget class="QPushButton" name="btn_mas">
+        <property name="minimumSize">
+         <size>
+          <width>51</width>
+          <height>41</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>51</width>
+          <height>41</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-image: url(:/prefijoNuevo/IMAGENES_creador/pregunta_add.png);
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_6">
+        <property name="minimumSize">
+         <size>
+          <width>79</width>
+          <height>26</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>8</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Agregar otra
+pregunta</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QScrollArea" name="scroll_barra">
+        <property name="minimumSize">
+         <size>
+          <width>90</width>
+          <height>150</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>115</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOn</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>71</width>
+           <height>480</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QStackedWidget" name="listWidget_panelPreguntas">
+      <property name="minimumSize">
+       <size>
+        <width>911</width>
+        <height>551</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>1200</width>
+        <height>800</height>
+       </size>
+      </property>
+      <property name="toolTipDuration">
+       <number>0</number>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <property name="currentIndex">
+       <number>-1</number>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QPushButton" name="btn_next_2">
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>70</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border-image: url(:/prefijoNuevo/IMAGENES_creador/imagen5_nextE.png);  }
+
+QPushButton:hover {
+border-image: url(:/prefijoNuevo/IMAGENES_creador/imagen4_nextD.png);
+}
+
+QPushButton:pressed {
+border-image: url(:/prefijoNuevo/IMAGENES_creador/imagen5_nextE.png);
+}
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_prev_2">
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>70</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
+
+QPushButton {
+border-image: url(:/prefijoNuevo/IMAGENES_creador/imagen5_prevE.png);
+  }
+QPushButton:hover {
+border-image: url(:/prefijoNuevo/IMAGENES_creador/imagen4_prevD .png);
+}
+
+QPushButton:pressed {
+border-image: url(:/prefijoNuevo/IMAGENES_creador/imagen5_prevE.png);
+}
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1043</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuNueva_pregunta">
+    <property name="title">
+     <string>Preguntas</string>
+    </property>
+    <addaction name="actionCrear_nueva_pregunta"/>
+    <addaction name="actionVisualizar"/>
+   </widget>
+   <widget class="QMenu" name="menuCuestionario">
+    <property name="title">
+     <string>Cuestionario</string>
+    </property>
+    <addaction name="actionCambiar_nombre"/>
+    <addaction name="actionEjecutar_cuestionario"/>
+   </widget>
+   <widget class="QMenu" name="menuCompartir">
+    <property name="title">
+     <string>Exportar</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="actionCompartir_cuestionario_al_servidor"/>
+    <addaction name="actionSubir_cuestionario_cuestionario_como_cuestionario_final"/>
+   </widget>
+   <widget class="QMenu" name="menuConcluyente">
+    <property name="title">
+     <string>Concluyente</string>
+    </property>
+    <addaction name="actionEliminar_todo_el_cuestionario"/>
+   </widget>
+   <widget class="QMenu" name="menuImportar">
+    <property name="title">
+     <string>Importar</string>
+    </property>
+    <addaction name="actionImportar_otro_cuestionario_2"/>
+   </widget>
+   <addaction name="menuCuestionario"/>
+   <addaction name="menuNueva_pregunta"/>
+   <addaction name="menuCompartir"/>
+   <addaction name="menuImportar"/>
+   <addaction name="menuConcluyente"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionCrear_nueva_pregunta">
+   <property name="text">
+    <string>Crear</string>
+   </property>
+  </action>
+  <action name="actionEliminar_una_pregunta">
+   <property name="text">
+    <string>Eliminar</string>
+   </property>
+  </action>
+  <action name="actionGuardar">
+   <property name="text">
+    <string>Guardar </string>
+   </property>
+  </action>
+  <action name="actionCambiar_nombre">
+   <property name="text">
+    <string>Cambiar nombre</string>
+   </property>
+  </action>
+  <action name="actionVisualizar">
+   <property name="text">
+    <string>Visualizar </string>
+   </property>
+  </action>
+  <action name="actionSubir_a_DelphiData">
+   <property name="text">
+    <string>Subir a mis cuestionarios Delphi</string>
+   </property>
+  </action>
+  <action name="actionMandar_por_correo">
+   <property name="text">
+    <string>Mandar por correo</string>
+   </property>
+  </action>
+  <action name="actionEjecutar_cuestionario">
+   <property name="text">
+    <string>Ejecutar cuestionario</string>
+   </property>
+  </action>
+  <action name="actionGuarda_en_otra_carpeta">
+   <property name="text">
+    <string>Guardar en otra carpeta</string>
+   </property>
+  </action>
+  <action name="actionSubir_a_cuestionarios_oficiales">
+   <property name="text">
+    <string>Subir como cuestionario oficial</string>
+   </property>
+  </action>
+  <action name="actionEliminar_todo_el_cuestionario">
+   <property name="text">
+    <string>Eliminar todo el cuestionario</string>
+   </property>
+  </action>
+  <action name="actionImportar_otro_cuestionario">
+   <property name="text">
+    <string>Importar otro cuestionario</string>
+   </property>
+  </action>
+  <action name="actionImportar_otro_cuestionario_2">
+   <property name="text">
+    <string>Importar otro cuestionario</string>
+   </property>
+  </action>
+  <action name="actionSubir_como_cuestionario_oficial">
+   <property name="text">
+    <string>Subir como cuestionario oficial</string>
+   </property>
+  </action>
+  <action name="actionCompartir_cuestionario_al_servidor">
+   <property name="text">
+    <string>Compartir cuestionario al servidor</string>
+   </property>
+  </action>
+  <action name="actionSubir_cuestionario_cuestionario_como_cuestionario_final">
+   <property name="text">
+    <string>Subir cuestionario como cuestionario final</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../../../IMAG.qrc"/>
+ </resources>
+ <connections/>
+</ui>

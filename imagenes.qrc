@@ -1,34 +1,66 @@
 <RCC>
-  <qresource prefix="alinear">
+  <qresource prefix="prefijoNuevo">
+    <file>IMAGENES_creador/paloma_0.png</file>
+    <file>IMAGENES_creador/paloma_1.png</file>
+    <file>IMAGENES_creador/paloma_2.png</file>
+    <file>IMAGENES_creador/tache_0.png</file>
+    <file>IMAGENES_creador/tache_1.png</file>
+    <file>IMAGENES_creador/tache_2.png</file>
+    <file>IMAGENES_creador/info_off.png</file>
+    <file>IMAGENES_creador/info_on.png</file>
+    <file>IMAGENES_creador/icon_respBuena.png</file>
+    <file>IMAGENES_creador/icon_tache.png</file>
+    <file>IMAGENES_creador/icon_tache2.png</file>
+    <file>IMAGENES_creador/eyes_off.png</file>
+    <file>IMAGENES_creador/eyes_on.png</file>
+    <file>IMAGENES_creador/newUser_off.png</file>
+    <file>IMAGENES_creador/newUser_on.png</file>
+    <file>IMAGENES/autoEvaluacioA.png</file>
+    <file>IMAGENES/autoEvaluacioB.png</file>
+    <file>IMAGENES/autoEvaluacionC.png</file>
+    <file>IMAGENES/autoEvaluacionD.png</file>
+    <file>IMAGENES/progresoA.png</file>
+    <file>IMAGENES/progresoB.png</file>
+    <file>IMAGENES/crecimientoA.png</file>
+    <file>IMAGENES/crecimientoB.png</file>
+    <file>IMAGENES/cambiarPersonaA.png</file>
+    <file>IMAGENES/cambiarPersonaB.png</file>
+    <file>IMAGENES/resultadosOtraA.png</file>
+    <file>IMAGENES/resultadosOtraB.png</file>
+    <file>IMAGENES/cargar_A.png</file>
+    <file>IMAGENES/cargarB.png</file>
+    <file>IMAGENES/icon_folder.png</file>
+    <file>IMAGENES/icons8-downloads-folder-40.png</file>
+    <file>IMAGENES/icon_newCuestionario.png</file>
+    <file>IMAGENES/icons8-update-64.png</file>
+    <file>IMAGENES/icon_newCuestionario.png</file>
+    <file>IMAGENES/icon_actualizacion.png</file>
+    <file>IMAGENES/icon_create.png</file>
+    <file>IMAGENES/icon_califApun.png</file>
+    <file>IMAGENES/triangulo.png</file>
+    <file>IMAGENES/proximo.png</file>
+    <file>IMAGENES/imagen8_enviarB.png</file>
+    <file>IMAGENES/imagen8_enviarA.png</file>
+    <file>IMAGENES/imagen7_evaluacionEquipo.png</file>
+    <file>IMAGENES/imagen6_triangulo.png</file>
     <file>IMAGENES/imagen5_prevE.png</file>
     <file>IMAGENES/imagen5_nextE.png</file>
+    <file>IMAGENES/imagen5_cuadrado.png</file>
     <file>IMAGENES/imagen4_prevD .png</file>
     <file>IMAGENES/imagen4_nextD.png</file>
-    <file>ICONOS/icon_respNumber.png</file>
-    <file>ICONOS/icon_respPalabra.png</file>
-    <file>ICONOS/icon_dificultadFacil.png</file>
-    <file>ICONOS/icon_dificultadDificil.png</file>
-    <file>ICONOS/icon_CheckBoxadd.png</file>
-    <file>ICONOS/iconCheckBoxDelete.png</file>
-    <file>ICONOS/icon_and.png</file>
-    <file>ICONOS/icon_or.png</file>
-    <file>IMAGENES/pregunta_add.png</file>
-    <file>ICONOS/icon_preg0.png</file>
-    <file>ICONOS/icon_preg50.png</file>
-    <file>ICONOS/icon_preg75.png</file>
-    <file>ICONOS/icon_preg100.png</file>
-    <file>IMAGENES/pregunta_ver.png</file>
-    <file>IMAGENES/preguntas_mandar.png</file>
-    <file>IMAGENES/pregunta_guardar.png</file>
-    <file>IMAGENES/pregunta_delete.png</file>
-    <file>IMAGENES/pregunta_add.png</file>
-    <file>IMAGENES/imagen_100.png</file>
-    <file>IMAGENES/imagen_50.png</file>
-    <file>IMAGENES/imagen_0.png</file>
-    <file>IMAGENES/imagen_subir.png</file>
-    <file>IMAGENES/imagen_carga.png</file>
-    <file>IMAGENES/alinear_izquierda.png</file>
-    <file>IMAGENES/alinear_derecho.png</file>
-    <file>IMAGENES/alinear_centrar.png</file>
+    <file>IMAGENES/imagen4_circulo.png</file>
+    <file>IMAGENES/imagen3_delphia.png</file>
+    <file>IMAGENES/imagen2_delfin.png</file>
+    <file>IMAGENES/imagen1_delfin</file>
+    <file>IMAGENES/icon_ojo.png</file>
+    <file>IMAGENES/icon_exam.png</file>
+    <file>IMAGENES/icon_creadorCuestionarios.png</file>
+    <file>IMAGENES/icn_sig.svg</file>
+    <file>IMAGENES/icn_preg.svg</file>
+    <file>IMAGENES/icn_concurso.svg</file>
+    <file>IMAGENES/icn_asist.svg</file>
+    <file>IMAGENES/icn_apuntes.svg</file>
+    <file>IMAGENES/hexagono.png</file>
+    <file>IMAGENES/aplicacion.svg</file>
   </qresource>
 </RCC>
